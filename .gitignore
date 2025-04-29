@@ -1,0 +1,19 @@
+# Ignore data folder
+data/
+
+# Ignore Python cache folders
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore models folder
+models/
+
+# Ignore deolingo folder (I assume you meant "duolingo")
+deolingo/
+
+dpa_env/
+
+results/

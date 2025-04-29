@@ -1,0 +1,215 @@
+
+Processing DPA Online_1, Requirement 12...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_12.lp
+Solving...
+Answer: 1 (Time: 0.023s)
+FACTS: satisfies(req12)
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.023s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.020s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 4...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_4.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.021s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.019s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 16...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_16.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 32...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_32.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 5...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_5.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 17...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_17.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 1...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_1.lp
+Solving...
+Answer: 1 (Time: 0.017s)
+FACTS: not_mentioned(req1)
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.018s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 13...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_13.lp
+Solving...
+Answer: 1 (Time: 0.018s)
+FACTS: satisfies(req13)
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.018s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.018s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 18...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_18.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 28...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_28.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 19...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_19.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 8...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_8.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 9...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_9.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 14...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_14.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 2...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_2.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 10...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_10.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 3...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_3.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 11...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_11.lp
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
+--------------------------------------------------
+Processing DPA Online_1, Requirement 7...
+deolingo version 1.0.0
+Reading from results/dpa_Online_1/req_7.lp
+Solving...
+Answer: 1 (Time: 0.018s)
+FACTS: satisfies(req7)
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.018s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.018s
+--------------------------------------------------

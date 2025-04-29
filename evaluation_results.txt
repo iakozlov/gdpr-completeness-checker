@@ -1,0 +1,11 @@
+====== Binary Classification Results: DPA Completeness ======
+Precision: 0.0000
+Recall: 0.0000
+F1 Score: 0.0000
+Accuracy: nan
+True Positives: 0
+False Positives: 0
+False Negatives: 0
+True Negatives: 0
+
+====== DPA-Level Details ======
