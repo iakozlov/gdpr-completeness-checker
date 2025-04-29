@@ -1,11 +1,25 @@
-====== Binary Classification Results: DPA Completeness ======
-Precision: 0.0000
-Recall: 0.0000
-F1 Score: 0.0000
-Accuracy: nan
-True Positives: 0
-False Positives: 0
-False Negatives: 0
-True Negatives: 0
+====== Evaluation Results for DPA 'Online 1' ======
+Predicted: Incomplete (3/18 requirements satisfied)
+Actual: Incomplete (7/18 requirements covered)
+Result: CORRECT
+Missing requirements: ['R11', 'R13', 'R14', 'R16', 'R18', 'R19', 'R20', 'R21', 'R22', 'R24', 'R9']
 
-====== DPA-Level Details ======
+====== Requirement-Level Details ======
+Requirement 7: NOT_MENTIONED
+Requirement 8: NOT_MENTIONED
+Requirement 9: NOT_MENTIONED
+Requirement 10: NOT_MENTIONED
+Requirement 11: NOT_MENTIONED
+Requirement 12: SATISFIES
+Requirement 13: NOT_MENTIONED
+Requirement 14: SATISFIES
+Requirement 15: UNKNOWN
+Requirement 16: NOT_MENTIONED
+Requirement 17: NOT_MENTIONED
+Requirement 18: SATISFIES
+Requirement 19: NOT_MENTIONED
+Requirement 20: UNKNOWN
+Requirement 21: UNKNOWN
+Requirement 22: UNKNOWN
+Requirement 23: UNKNOWN
+Requirement 24: UNKNOWN

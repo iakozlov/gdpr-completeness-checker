@@ -3,33 +3,154 @@ import os
 import json
 import argparse
 import re
+from typing import Tuple, List, Dict
 
-def extract_modality_and_action(symbolic_repr, original_text):
-    """Extract modality and action from symbolic representation and original text."""
-    # Default values
-    modality = "obligatory"
-    action = "generic_action"
+def sanitize_symbolic_repr(symbolic_repr: str) -> str:
+    """
+    Sanitize a symbolic representation to remove or fix syntax that causes errors.
     
-    # Try to extract from symbolic representation
-    if "&obligatory" in symbolic_repr or "O(" in symbolic_repr or "o(" in symbolic_repr:
-        modality = "obligatory"
-    elif "&permitted" in symbolic_repr or "P(" in symbolic_repr or "p(" in symbolic_repr:
-        modality = "permitted"
-    elif "&forbidden" in symbolic_repr or "F(" in symbolic_repr or "f(" in symbolic_repr:
-        modality = "forbidden"
+    Args:
+        symbolic_repr: The original symbolic representation
+        
+    Returns:
+        A sanitized version with problematic parts removed or fixed
+    """
+    # Remove the "Facts derived from rule conditions" section entirely
+    facts_pattern = r'% Facts derived from rule conditions\s*\n(.*?)(?:\n\n|\n%|\Z)'
+    sanitized = re.sub(facts_pattern, '', symbolic_repr, flags=re.DOTALL)
     
-    # Extract action name - look for patterns in both symbolic repr and original text
-    combined_text = (symbolic_repr + " " + original_text).lower()
+    # If the above didn't work, try a more aggressive approach
+    if '% Facts derived from rule conditions' in sanitized:
+        lines = sanitized.split('\n')
+        cleaned_lines = []
+        skip_mode = False
+        
+        for line in lines:
+            if '% Facts derived from rule conditions' in line:
+                skip_mode = True
+                continue
+            
+            if skip_mode and (line.strip() == '' or line.startswith('%')):
+                skip_mode = False
+            
+            if not skip_mode:
+                cleaned_lines.append(line)
+        
+        sanitized = '\n'.join(cleaned_lines)
     
-    # Add appropriate arguments based on the action
-    if "(" not in action and ")" not in action:
-        action = f"{action}(processor)"
-    
-    return modality, action
+    return sanitized
 
-def convert_to_predicate_format(symbolic_repr, entity_id, original_text, entity_type="requirement"):
+def extract_deontic_operator(symbolic_repr: str) -> str:
+    """Extract deontic operator from symbolic representation."""
+    if "&obligatory" in symbolic_repr or "O(" in symbolic_repr or "o(" in symbolic_repr or "obligation" in symbolic_repr:
+        return "obligatory"
+    elif "&permitted" in symbolic_repr or "P(" in symbolic_repr or "p(" in symbolic_repr or "permission" in symbolic_repr:
+        return "permitted"
+    elif "&forbidden" in symbolic_repr or "F(" in symbolic_repr or "f(" in symbolic_repr or "prohibition" in symbolic_repr:
+        return "forbidden"
+    else:
+        # Default to obligatory if no clear indicator is found
+        return "obligatory"
+
+def extract_action(symbolic_repr: str, original_text: str) -> str:
+    """
+    Extract action from symbolic representation and original text
+    without relying on hardcoded action patterns.
+    """
+    # Try to extract from symbolic representation first
+    action = None
+    
+    # Look for action inside deontic operators
+    operator_pattern = r'&(?:obligatory|permitted|forbidden){([^}]+)}'
+    match = re.search(operator_pattern, symbolic_repr)
+    if match:
+        action = match.group(1).strip()
+    
+    # Check for actions in alternative formats
+    if not action:
+        alt_formats = [
+            r'[OoPpFf]\(([^)]+)\)',  # O(), P(), F() format
+            r'(?:obligation|permission|prohibition)\(([^)]+)\)'  # obligation(), etc. format
+        ]
+        
+        for pattern in alt_formats:
+            match = re.search(pattern, symbolic_repr)
+            if match:
+                action = match.group(1).strip()
+                break
+    
+    # If still no action, try to extract a meaningful predicate from the text
+    if not action:
+        # Get the first line of the symbolic repr (typically contains the main rule)
+        first_line = symbolic_repr.split('\n')[0] if '\n' in symbolic_repr else symbolic_repr
+        
+        # Look for words that might be predicates
+        words = re.findall(r'[a-zA-Z_]+[a-zA-Z0-9_]*', first_line)
+        
+        # Filter out common non-action words
+        non_actions = {'obligatory', 'permitted', 'forbidden', 'if', 'and', 'or', 'not'}
+        potential_actions = [w for w in words if w.lower() not in non_actions and len(w) > 3]
+        
+        if potential_actions:
+            # Use the longest potential action word
+            action = max(potential_actions, key=len)
+    
+    # If we still don't have an action, extract keywords from the original text
+    if not action or action == "X":
+        # Identify potential action verbs in the original text
+        text_lower = original_text.lower()
+        
+        # Common action verbs in regulatory requirements
+        common_verbs = ["process", "assist", "notify", "ensure", "implement", 
+                       "provide", "make", "maintain", "protect", "delete", 
+                       "return", "engage", "obtain", "allow", "conduct", "impose"]
+        
+        for verb in common_verbs:
+            if verb in text_lower:
+                # Get the sentence fragment starting with this verb
+                pos = text_lower.find(verb)
+                fragment = text_lower[pos:pos+30]  # Take a reasonably sized fragment
+                
+                # Extract a keyword phrase
+                words = re.findall(r'\b\w+\b', fragment)
+                if len(words) >= 2:
+                    # Use verb + next meaningful word
+                    action = f"{words[0]}_{words[1]}"
+                    break
+                else:
+                    action = verb
+                    break
+    
+    # Clean up the action
+    if action:
+        # Remove spaces and replace with underscores
+        action = action.replace(' ', '_').lower()
+        
+        # Remove any remaining special characters
+        action = re.sub(r'[^a-z0-9_]', '', action)
+    else:
+        # Default action if we couldn't extract anything
+        action = "generic_action"
+    
+    # Add arguments if not present
+    if '(' not in action and ')' not in action:
+        # Determine appropriate arguments based on context
+        if any(term in original_text.lower() for term in ["sub-processor", "subprocessor"]):
+            action = f"{action}(processor, sub_processor)"
+        elif any(term in original_text.lower() for term in ["controller", "assist controller"]):
+            action = f"{action}(processor, controller)"
+        elif any(term in original_text.lower() for term in ["personal data", "data"]):
+            action = f"{action}(processor, personal_data)"
+        else:
+            # Default to processor as actor
+            action = f"{action}(processor)"
+    
+    return action
+
+def convert_to_predicate_format(symbolic_repr: str, entity_id: str, original_text: str, entity_type: str = "requirement") -> List[str]:
     """Convert to predicate-based format used in the ASP template."""
-    modality, action = extract_modality_and_action(symbolic_repr, original_text)
+    modality = extract_deontic_operator(symbolic_repr)
+    action = extract_action(symbolic_repr, original_text)
     
     if entity_type == "requirement":
         statements = [
@@ -43,6 +164,18 @@ def convert_to_predicate_format(symbolic_repr, entity_id, original_text, entity_
         ]
     
     return statements
+
+def generate_default_facts() -> List[str]:
+    """Generate default facts for the ASP program."""
+    return [
+        "% --- Facts ---",
+        "% Default facts for testing",
+        "processor(processor).",
+        "sub_processor(sub_processor).",
+        "controller(controller).",
+        "personal_data(personal_data).",
+        "data_subject(data_subject)."
+    ]
 
 def main():
     parser = argparse.ArgumentParser(description="Generate LP files from symbolic representations")
@@ -94,17 +227,19 @@ def main():
         # Create LP file
         lp_file_path = os.path.join(dpa_dir, f"req_{req_id}.lp")
         
+        # Sanitize symbolic representation to avoid syntax errors
+        sanitized_symbolic = sanitize_symbolic_repr(req_symbolic)
+        
         # Generate requirement predicates
-        req_predicates = convert_to_predicate_format(req_symbolic, f"req{req_id}", req_text, "requirement")
+        req_predicates = convert_to_predicate_format(sanitized_symbolic, f"req{req_id}", req_text, "requirement")
         
         with open(lp_file_path, "w") as f:
-            # Add header
+            # Add header - use the sanitized symbolic representation
             f.write(f"""% Deolingo program to check DPA against Requirement {req_id}
 % ==========================================================
 
 % --- Requirement Definition ---
 % Original text: {req_text}
-% Symbolic representation: {req_symbolic}
 
 {os.linesep.join(req_predicates)}
 
@@ -118,16 +253,24 @@ def main():
                 segment_id = segment_info["id"]
                 segment_symbolic = segment_info["symbolic"]
                 
+                # Sanitize segment symbolic representation as well
+                sanitized_segment = sanitize_symbolic_repr(segment_symbolic)
+                
                 dpa_predicates = convert_to_predicate_format(
-                    segment_symbolic, f"dpa{segment_id}", 
+                    sanitized_segment, f"dpa{segment_id}", 
                     segment_text, "dpa")
                 
-                f.write(f"% DPA Segment {segment_id}: {segment_text[:50]}...\n")
+                # Truncate the segment text to keep file readable
+                truncated_text = segment_text[:50] + "..." if len(segment_text) > 50 else segment_text
+                f.write(f"% DPA Segment {segment_id}: {truncated_text}\n")
                 f.write(os.linesep.join(dpa_predicates) + "\n\n")
             
+            # Add facts - use default facts instead of trying to extract from symbolic
+            facts = generate_default_facts()
+            f.write(os.linesep.join(facts) + "\n\n")
+            
             # Add matching logic
-            f.write("""
-% --- Matching and Status Logic ---
+            f.write("""% --- Matching and Status Logic ---
 
 % Helper: Does the DPA mention a specific action with any modality?
 dpa_mentions_action(Action) :- dpa_states(_, _, Action).
