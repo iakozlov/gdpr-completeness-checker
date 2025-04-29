@@ -7,7 +7,7 @@ from typing import Optional, Dict, Any
 class LlamaConfig:
     model_path: str
     n_ctx: int = 4096
-    n_batch: int = 512
+    n_batch: int = 2048
     n_gpu_layers: int = -1  # -1 means use all available layers
     temperature: float = 0.1
     top_p: float = 0.9
