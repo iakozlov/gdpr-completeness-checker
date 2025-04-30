@@ -84,6 +84,12 @@ def parse_deolingo_results(results_file, target_dpa="Online_1"):
         dpa_results[dpa_id]['total_required'] = len(req_range)
         dpa_results[dpa_id]['completeness_pct'] = completeness_pct
         
+        # Get list of satisfied requirements
+        dpa_results[dpa_id]['satisfied_requirements'] = [
+            f"R{req}" for req in req_range 
+            if req in reqs and reqs[req] == "satisfies"
+        ]
+        
         # A DPA is considered complete if all required requirements are satisfied
         dpa_results[dpa_id]['predicted_complete'] = completeness_pct == 1.0
     
@@ -176,12 +182,24 @@ def evaluate_dpa_completeness(predictions, ground_truth, target_dpa):
             'actual_complete': False,
             'predicted_satisfied_count': 0,
             'actual_covered_count': 0,
-            'total_required': 18  # R7-R24 = 18 requirements
+            'total_required': 18,  # R7-R24 = 18 requirements
+            'predicted_satisfied': set(),
+            'actual_covered': set(),
+            'false_positives': set(),
+            'false_negatives': set()
         }
     
     # Get the prediction and ground truth
     prediction = predictions[prediction_key]['predicted_complete']
     actual = ground_truth[truth_key]['is_complete']
+    
+    # Get satisfied and covered requirements
+    predicted_satisfied = set(predictions[prediction_key].get('satisfied_requirements', []))
+    actual_covered = ground_truth[truth_key]['covered_reqs']
+    
+    # Calculate additional metrics
+    false_positives = predicted_satisfied - actual_covered
+    false_negatives = actual_covered - predicted_satisfied
     
     # Calculate metrics
     return {
@@ -191,7 +209,11 @@ def evaluate_dpa_completeness(predictions, ground_truth, target_dpa):
         'predicted_satisfied_count': predictions[prediction_key]['satisfied_count'],
         'actual_covered_count': len(ground_truth[truth_key]['covered_reqs']),
         'total_required': predictions[prediction_key]['total_required'],
-        'missing_reqs': ground_truth[truth_key]['missing_reqs'] if not actual else set()
+        'missing_reqs': ground_truth[truth_key]['missing_reqs'] if not actual else set(),
+        'predicted_satisfied': predicted_satisfied,
+        'actual_covered': actual_covered,
+        'false_positives': false_positives,
+        'false_negatives': false_negatives
     }
 
 def main():
@@ -235,8 +257,19 @@ def main():
     print(f"Actual: {'Complete' if evaluation['actual_complete'] else 'Incomplete'} ({evaluation['actual_covered_count']}/{evaluation['total_required']} requirements covered)")
     print(f"Result: {'CORRECT' if evaluation['correct'] else 'INCORRECT'}")
     
+    # Print satisfied requirements comparison
+    print("\n====== Requirements Satisfaction Comparison ======")
+    print(f"Ground Truth Covered Requirements: {sorted(evaluation['actual_covered'])}")
+    print(f"Deolingo Satisfied Requirements: {sorted(evaluation['predicted_satisfied'])}")
+    
+    # Print false positives and negatives
+    if evaluation['false_positives']:
+        print(f"\nFalse Positives (predicted but not in ground truth): {sorted(evaluation['false_positives'])}")
+    if evaluation['false_negatives']:
+        print(f"\nFalse Negatives (in ground truth but not predicted): {sorted(evaluation['false_negatives'])}")
+    
     if not evaluation['actual_complete']:
-        print(f"Missing requirements: {sorted(evaluation['missing_reqs'])}")
+        print(f"\nMissing requirements in ground truth: {sorted(evaluation['missing_reqs'])}")
     
     # Print requirement-level details
     target_dpa_underscore = target_dpa.replace(' ', '_')
@@ -252,21 +285,37 @@ def main():
         for req_id in critical_range:
             req_id_str = str(req_id)
             status = req_results.get(req_id_str, "unknown")
-            print(f"Requirement {req_id_str}: {status.upper()}")
+            req_name = f"R{req_id}"
+            
+            # Check if this requirement is in the ground truth
+            gt_status = "COVERED" if req_name in evaluation['actual_covered'] else "NOT COVERED"
+            
+            print(f"Requirement {req_id_str}: {status.upper()} (Ground Truth: {gt_status})")
     
     # Save results to file
     with open(args.output, 'w') as f:
         f.write(f"====== Evaluation Results for DPA '{target_dpa}' ======\n")
         f.write(f"Predicted: {'Complete' if evaluation['predicted_complete'] else 'Incomplete'} ({evaluation['predicted_satisfied_count']}/{evaluation['total_required']} requirements satisfied)\n")
         f.write(f"Actual: {'Complete' if evaluation['actual_complete'] else 'Incomplete'} ({evaluation['actual_covered_count']}/{evaluation['total_required']} requirements covered)\n")
-        f.write(f"Result: {'CORRECT' if evaluation['correct'] else 'INCORRECT'}\n")
+        f.write(f"Result: {'CORRECT' if evaluation['correct'] else 'INCORRECT'}\n\n")
+        
+        # Write satisfied requirements comparison
+        f.write("====== Requirements Satisfaction Comparison ======\n")
+        f.write(f"Ground Truth Covered Requirements: {sorted(evaluation['actual_covered'])}\n")
+        f.write(f"Deolingo Satisfied Requirements: {sorted(evaluation['predicted_satisfied'])}\n\n")
+        
+        # Write false positives and negatives
+        if evaluation['false_positives']:
+            f.write(f"False Positives (predicted but not in ground truth): {sorted(evaluation['false_positives'])}\n")
+        if evaluation['false_negatives']:
+            f.write(f"False Negatives (in ground truth but not predicted): {sorted(evaluation['false_negatives'])}\n")
         
         if not evaluation['actual_complete']:
-            f.write(f"Missing requirements: {sorted(evaluation['missing_reqs'])}\n")
+            f.write(f"\nMissing requirements in ground truth: {sorted(evaluation['missing_reqs'])}\n")
         
-        # Add requirement-level details
+        # Write requirement-level details
+        f.write("\n====== Requirement-Level Details ======\n")
         if prediction_key in dpa_results:
-            f.write("\n====== Requirement-Level Details ======\n")
             req_results = dpa_results[prediction_key]['requirements']
             
             # Focus on the critical range R7-R24
@@ -275,7 +324,12 @@ def main():
             for req_id in critical_range:
                 req_id_str = str(req_id)
                 status = req_results.get(req_id_str, "unknown")
-                f.write(f"Requirement {req_id_str}: {status.upper()}\n")
+                req_name = f"R{req_id}"
+                
+                # Check if this requirement is in the ground truth
+                gt_status = "COVERED" if req_name in evaluation['actual_covered'] else "NOT COVERED"
+                
+                f.write(f"Requirement {req_id_str}: {status.upper()} (Ground Truth: {gt_status})\n")
     
     print(f"\nEvaluation results saved to: {args.output}")
 
