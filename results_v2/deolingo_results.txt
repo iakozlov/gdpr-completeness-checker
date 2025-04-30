@@ -3,7 +3,7 @@ Processing DPA Online_1, Requirement 12...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_12.lp
 Solving...
-Answer: 1 (Time: 0.038s)
+Answer: 1 (Time: 0.019s)
 FACTS: satisfies(req12)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -12,8 +12,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.038s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.032s
+Time         : 0.019s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.019s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 4...
 deolingo version 1.0.0
@@ -35,7 +35,7 @@ Processing DPA Online_1, Requirement 16...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_16.lp
 Solving...
-Answer: 1 (Time: 0.017s)
+Answer: 1 (Time: 0.016s)
 FACTS: not_mentioned(req16)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -44,14 +44,14 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.017s
+Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.016s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 32...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_32.lp
 Solving...
-Answer: 1 (Time: 0.017s)
+Answer: 1 (Time: 0.016s)
 FACTS: not_mentioned(req32)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -60,8 +60,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.017s
+Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.016s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 5...
 deolingo version 1.0.0
@@ -83,7 +83,7 @@ Processing DPA Online_1, Requirement 17...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_17.lp
 Solving...
-Answer: 1 (Time: 0.017s)
+Answer: 1 (Time: 0.016s)
 FACTS: not_mentioned(req17)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -93,7 +93,7 @@ SATISFIABLE
 Models       : 1+
 Calls        : 1
 Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.017s
+CPU Time     : 0.016s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 1...
 deolingo version 1.0.0
@@ -115,7 +115,7 @@ Processing DPA Online_1, Requirement 13...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_13.lp
 Solving...
-Answer: 1 (Time: 0.017s)
+Answer: 1 (Time: 0.016s)
 FACTS: not_mentioned(req13)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -124,8 +124,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.017s
+Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.016s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 18...
 deolingo version 1.0.0
@@ -163,7 +163,7 @@ Processing DPA Online_1, Requirement 19...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_19.lp
 Solving...
-Answer: 1 (Time: 0.017s)
+Answer: 1 (Time: 0.016s)
 FACTS: not_mentioned(req19)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -173,13 +173,13 @@ SATISFIABLE
 Models       : 1+
 Calls        : 1
 Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.017s
+CPU Time     : 0.016s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 8...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_8.lp
 Solving...
-Answer: 1 (Time: 0.016s)
+Answer: 1 (Time: 0.034s)
 FACTS: satisfies(req8)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -188,14 +188,14 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.016s
+Time         : 0.034s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.028s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 9...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_9.lp
 Solving...
-Answer: 1 (Time: 0.016s)
+Answer: 1 (Time: 0.017s)
 FACTS: satisfies(req9)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -204,8 +204,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.016s
+Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.017s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 14...
 deolingo version 1.0.0
@@ -252,14 +252,14 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.016s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 3...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_3.lp
 Solving...
-Answer: 1 (Time: 0.018s)
+Answer: 1 (Time: 0.021s)
 FACTS: not_mentioned(req3)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -268,7 +268,7 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.018s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+Time         : 0.021s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.018s
 --------------------------------------------------
 Processing DPA Online_1, Requirement 11...
@@ -291,7 +291,7 @@ Processing DPA Online_1, Requirement 7...
 deolingo version 1.0.0
 Reading from results_v2/dpa_Online_1/req_7.lp
 Solving...
-Answer: 1 (Time: 0.017s)
+Answer: 1 (Time: 0.016s)
 FACTS: satisfies(req7)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -300,6 +300,6 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.017s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.017s
+Time         : 0.016s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.016s
 --------------------------------------------------
