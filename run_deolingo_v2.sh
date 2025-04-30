@@ -9,7 +9,7 @@ DPA_CSV="data/train_set.csv"
 REQUIREMENTS_FILE="requirements_symbolic.json"
 MODEL_PATH="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"
 TARGET_DPA="Online 1"
-OUTPUT_DIR="results_v2"
+OUTPUT_DIR="results/results_v2"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.txt"
 
 # Create output directory
