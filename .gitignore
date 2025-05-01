@@ -9,7 +9,7 @@ __pycache__/
 *$py.class
 
 # Ignore models folder
-models/
+*.gguf
 
 # Ignore deolingo folder (I assume you meant "duolingo")
 deolingo/
