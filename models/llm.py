@@ -19,7 +19,7 @@ class LlamaModel:
             n_gpu_layers=-1,
             n_threads = 4,
             verbose=False,
-            n_ctx=2048
+            n_ctx=30000
         )
         logger.info("Llama model initialized successfully")
     
@@ -53,7 +53,6 @@ class LlamaModel:
                 "into formal Deontic Logic representations compatible with Deolingo (ASP)."
             )
         
-        print(text)
         # Format specifically for instruct models
         user_instruction = (
             "Translate the following text into a formal Deontic Logic representation using Deolingo syntax. "
@@ -70,7 +69,7 @@ class LlamaModel:
         response = self.llm.create_chat_completion(
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_instruction}
+                {"role": "user", "content": text}
             ],
             max_tokens=2048,
             temperature=self.config.temperature,
