@@ -44,8 +44,28 @@ def main():
                 
                 print(f"Translating requirement {req_id}: {req_text[:50]}...")
                 
+                # Create system prompt specific for requirements
+                system_prompt = (
+                    "You are a specialized AI assistant trained to translate GDPR legal requirements "
+                    "into formal Deontic Logic representations compatible with Answer Set Programming (ASP) and Deolingo. "
+                    "You must follow the exact formalism required, with no additional explanations."
+                )
+                
+                # Create user prompt for requirements
+                user_instruction = (
+                    "Translate the following legal requirement into a formal Deontic Logic representation using Deolingo syntax. "
+                    "Use '&obligatory{action}' for obligations (MUST), '&permitted{action}' for permissions (MAY), "
+                    "and '&forbidden{action}' for prohibitions (MUST NOT). "
+                    "Format rules with ':-' for implications, ',' for conjunction, and end with periods.\n\n"
+                    f"Requirement: {req_text}\n\n"
+                    "Return ONLY the logical representation without explanations, examples, or other text. Follow this format:\n"
+                    "&obligatory{action(actor, object)} :- condition.\n"
+                    "&forbidden{action(actor, object)} :- not condition.\n"
+                    "&permitted{action(actor, object)} :- not &forbidden{action(actor, object)}."
+                )
+                
                 # Generate symbolic representation
-                llm_output = llm_model.generate_symbolic_representation(req_text)
+                llm_output = llm_model.generate_symbolic_representation(req_text, system_prompt)
                 symbolic = translator.translate(llm_output)
                 
                 # Store in dictionary

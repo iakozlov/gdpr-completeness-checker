@@ -8,15 +8,7 @@ from models.llm import LlamaModel
 from config.llm_config import LlamaConfig
 
 def load_requirements(requirements_file):
-    """
-    Load requirements from JSON file with symbolic representations.
-    
-    Args:
-        requirements_file: Path to requirements symbolic JSON file
-        
-    Returns:
-        Dictionary mapping requirement IDs to their details
-    """
+    """Load requirements from JSON file with symbolic representations."""
     try:
         with open(requirements_file, 'r') as f:
             requirements_data = json.load(f)
@@ -44,173 +36,220 @@ def load_requirements(requirements_file):
                 req_id = str(req_index)
                 req_index += 1
         
-        # Extract deontic operator
-        modality = "obligatory"  # Default
-        if "&obligatory" in symbolic:
-            modality = "obligatory"
-        elif "&permitted" in symbolic:
-            modality = "permitted"
-        elif "&forbidden" in symbolic:
-            modality = "forbidden"
-        
-        # Extract action
-        action = None
-        action_pattern = r'&(?:obligatory|permitted|forbidden){([^}]+)}'
-        action_matches = re.findall(action_pattern, symbolic)
-        if action_matches:
-            action = action_matches[0].strip()
-        
         # Store processed requirement
         processed_requirements[req_id] = {
             "text": req_text,
-            "symbolic": symbolic,
-            "modality": modality,
-            "action": action if action else "generic_action(processor)"
+            "symbolic": symbolic
         }
     
     return processed_requirements
 
-def create_batch_semantic_mapping_prompt(requirement_details, all_segments):
+def create_semantic_mapping_prompt(requirement_details, dpa_deontic_statements):
     """
-    Create a prompt for batch generating semantic mapping rules for a requirement 
-    against multiple DPA segments.
-    
-    Args:
-        requirement_details: Dictionary with requirement details
-        all_segments: Dictionary with all DPA segment info
-        
-    Returns:
-        Prompt for the LLM to generate semantic mapping rules in batch
+    Create a prompt for generating semantic mapping rules between a requirement
+    and DPA deontic statements.
     """
-    # Extract key information about the requirement
     req_text = requirement_details["text"]
-    req_modality = requirement_details["modality"]
-    req_action = requirement_details["action"]
+    req_symbolic = requirement_details["symbolic"]
     
-    # Format all segments for the batch processing
-    segments_text = ""
-    for segment_id, segment_info in all_segments.items():
-        segment_text = segment_info["text"]
-        segment_actions = segment_info["actions"]
-        formatted_actions = "\n".join(segment_actions)
-        
-        segments_text += f"SEGMENT ID: {segment_id}\n"
-        segments_text += f"TEXT: {segment_text}\n"
-        segments_text += f"ACTIONS:\n{formatted_actions}\n\n"
+    # Extract requirement's deontic statements
+    req_deontic_parts = []
+    for line in req_symbolic.split('\n'):
+        if any(op in line for op in ['&obligatory', '&permitted', '&forbidden']) and line.strip():
+            req_deontic_parts.append(line.strip())
+    
+    req_deontic_text = "\n".join(req_deontic_parts) if req_deontic_parts else req_symbolic
+    
+    # Format DPA deontic statements
+    dpa_deontic_text = "\n".join(dpa_deontic_statements)
     
     system_prompt = """
-You are a specialized AI for legal analysis. Your task is to identify semantic connections between a regulatory requirement (GDPR) and multiple Data Processing Agreement (DPA) segments.
+You are a specialized AI for legal analysis. Your task is to identify semantic connections 
+between a regulatory requirement and DPA deontic statements.
 
-Rather than looking for exact vocabulary matches, you need to determine if any of the DPA segments semantically satisfy the requirement, even if different terminology is used.
+Create semantic mapping rules ONLY when there is a genuine semantic connection. 
+If no connection exists, respond with "NO_SEMANTIC_CONNECTION"
 
-You will analyze all provided segments and create semantic mapping rules only for those that have a genuine connection to the requirement. For each segment that matches:
-
-1. Analyze if the segment semantically covers any aspect of the requirement's intent
-2. Generate a logical rule that connects the actions in that segment to the requirement
-3. Only create connection rules for segments with a genuine semantic relationship
-4. When a segment has no connection, you should exclude it from your rules
-
-Use Answer Set Programming (ASP) syntax for your rules.
+RULES FOR CREATING MAPPINGS:
+1. Use standard ASP syntax: head :- body1, body2.
+2. Head should be a predicate from the requirement  
+3. Body should contain predicates from DPA statements
+4. Each rule MUST have both head and body
+5. Never create rules ending with ":- ." (missing body)
+6. DO NOT number the rules (no 1., 2., 3., etc.)
+7. Each rule is a single line ending with a period
+8. Do not use deontic operators (&obligatory, &permitted, &forbidden) in mapping rules
 """
 
     user_prompt = f"""
 REQUIREMENT TO ANALYZE:
 Text: {req_text}
-Deontic Modality: {req_modality}
-Action: {req_action}
+Deontic Logic: {req_deontic_text}
 
-DPA SEGMENTS TO CHECK FOR SEMANTIC MATCHES:
-{segments_text}
+DPA DEONTIC STATEMENTS:
+{dpa_deontic_text}
 
-Generate semantic connection rules ONLY for segments that genuinely match the requirement semantically. For each matching segment, provide a rule in this format:
+Only create semantic mapping rules if the DPA statements genuinely satisfy the requirement.
 
-```
-% Rule for Segment [ID]: [brief explanation of the semantic connection]
-{req_action} :- 
-    [dpa_action1],
-    [dpa_action2].
-```
+If YES, create unnumbered rules in this format:
+requirement_predicate :- dpa_predicate1, dpa_predicate2.
+another_requirement_predicate :- dpa_predicate3.
 
-IMPORTANT INSTRUCTIONS:
-- Only create rules for segments with a true semantic connection to the requirement
-- Skip segments with no semantic relationship to the requirement
-- Be precise about which actions from a segment contribute to satisfying the requirement
-- If you find multiple segments that together satisfy the requirement, you may create a rule that combines their actions
-- If NO segments have a semantic match with the requirement, respond with just: "No semantic connections found"
+If NO semantic connection exists, respond with: "NO_SEMANTIC_CONNECTION"
 
-Your response should contain ONLY the semantic connection rules or the "No semantic connections found" message.
+Do not create incomplete rules, numbered rules, or rules without proper bodies.
+Do not include deontic operators in mapping rules.
 """
     
     return system_prompt, user_prompt
 
-def extract_semantic_rules_from_response(response_text, requirement_action):
+def validate_mapping_rule(rule):
     """
-    Extract and validate semantic rules from the LLM response.
+    Validate that a mapping rule has proper syntax.
     
-    Args:
-        response_text: Text response from the LLM
-        requirement_action: The action from the requirement
-        
     Returns:
-        List of valid semantic rules
+        (is_valid, cleaned_rule) or (False, None) if invalid
     """
-    # Clean up the response
-    cleaned_response = response_text.strip()
+    rule = rule.strip()
     
-    # Check if no connections were found
-    if "No semantic connections found" in cleaned_response:
-        return []
+    # Remove any numbering at the beginning (e.g., "1. ", "2. ", etc.)
+    rule = re.sub(r'^\d+\.\s*', '', rule)
     
-    # Extract rules (each rule should start with %)
-    rules = []
-    current_rule = ""
+    # Must contain :- separator  
+    if ':-' not in rule:
+        return False, None
     
-    for line in cleaned_response.split('\n'):
-        line = line.strip()
+    # Split into head and body
+    parts = rule.split(':-')
+    if len(parts) != 2:
+        return False, None
+    
+    head = parts[0].strip()
+    body = parts[1].strip()
+    
+    # Head must be non-empty
+    if not head:
+        return False, None
+    
+    # Body must be non-empty and not just '.' or '-.'
+    if not body or body in ['.', '-.', '-', '']:
+        return False, None
+    
+    # Remove trailing period if present for validation
+    body_cleaned = body.rstrip('.')
+    
+    # Body must have content
+    if not body_cleaned:
+        return False, None
+    
+    # Ensure no deontic operators in mapping rules
+    if any(op in head + body for op in ['&obligatory', '&permitted', '&forbidden']):
+        # Rules with deontic operators might be deontic statements, not mappings
+        return False, None
+    
+    # Reconstruct valid rule
+    cleaned_rule = f"{head} :- {body_cleaned}."
+    
+    return True, cleaned_rule
+
+def generate_lp_files(requirements, dpa_deontic_data, all_mappings, output_dir):
+    """Generate individual LP files for each requirement with proper deontic logic."""
+    target_dpa = dpa_deontic_data["dpa_id"]
+    dpa_segments = dpa_deontic_data["segments"]
+    
+    # Create output directory for this DPA
+    dpa_dir = os.path.join(output_dir, f"dpa_{target_dpa.replace(' ', '_')}")
+    os.makedirs(dpa_dir, exist_ok=True)
+    
+    print("Generating LP files for each requirement...")
+    for req_id, req_details in tqdm(requirements.items()):
+        # Create LP file for this requirement
+        lp_file_path = os.path.join(dpa_dir, f"req_{req_id}.lp")
         
-        # Skip empty lines and code block markers
-        if not line or line == '```':
-            continue
+        # Get semantic mappings for this requirement
+        req_mappings = all_mappings.get(req_id, [])
+        
+        # Build LP file content
+        lp_content = f"""% ========================================================================
+% Deolingo program to check DPA '{target_dpa}' against Requirement {req_id}
+% ========================================================================
+
+% --- Requirement {req_id} ---
+% Text: {req_details["text"]}
+% Deontic Logic:
+{req_details['symbolic']}
+
+% --- DPA Segment Deontic Statements ---
+"""
+        
+        # Add all DPA deontic statements
+        for segment in dpa_segments:
+            segment_id = segment["id"]
+            segment_text = segment["text"]
+            segment_deontics = segment["deontic_statements"]
             
-        # Start of a new rule
-        if line.startswith('%'):
-            if current_rule:  # Save previous rule if exists
-                rules.append(current_rule)
-            current_rule = line
-        elif current_rule:  # Continue current rule
-            current_rule += '\n' + line
+            lp_content += f"\n% ----------------------------------------\n"
+            lp_content += f"% Segment {segment_id}:\n"
+            lp_content += f"% Text: {segment_text}\n"
+            lp_content += f"% Deontic Logic:\n"
+            
+            for statement in segment_deontics:
+                lp_content += f"{statement}\n"
+        
+        # Add semantic mapping rules if available
+        if req_mappings:
+            lp_content += f"""
+% ----------------------------------------
+% Semantic Mapping Rules for Requirement {req_id}
+% These rules connect DPA actions to requirement predicates
+"""
+            for mapping_rule in req_mappings:
+                lp_content += f"{mapping_rule}\n"
+        else:
+            lp_content += f"""
+% ----------------------------------------
+% No semantic mappings found for Requirement {req_id}
+% The DPA does not semantically satisfy this requirement
+"""
+        
+        # Add status logic - simplified and without syntax errors
+        lp_content += f"""
+% ----------------------------------------
+% Status Logic for Requirement {req_id}
+
+% A requirement is satisfied if it has a semantic mapping that is fulfilled
+satisfies(req{req_id}) :- 
+    true.  % If there's a semantic mapping, it means the DPA satisfies this requirement
+
+% A requirement is not mentioned if there's no semantic mapping
+not_mentioned(req{req_id}) :- 
+    not satisfies(req{req_id}).
+
+% Additional built-in facts
+processor(processor).
+controller(controller).
+data_subject(data_subject).
+personal_data(personal_data).
+
+% ----------------------------------------
+% Show Directives
+#show satisfies/1.
+#show not_mentioned/1.
+"""
+        
+        # Write the LP file
+        with open(lp_file_path, 'w') as f:
+            f.write(lp_content)
     
-    # Add the last rule if exists
-    if current_rule:
-        rules.append(current_rule)
-    
-    # Validate each rule to ensure it has the requirement action
-    valid_rules = []
-    for rule in rules:
-        # Check if the rule references the requirement action
-        if requirement_action in rule:
-            valid_rules.append(rule)
-    
-    return valid_rules
+    print(f"Generated {len(requirements)} LP files in: {dpa_dir}")
 
 def generate_semantic_rules(requirements_file, dpa_segments_file, model_path, output_dir):
     """
     Generate semantic mapping rules between requirements and DPA segments.
-    Optimized to use only one LLM call per requirement.
-    
-    Args:
-        requirements_file: Path to requirements symbolic JSON file
-        dpa_segments_file: Path to DPA segments with actions JSON file
-        model_path: Path to LLM model file
-        output_dir: Directory to store output LP files
     """
-    # Initialize LLM with optimized settings for fewer calls
+    # Initialize LLM
     print(f"Initializing LLM with model: {model_path}")
-    llm_config = LlamaConfig(
-        model_path=model_path, 
-        temperature=0.1,
-        n_ctx=50000  # Increase context window to handle more segments at once
-    )
+    llm_config = LlamaConfig(model_path=model_path, temperature=0.1)
     llm_model = LlamaModel(llm_config)
     print("LLM initialized successfully")
     
@@ -219,57 +258,69 @@ def generate_semantic_rules(requirements_file, dpa_segments_file, model_path, ou
     requirements = load_requirements(requirements_file)
     print(f"Loaded {len(requirements)} requirements")
     
-    # Load DPA segments
-    print(f"Loading DPA segments from: {dpa_segments_file}")
+    # Load DPA deontic data
+    print(f"Loading DPA deontic statements from: {dpa_segments_file}")
     with open(dpa_segments_file, 'r') as f:
-        dpa_data = json.load(f)
+        dpa_deontic_data = json.load(f)
     
-    # Extract target DPA information
-    target_dpa = dpa_data["dpa_id"]
-    segments = dpa_data["segments"]
-    print(f"Processing {len(segments)} segments for DPA: {target_dpa}")
+    target_dpa = dpa_deontic_data["dpa_id"]
+    dpa_segments = dpa_deontic_data["segments"]
+    print(f"Processing {len(dpa_segments)} segments for DPA: {target_dpa}")
     
-    # Create output directory for this DPA
-    dpa_dir = os.path.join(output_dir, f"dpa_{target_dpa.replace(' ', '_')}")
-    os.makedirs(dpa_dir, exist_ok=True)
+    # Collect all DPA deontic statements
+    all_dpa_deontic_statements = []
+    for segment in dpa_segments:
+        all_dpa_deontic_statements.extend(segment["deontic_statements"])
     
-    # Store semantic rules for each requirement
-    semantic_rules_by_req = {}
+    # Store all semantic rules
+    all_mappings = {}
     
-    # Process each requirement in a single batch operation
-    print("Creating semantic mappings for each requirement (one LLM call per requirement)...")
-    for req_id, req_details in tqdm(requirements.items(), total=len(requirements)):
-        # Create batch prompt for all segments
-        system_prompt, user_prompt = create_batch_semantic_mapping_prompt(req_details, segments)
+    # Process each requirement
+    print("Creating semantic mappings for each requirement...")
+    for req_id, req_details in tqdm(requirements.items()):
+        # Create prompt for this requirement
+        system_prompt, user_prompt = create_semantic_mapping_prompt(req_details, all_dpa_deontic_statements)
         
-        # Generate semantic mappings for all segments at once
+        # Generate semantic mapping
         mapping_result = llm_model.generate_symbolic_representation(user_prompt, system_prompt)
         
-        # Extract and validate the semantic rules
-        req_semantic_rules = extract_semantic_rules_from_response(
-            mapping_result, req_details["action"]
-        )
-        
-        # Store rules for this requirement
-        semantic_rules_by_req[req_id] = req_semantic_rules
+        # Check if connection found
+        if "NO_SEMANTIC_CONNECTION" not in mapping_result:
+            # Extract and validate mapping rules
+            mapping_rules = []
+            for line in mapping_result.split('\n'):
+                line = line.strip()
+                if line and ':-' in line and not line.startswith('%'):
+                    # Validate the rule
+                    is_valid, cleaned_rule = validate_mapping_rule(line)
+                    if is_valid:
+                        mapping_rules.append(cleaned_rule)
+            
+            # Store mappings for this requirement only if valid rules exist
+            if mapping_rules:
+                all_mappings[req_id] = mapping_rules
     
-    # Save semantic rules to file
-    rules_file = os.path.join(output_dir, "semantic_rules.json")
-    with open(rules_file, 'w') as f:
+    # Save all semantic mappings to file
+    mappings_file = os.path.join(output_dir, "semantic_mappings.json")
+    with open(mappings_file, 'w') as f:
         json.dump({
             "dpa_id": target_dpa,
-            "semantic_rules": semantic_rules_by_req
+            "mappings": all_mappings
         }, f, indent=2)
     
-    print(f"Saved semantic rules to: {rules_file}")
-    return semantic_rules_by_req
+    print(f"Saved semantic mappings to: {mappings_file}")
+    
+    # Generate LP files
+    generate_lp_files(requirements, dpa_deontic_data, all_mappings, output_dir)
+    
+    return all_mappings
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate semantic mapping rules (optimized)")
+    parser = argparse.ArgumentParser(description="Generate semantic mapping rules for deontic logic")
     parser.add_argument("--requirements", type=str, default="data/processed/requirements_symbolic.json",
                         help="Path to requirements symbolic JSON file")
-    parser.add_argument("--dpa_segments", type=str, default="semantic_results/dpa_symbolic.json",
-                        help="Path to DPA segments with actions JSON file")
+    parser.add_argument("--dpa_segments", type=str, default="semantic_results/dpa_deontic.json",
+                        help="Path to DPA deontic statements JSON file")
     parser.add_argument("--model", type=str, default="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf",
                         help="Path to LLM model file")
     parser.add_argument("--output", type=str, default="semantic_results",
@@ -279,7 +330,7 @@ def main():
     # Create output directory
     os.makedirs(args.output, exist_ok=True)
     
-    # Generate semantic rules with optimized approach
+    # Generate semantic rules
     generate_semantic_rules(args.requirements, args.dpa_segments, args.model, args.output)
 
 if __name__ == "__main__":

@@ -58,20 +58,21 @@ class LlamaModel:
             "Translate the following text into a formal Deontic Logic representation using Deolingo syntax. "
             "Use '&obligatory{action}' for obligations (MUST), '&permitted{action}' for permissions (MAY), "
             "and '&forbidden{action}' for prohibitions (MUST NOT). "
-            "Format rules with ':-' for implications, ',' for conjunction, ';' for disjunction, and end with periods.\n\n"
+            "Format rules with ':-' for implications, ',' for conjunction, and end with periods.\n\n"
             f"Text to translate: {text}\n\n"
             "Return ONLY the logical representation without explanations, examples, or other text. Follow this format:\n"
             "&obligatory{action(actor, object)} :- condition.\n"
-            "&forbidden{action(actor, object)} :- not condition."
+            "&forbidden{action(actor, object)} :- not condition.\n"
+            "Use only alphanumeric characters and underscores in predicate names. No special characters allowed."
         )
         
         # Use chat completion API which is more appropriate for instruct models
         response = self.llm.create_chat_completion(
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": text}
+                {"role": "user", "content": user_instruction}
             ],
-            max_tokens=2048,
+            max_tokens=1024,  # Reduced to prevent long outputs
             temperature=self.config.temperature,
             top_p=self.config.top_p,
             repeat_penalty=self.config.repeat_penalty,
