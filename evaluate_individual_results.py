@@ -1,98 +1,117 @@
+# evaluate_individual_results.py
+import os
 import re
-import pandas as pd
+import argparse
 import json
-from collections import defaultdict
+import subprocess
+from tqdm import tqdm
 
-def parse_individual_results(results_file):
-    """Parse individual LP file results."""
-    results = defaultdict(lambda: defaultdict(dict))
-    
-    with open(results_file, 'r') as f:
-        content = f.readlines()
-    
-    current_req = None
-    current_segment = None
-    
-    for line in content:
-        # Extract requirement and segment IDs
-        req_match = re.search(r'Requirement (\d+), DPA Segment (\d+)', line)
-        if req_match:
-            current_req = req_match.group(1)
-            current_segment = req_match.group(2)
-            continue
+def run_deolingo_on_file(lp_file_path):
+    """Run deolingo on a single LP file and return the result."""
+    try:
+        result = subprocess.run(
+            ["deolingo", lp_file_path],
+            capture_output=True, 
+            text=True,
+            check=False
+        )
         
-        # Extract results
-        if current_req and current_segment:
-            if "satisfies(req" in line:
-                results[current_req][current_segment] = "satisfies"
-            elif "not_mentioned(req" in line:
-                results[current_req][current_segment] = "not_mentioned"
-            elif "Syntax error" in line or "Error" in line:
-                results[current_req][current_segment] = "error"
-    
-    # Aggregate results per requirement
-    aggregated_results = {}
-    for req_id, segments in results.items():
-        if segments:  # If we have any results for this requirement
-            # A requirement is satisfied if any segment satisfies it
-            is_satisfied = any(status == "satisfies" for status in segments.values())
-            aggregated_results[req_id] = "satisfies" if is_satisfied else "not_mentioned"
+        # Parse result to determine if satisfies, violates, or not_mentioned
+        stdout = result.stdout
+        
+        if "satisfies(req)" in stdout:
+            return "satisfies"
+        elif "violates(req)" in stdout:
+            return "violates"
+        elif "not_mentioned(req)" in stdout:
+            return "not_mentioned"
         else:
-            aggregated_results[req_id] = "not_mentioned"
-    
-    return aggregated_results
-
-def evaluate_individual_results(results_file, dpa_csv, output_file):
-    """Evaluate individual LP file results."""
-    # Parse individual results
-    individual_results = parse_individual_results(results_file)
-    
-    # Load requirements texts
-    requirement_texts = {}
-    with open("data/requirements/ground_truth_requirements.txt", 'r') as f:
-        for line in f:
-            match = re.match(r'^(\d+)\.\s*(.+)$', line.strip())
-            if match:
-                requirement_texts[match.group(1)] = match.group(2)
-    
-    # Compute ground truth
-    df = pd.read_csv(dpa_csv)
-    dpa_df = df[df['DPA'] == 'Online 1']
-    
-    covered_reqs = set()
-    for _, row in dpa_df.iterrows():
-        for col in ["Requirement-1", "Requirement-2", "Requirement-3"]:
-            if col in row and pd.notna(row[col]):
-                covered_reqs.add(row[col].replace('R', ''))
-    
-    # Generate evaluation report
-    with open(output_file, 'w') as f:
-        f.write("========== Individual LP File Evaluation Results ==========\n\n")
-        
-        f.write("Requirement-Level Results:\n")
-        f.write("-" * 120 + "\n")
-        f.write(f"{'Req ID':<8} {'Status':<15} {'Ground Truth':<15} {'Requirement Text'}\n")
-        f.write("-" * 120 + "\n")
-        
-        for req_id in sorted(individual_results.keys(), key=int):
-            status = individual_results[req_id].upper()
-            req_name = f"R{req_id}"
-            gt_status = "COVERED" if req_id in covered_reqs else "NOT COVERED"
-            req_text = requirement_texts.get(req_id, "Text not found")[:80]
+            print(f"Warning: Unexpected output from deolingo for {lp_file_path}")
+            print(f"Output: {stdout}")
+            return "error"
             
-            f.write(f"{req_name:<8} {status:<15} {gt_status:<15} {req_text}\n")
-        
-        # Summary
-        satisfied_count = sum(1 for status in individual_results.values() if status == "satisfies")
-        total_required = len(range(7, 25))
-        covered_count = len(covered_reqs.intersection(set(range(7, 25))))
-        
-        f.write("\n" + "=" * 50 + "\n")
-        f.write("Summary:\n")
-        f.write(f"Predicted satisfied: {satisfied_count}/{len(individual_results)}\n")
-        f.write(f"Actually covered: {covered_count}/{total_required}\n")
+    except Exception as e:
+        print(f"Error running deolingo on {lp_file_path}: {e}")
+        return "error"
 
-# Run evaluation
-evaluate_individual_results("semantic_results/individual_deolingo_results.txt", 
-                          "data/train_set.csv",
-                          "semantic_results/individual_evaluation_results.txt")
+def evaluate_individual_lp_files(lp_dir, output_file):
+    """Evaluate individual LP files using deolingo and save results."""
+    # Get all LP files
+    lp_files = [f for f in os.listdir(lp_dir) if f.endswith(".lp")]
+    
+    # Sort files for consistent processing
+    lp_files.sort()
+    
+    # Initialize results
+    results = {
+        "req_id": os.path.basename(lp_dir).replace("req_", ""),
+        "total_segments": len(lp_files),
+        "segments": {},
+        "summary": {
+            "satisfies": 0,
+            "violates": 0,
+            "not_mentioned": 0,
+            "error": 0
+        }
+    }
+    
+    # Process each LP file
+    print(f"Processing {len(lp_files)} LP files in {lp_dir}")
+    
+    for lp_file in tqdm(lp_files):
+        # Extract segment ID
+        segment_id = lp_file.replace("segment_", "").replace(".lp", "")
+        
+        # Full path to LP file
+        lp_file_path = os.path.join(lp_dir, lp_file)
+        
+        # Run deolingo
+        print(f"Running Deolingo on Requirement {results['req_id']}, Segment {segment_id}...")
+        result = run_deolingo_on_file(lp_file_path)
+        
+        # Save result
+        results["segments"][segment_id] = result
+        
+        # Update summary counts
+        results["summary"][result] += 1
+        
+        # Add separator
+        print("--------------------------------------------------")
+    
+    # Save results to file
+    with open(output_file, 'w') as f:
+        json.dump(results, f, indent=2)
+    
+    # Print summary
+    print("\n===== Evaluation Summary =====")
+    print(f"Total segments: {len(lp_files)}")
+    print(f"Satisfies: {results['summary']['satisfies']}")
+    print(f"Violates: {results['summary']['violates']}")
+    print(f"Not mentioned: {results['summary']['not_mentioned']}")
+    print(f"Errors: {results['summary']['error']}")
+    print(f"Results saved to: {output_file}")
+    
+    return results
+
+def main():
+    parser = argparse.ArgumentParser(description="Evaluate individual LP files with deolingo")
+    parser.add_argument("--lp_dir", type=str, required=True,
+                       help="Directory containing LP files")
+    parser.add_argument("--output", type=str, default="evaluation_results.json",
+                       help="Output file for results")
+    
+    args = parser.parse_args()
+    
+    # Check if LP directory exists
+    if not os.path.exists(args.lp_dir):
+        print(f"Error: LP directory not found: {args.lp_dir}")
+        return
+    
+    # Create output directory if needed
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
+    
+    # Evaluate LP files
+    evaluate_individual_lp_files(args.lp_dir, args.output)
+
+if __name__ == "__main__":
+    main()
