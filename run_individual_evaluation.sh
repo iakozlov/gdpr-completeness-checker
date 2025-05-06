@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_individual_evaluation.sh
+# run_individual_evaluation.sh - Fixed version
 # Script to run evaluation on individual LP files
 
 set -e  # Exit on any error
@@ -15,7 +15,7 @@ RESULTS_FILE="semantic_results/individual_deolingo_results.txt"
 EVALUATION_OUTPUT="semantic_results/individual_evaluation_results.txt"
 
 echo "========== Individual LP File Evaluation =========="
-echo "Target DPA: ${TARGET_DPA} (first ${MAX_SEGMENTS} segments)"
+echo "Target DPA: ${TARGET_DPA}"
 echo "=================================================="
 
 # Function to run step 1: Translate DPA segments
@@ -32,7 +32,7 @@ run_step_1() {
 
 # Function to run step 2: Generate individual LP files
 run_step_2() {
-    echo -e "\n[Step 2] Generating individual LP files for each requirement-segment pair..."
+    echo -e "\n[Step 2] Generating individual LP files for requirement 6..."
     python generate_individual_lp_files.py \
       --requirements ${REQUIREMENTS_FILE} \
       --dpa_segments "semantic_results/dpa_deontic.json" \
@@ -48,29 +48,43 @@ run_step_3() {
     # Create output file for results
     echo "" > ${RESULTS_FILE}
     
-    # Process all LP files
+    # Process all LP files for requirement 6
     echo "Processing LP files..."
-    find ${OUTPUT_DIR} -name "*.lp" | while read lp_file; do
-        # Extract info from path
-        req_id=$(echo "${lp_file}" | grep -o 'req_[0-9]*' | head -1 | sed 's/req_//')
+    
+    # The files are now in: OUTPUT_DIR/req_6/dpa_segment_*.lp
+    REQ_DIR="${OUTPUT_DIR}/req_6"
+    
+    # Check if directory exists
+    if [ ! -d "${REQ_DIR}" ]; then
+        echo "Error: Directory ${REQ_DIR} not found. Run step 2 first."
+        return 1
+    fi
+    
+    # Find all LP files in the req_6 directory
+    find "${REQ_DIR}" -name "dpa_segment_*.lp" | sort | while read lp_file; do
+        # Extract segment ID from filename
         segment_id=$(basename "${lp_file}" .lp | sed 's/dpa_segment_//')
         
-        echo "Processing Requirement ${req_id}, DPA Segment ${segment_id}..." | tee -a ${RESULTS_FILE}
+        echo "Processing Requirement 6, DPA Segment ${segment_id}..." | tee -a ${RESULTS_FILE}
         
         # Run deolingo with error handling
         if deolingo "${lp_file}" >> ${RESULTS_FILE} 2>&1; then
-            echo "Success: Requirement ${req_id}, Segment ${segment_id}" >> ${RESULTS_FILE}
+            echo "Success: Requirement 6, Segment ${segment_id}" >> ${RESULTS_FILE}
         else
-            echo "Error: Syntax error in Requirement ${req_id}, Segment ${segment_id}" >> ${RESULTS_FILE}
+            echo "Error: Syntax error in Requirement 6, Segment ${segment_id}" >> ${RESULTS_FILE}
         fi
         
         echo "--------------------------------------------------" | tee -a ${RESULTS_FILE}
     done
-    echo "Step 3 completed."
+    
+    echo "Step 3 completed. Results saved in: ${RESULTS_FILE}"
 }
 
-# Function to create evaluation script for individual results
-create_evaluation_script() {
+# Function to run step 4: Evaluate results
+run_step_4() {
+    echo -e "\n[Step 4] Evaluating individual results..."
+    
+    # Create evaluation script for individual results
     cat > evaluate_individual_results.py << 'EOF'
 import re
 import pandas as pd
@@ -97,9 +111,9 @@ def parse_individual_results(results_file):
         
         # Extract results
         if current_req and current_segment:
-            if "satisfies(req" in line:
+            if "satisfies(req)" in line:
                 results[current_req][current_segment] = "satisfies"
-            elif "not_mentioned(req" in line:
+            elif "not_mentioned(req)" in line:
                 results[current_req][current_segment] = "not_mentioned"
             elif "Syntax error" in line or "Error" in line:
                 results[current_req][current_segment] = "error"
@@ -123,11 +137,15 @@ def evaluate_individual_results(results_file, dpa_csv, output_file):
     
     # Load requirements texts
     requirement_texts = {}
-    with open("data/requirements/ground_truth_requirements.txt", 'r') as f:
-        for line in f:
-            match = re.match(r'^(\d+)\.\s*(.+)$', line.strip())
-            if match:
-                requirement_texts[match.group(1)] = match.group(2)
+    try:
+        with open("data/requirements/ground_truth_requirements.txt", 'r') as f:
+            for line in f:
+                match = re.match(r'^(\d+)\.\s*(.+)$', line.strip())
+                if match:
+                    requirement_texts[match.group(1)] = match.group(2)
+    except:
+        print("Could not load requirement texts, using placeholders")
+        requirement_texts['6'] = "The processor shall take all measures required pursuant to Article 32..."
     
     # Compute ground truth
     df = pd.read_csv(dpa_csv)
@@ -137,7 +155,8 @@ def evaluate_individual_results(results_file, dpa_csv, output_file):
     for _, row in dpa_df.iterrows():
         for col in ["Requirement-1", "Requirement-2", "Requirement-3"]:
             if col in row and pd.notna(row[col]):
-                covered_reqs.add(row[col].replace('R', ''))
+                req_num = row[col].replace('R', '')
+                covered_reqs.add(req_num)
     
     # Generate evaluation report
     with open(output_file, 'w') as f:
@@ -159,34 +178,43 @@ def evaluate_individual_results(results_file, dpa_csv, output_file):
         # Summary
         satisfied_count = sum(1 for status in individual_results.values() if status == "satisfies")
         total_required = len(range(7, 25))
-        covered_count = len(covered_reqs.intersection(set(range(7, 25))))
+        covered_count = len(covered_reqs.intersection(set(str(i) for i in range(7, 25))))
         
         f.write("\n" + "=" * 50 + "\n")
         f.write("Summary:\n")
         f.write(f"Predicted satisfied: {satisfied_count}/{len(individual_results)}\n")
         f.write(f"Actually covered: {covered_count}/{total_required}\n")
+        
+        # Special check for requirement 6
+        if '6' in individual_results:
+            segment_26_status = "Unknown"
+            
+            # Look through the original results to find segment 26
+            with open(results_file, 'r') as rf:
+                content = rf.read()
+                if "Requirement 6, DPA Segment 26" in content:
+                    if "satisfies(req)" in content:
+                        segment_26_status = "SATISFIES"
+                    elif "not_mentioned(req)" in content:
+                        segment_26_status = "NOT_MENTIONED"
+                    else:
+                        segment_26_status = "ERROR"
+            
+            f.write(f"\nRequirement 6, Segment 26 Status: {segment_26_status}\n")
 
 # Run evaluation
 evaluate_individual_results("semantic_results/individual_deolingo_results.txt", 
                           "data/train_set.csv",
                           "semantic_results/individual_evaluation_results.txt")
 EOF
-}
-
-# Function to run step 4: Evaluate results
-run_step_4() {
-    echo -e "\n[Step 4] Evaluating individual results..."
     
-    # Create evaluation script
-    create_evaluation_script
-    
-    # Run evaluation
+    # Run the evaluation script
     python evaluate_individual_results.py
     
     # Display results
     echo "=================================================="
     echo "Evaluation Results:"
-    cat ${EVALUATION_OUTPUT}
+    tail -n 15 ${EVALUATION_OUTPUT}
     echo "=================================================="
     echo "Step 4 completed."
 }
