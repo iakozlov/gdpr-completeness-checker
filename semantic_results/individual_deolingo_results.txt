@@ -1,0 +1,1970 @@
+
+Processing Requirement 6, DPA Segment 10...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_10.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_10.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_10.lp:17:64-65: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_10.lp:24:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 10
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 11...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_11.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_11.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_11.lp:10:72-73: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_11.lp:14:67-68: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_11.lp:22:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_11.lp:25:4-5: error: syntax error, unexpected .
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 11
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 14...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_14.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_14.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_14.lp:13:77-78: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_14.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 14
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 16...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_16.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_16.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_16.lp:14:72-73: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_16.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 16
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 18...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_18.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_18.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_18.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 18
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 19...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_19.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_19.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_19.lp:15:66-67: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_19.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 19
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 2...
+deolingo version 1.0.0
+Reading from ...vidual_lp_files/req_6/dpa_segment_2.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_2.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_2.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 2
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 20...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_20.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_20.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_20.lp:14:91-92: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_20.lp:23:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 20
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 21...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_21.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_21.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_21.lp:16:87-88: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_21.lp:23:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 21
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 23...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_23.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_23.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_23.lp:25:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 23
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 25...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_25.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_25.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_25.lp:15:113-114: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_25.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 25
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 26...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_26.lp
+Solving...
+Answer: 1 (Time: 0.003s)
+FACTS: satisfies(req)
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 26
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 27...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_27.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_27.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_27.lp:20:11-12: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_27.lp:23:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 27
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 28...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_28.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_28.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_28.lp:14:72-73: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_28.lp:23:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 28
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 29...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_29.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_29.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_29.lp:20:11-12: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_29.lp:21:41-42: error: syntax error, unexpected ., expecting ) or ;
+
+semantic_results/individual_lp_files/req_6/dpa_segment_29.lp:24:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_29.lp:27:38-39: error: syntax error, unexpected ., expecting ) or ;
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 29
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 3...
+deolingo version 1.0.0
+Reading from ...vidual_lp_files/req_6/dpa_segment_3.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_3.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_3.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 3
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 31...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_31.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_31.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_31.lp:14:71-72: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_31.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 31
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 32...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_32.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_32.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_32.lp:21:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_32.lp:24:10-11: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_32.lp:26:34-35: error: syntax error, unexpected ., expecting ) or ;
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.006s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
+Error: Syntax error in Requirement 6, Segment 32
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 33...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_33.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_33.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_33.lp:17:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 33
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 34...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_34.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_34.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_34.lp:20:38-39: error: syntax error, unexpected ., expecting ) or ;
+
+semantic_results/individual_lp_files/req_6/dpa_segment_34.lp:24:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_34.lp:27:44-45: error: syntax error, unexpected ., expecting ) or ;
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 34
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 35...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_35.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_35.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_35.lp:15:77-78: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_35.lp:23:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 35
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 37...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_37.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_37.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_37.lp:20:35-36: error: syntax error, unexpected ., expecting ) or ;
+
+semantic_results/individual_lp_files/req_6/dpa_segment_37.lp:23:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_37.lp:25:29-30: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 37
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 38...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_38.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_38.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_38.lp:23:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 38
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 4...
+deolingo version 1.0.0
+Reading from ...vidual_lp_files/req_6/dpa_segment_4.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_4.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_4.lp:19:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 4
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 40...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_40.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_40.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_40.lp:14:85-86: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_40.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 40
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 41...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_41.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_41.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_41.lp:14:74-75: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_41.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 41
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 42...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_42.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_42.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_42.lp:13:98-99: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_42.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 42
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 43...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_43.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_43.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_43.lp:13:83-84: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_43.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 43
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 44...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_44.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_44.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_44.lp:14:93-94: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_44.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 44
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 45...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_45.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_45.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_45.lp:15:67-68: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_45.lp:22:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_45.lp:26:4-5: error: syntax error, unexpected .
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 45
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 46...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_46.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_46.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_46.lp:13:70-71: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_46.lp:20:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 46
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 47...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_47.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_47.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_47.lp:14:120-121: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_47.lp:21:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 47
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 48...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_48.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_48.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_48.lp:13:57-58: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_48.lp:20:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 48
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 49...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_49.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_49.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_49.lp:16:85-86: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_49.lp:24:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 49
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 50...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_50.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_50.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_50.lp:14:65-66: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_50.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 50
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 51...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_51.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_51.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_51.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
+Error: Syntax error in Requirement 6, Segment 51
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 54...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_54.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_54.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_54.lp:14:67-68: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_54.lp:22:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 54
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 55...
+deolingo version 1.0.0
+Reading from ...idual_lp_files/req_6/dpa_segment_55.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_55.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_55.lp:13:115-116: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_55.lp:20:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 55
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 7...
+deolingo version 1.0.0
+Reading from ...vidual_lp_files/req_6/dpa_segment_7.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_7.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_7.lp:22:27-28: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_7.lp:25:35-36: error: syntax error, unexpected ., expecting ) or ;
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 7
+--------------------------------------------------
+Processing Requirement 6, DPA Segment 8...
+deolingo version 1.0.0
+Reading from ...vidual_lp_files/req_6/dpa_segment_8.lp
+semantic_results/individual_lp_files/req_6/dpa_segment_8.lp:3:124-125: error: syntax error, unexpected .
+
+semantic_results/individual_lp_files/req_6/dpa_segment_8.lp:20:27-28: error: syntax error, unexpected ., expecting ) or ;
+
+semantic_results/individual_lp_files/req_6/dpa_segment_8.lp:23:11-12: error: syntax error, unexpected )
+
+semantic_results/individual_lp_files/req_6/dpa_segment_8.lp:26:27-28: error: syntax error, unexpected )
+
+Traceback (most recent call last):
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/application.py", line 377, in _pyclingo_application_main
+    app.main(Control(control), [_to_str(files[i]) for i in range(size)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 56, in main
+    return self._solve_deontic_program(program, files)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_application.py", line 166, in _solve_deontic_program
+    command.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/domain/solve_deontic_program_command.py", line 25, in execute
+    transformer.transform_sources(None, self.files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 41, in transform_sources
+    self._transform_and_add_source_inputs(inputs, files)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/deolingo/deolingo/_translator.py", line 97, in _transform_and_add_source_inputs
+    parse_files(files, self._transform_and_add_to_program)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/ast.py", line 1300, in parse_files
+    _handle_error(
+    ~~~~~~~~~~~~~^
+        _lib.clingo_ast_parse_files(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+        cb_data,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/ivkozlov/Desktop/dev/TUe/Thesis/dpa-completeness-checker/dpa_env/lib/python3.13/site-packages/clingo/_internal.py", line 81, in _handle_error
+    raise RuntimeError(msg)
+RuntimeError: syntax error
+*** ERROR: (deolingo): syntax error
+UNKNOWN
+
+Models       : 0+
+Calls        : 1
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
+Error: Syntax error in Requirement 6, Segment 8
+--------------------------------------------------
