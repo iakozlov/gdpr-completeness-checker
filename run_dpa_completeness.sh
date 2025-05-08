@@ -15,7 +15,7 @@ EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 REQUIREMENTS_DEONTIC="${OUTPUT_DIR}/requirements_deontic.json"
 TARGET_DPA="Online 1"
 REQ_IDS="all"  # Focus on requirement 6 by default
-MAX_SEGMENTS=30  # Limit to 30 segments by default
+MAX_SEGMENTS=0  # Limit to 30 segments by default
 
 # Command line arguments
 while [[ $# -gt 0 ]]; do
@@ -100,8 +100,8 @@ case ${STEP} in
           --model ${MODEL_PATH} \
           --output "${OUTPUT_DIR}/lp_files" \
           --target_dpa "${TARGET_DPA}" \
-          --max_segments ${MAX_SEGMENTS}
-          #--req_ids "${REQ_IDS}" \
+          --max_segments ${MAX_SEGMENTS} \
+          --req_ids "${REQ_IDS}"
         echo "Step 2 completed. LP files generated in: ${OUTPUT_DIR}/lp_files"
         ;;
     3)
@@ -174,8 +174,8 @@ case ${STEP} in
           --model ${MODEL_PATH} \
           --output "${OUTPUT_DIR}/lp_files" \
           --target_dpa "${TARGET_DPA}" \
-          --max_segments ${MAX_SEGMENTS}
-          #--req_ids "${REQ_IDS}" \
+          --max_segments ${MAX_SEGMENTS} \
+          --req_ids "${REQ_IDS}"
         
         echo -e "\n[Step 3] Running Deolingo solver..."
         DPA_DIR="${OUTPUT_DIR}/lp_files/dpa_${TARGET_DPA//' '/_}"
