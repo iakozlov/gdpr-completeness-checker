@@ -11,7 +11,6 @@ __pycache__/
 # Ignore models folder
 *.gguf
 
-# Ignore deolingo folder (I assume you meant "duolingo")
 deolingo/
 
 dpa_env/
@@ -19,3 +18,5 @@ dpa_env/
 results/
 
 results_v2/
+
+semantic_results/
