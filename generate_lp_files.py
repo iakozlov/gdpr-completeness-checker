@@ -79,7 +79,6 @@ def main():
     for req_id, req_info in tqdm(requirements.items(), desc="Processing requirements"):
         req_text = req_info["text"]
         req_symbolic = req_info["symbolic"]
-        req_atoms = req_info["atoms"]
         
         # Create directory for this requirement
         req_dir = os.path.join(dpa_dir, f"req_{req_id}")
@@ -97,7 +96,7 @@ def main():
             lp_file_path = os.path.join(req_dir, f"segment_{segment_id}.lp")
             
             # Extract facts from DPA segment
-            facts = extract_facts_from_dpa(segment_text, req_text, req_atoms, req_predicates, llm_model)
+            facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model)
             
             # Generate LP file content
             lp_content = generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text)
@@ -146,61 +145,65 @@ def extract_predicates(symbolic):
     
     return list(predicates)
 
-def extract_facts_from_dpa(segment_text, req_text, req_atoms, req_predicates, llm_model):
+def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model):
     """
-    Use LLM to extract facts from a DPA segment based on requirement atoms,
+    Use LLM to extract facts from a DPA segment based on requirement symbolic representation,
     considering semantic similarity between requirement context and DPA context.
+    
+    Args:
+        segment_text: The text of the DPA segment
+        req_text: The text of the requirement
+        req_symbolic: The symbolic representation of the requirement
+        req_predicates: List of predicates from the requirement
+        llm_model: The LLM model to use for extraction
+        
+    Returns:
+        Dictionary mapping predicates to their truth values
     """
     system_prompt = """
-    You are an expert in GDPR compliance analysis specifically designed to extract facts from DPA segments.
-    
-    YOUR ONLY OUTPUT SHOULD BE:
-    1. One fact per line, no explanations
-    2. The string "NO_FACTS" if no facts are found
-    
-    DO NOT include any reasoning, explanations, step-by-step processes, or anything other than the facts themselves.
-    
-    Your task is to analyze a DPA segment and determine which predicates from a given list are semantically supported or contradicted in the context of a specific requirement. Be extremely strict about semantic similarity.
-    
-    Rules for fact extraction:
-    1. Only extract predicates with STRONG and CLEAR semantic similarity to the DPA segment
-    2. Always include role(processor) if the processor role is mentioned
-    3. Always include role(controller) if the controller role is mentioned
-    4. For contradicted predicates, use a minus sign prefix: -predicate_name
-    5. ONLY use predicates from the "Mandatory List of Predicates"
-    6. Do NOT add periods or comments
-    
-    Examples of CORRECT outputs:
-    
-    Example 1:
-    role(processor)
-    implement_security_measures
-    technical_measures
-    
-    Example 2:
-    role(controller)
-    assist_controller_dsr
-    
-    Example 3:
-    NO_FACTS
-    
-    Example 4:
-    role(processor)
-    
-    OUTPUT FORMAT RULE: Return ONLY the facts (or NO_FACTS), with ABSOLUTELY NO explanations, reasoning, or other text.
+    You are a legal-text extractor that converts Data-Processing-Agreement (DPA) segment into ASP facts based on semantic and contextual similarity with GDPR requirement.
+
+Input always contains:
+
+1. "REQUIREMENT" – text of GDPR requirement
+2. "SYMBOLIC" - symbolic representation of GDPR requirement in Deontic Logic via ASP
+3. "PREDICATES" - the symbolic_atom(s) repeated from a symbolic representation of the requirement, semicolon-separated.
+4. "CLAUSE" - a single DPA segment.
+
+VERY IMPORTANT: Carefully analyze the SYMBOLIC representation to understand the structure of the requirement. Pay special attention to:
+- The main obligation or permission (what's inside &obligatory{} or &permitted{})
+- The conditions that trigger the obligation (what follows the :- operator)
+- How the predicates relate to each other
+
+Your task
+- Decide which (if any) of the listed predicates the clause semantically entails.
+- For every entailed predicate output the symbol followed by a period, one per line. Example:  ensure_confidentiality.
+- If none are entailed, output exactly NO_FACTS.
+- Produce nothing else: no prose, no JSON, no comments.
+
+Think step-by-step in private, but reveal ONLY the final facts line(s) or NO_FACTS.
+
+Examples:
+Example 1:
+REQUIREMENT: Processor must ensure that all authorised personnel are bound by confidentiality obligations.
+SYMBOLIC: &obligatory{ensure_confidentiality} :- role(processor).
+PREDICATES: ensure_confidentiality; role(processor)
+CLAUSE: The Processor shall ensure that every employee authorised to process Customer Personal Data is subject to a contractual duty of confidentiality.
+Expected output: ensure_confidentiality; role(processor)
+
+Example 2:
+REQUIREMENT: Processor must encrypt personal data during transmission and at rest.
+SYMBOLIC: &obligatory{encrypt_data} :- role(processor).
+PREDICATES: encrypt_data; role(processor)
+CLAUSE: the Processor shall maintain detailed logs of all processing activities.
+Expected output: NO_FACTS
     """
     
     user_prompt = f"""
-The DPA segment mentions:
-\"\"\"{segment_text}\"\"\"
-
-For this GDPR requirement:
-\"\"\"{req_text}\"\"\"
-
-Analyze if any of these predicates have STRONG semantic similarity with the DPA segment:
-{', '.join(req_predicates)}
-
-Return ONLY facts or "NO_FACTS" - with absolutely no explanations, reasoning, or other text.
+REQUIREMENT: {req_text}
+SYMBOLIC: {req_symbolic}
+PREDICATES: {'; '.join(req_predicates)}
+CLAUSE: {segment_text}
 """
     
     # Get facts from LLM
@@ -223,20 +226,24 @@ Return ONLY facts or "NO_FACTS" - with absolutely no explanations, reasoning, or
         # Check if the line is a valid predicate (either with or without a minus sign)
         if line.startswith('-'):
             predicate = line[1:].strip()
-            if predicate and ' ' not in predicate and ':' not in predicate and '.' not in predicate:
+            # Remove any trailing period
+            if predicate.endswith('.'):
+                predicate = predicate[:-1]
+            if predicate and ' ' not in predicate and ':' not in predicate:
+                valid_lines.append(f"-{predicate}")
+        else:
+            # Remove any trailing period
+            if line.endswith('.'):
+                line = line[:-1]
+            if line and ' ' not in line and ':' not in line:
                 valid_lines.append(line)
-        elif ' ' not in line and ':' not in line and '.' not in line:
-            valid_lines.append(line)
     
     # If we filtered out everything but there was content, default to NO_FACTS
     if not valid_lines and response.strip():
         valid_lines = ["NO_FACTS"]
     
-    # Use the filtered response for fact extraction
-    filtered_response = '\n'.join(valid_lines)
-    
-    # Check if the filtered response is "NO_FACTS"
-    if filtered_response.strip() == "NO_FACTS":
+    # Process the valid lines
+    if "NO_FACTS" in valid_lines:
         # Only add role facts based on the segment text
         if 'processor' in segment_text.lower():
             facts['role(processor)'] = True
@@ -244,9 +251,9 @@ Return ONLY facts or "NO_FACTS" - with absolutely no explanations, reasoning, or
             facts['role(controller)'] = True
     else:
         # Process normal fact extraction
-        for line in filtered_response.strip().split('\n'):
+        for line in valid_lines:
             line = line.strip()
-            if line and not line.startswith('%') and line != "NO_FACTS":
+            if line:
                 if line.startswith('-'):
                     predicate = line[1:].strip()
                     facts[predicate] = False  # Negatively mentioned

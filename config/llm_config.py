@@ -17,7 +17,6 @@ class LlamaConfig:
     def from_dict(cls, config_dict: Dict[str, Any]) -> 'LlamaConfig':
         return cls(**config_dict)
 
-# Default configuration
 DEFAULT_MODEL_PATH = os.environ.get(
     "LLAMA_MODEL_PATH", 
     "models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"

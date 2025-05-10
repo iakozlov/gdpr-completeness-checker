@@ -1,4 +1,3 @@
-# evaluate_completeness.py
 import os
 import json
 import argparse

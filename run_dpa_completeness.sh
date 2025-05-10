@@ -9,13 +9,13 @@ set -e  # Exit on any error
 DPA_CSV="data/train_set.csv"
 REQUIREMENTS_FILE="data/requirements/ground_truth_requirements.txt"
 MODEL_PATH="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"
-OUTPUT_DIR="results"
+OUTPUT_DIR="results/experiments"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
-REQUIREMENTS_DEONTIC="${OUTPUT_DIR}/requirements_deontic.json"
+REQUIREMENTS_DEONTIC="results/requirements_deontic.json"
 TARGET_DPA="Online 1"
-REQ_IDS="all"  # Focus on requirement 6 by default
-MAX_SEGMENTS=0  # Limit to 30 segments by default
+REQ_IDS="1,2,3,4,5,6,"  # Focus on requirement 6 by default
+MAX_SEGMENTS=20  # Limit to 30 segments by default
 
 # Command line arguments
 while [[ $# -gt 0 ]]; do

@@ -13,7 +13,7 @@ def main():
                         help="Path to requirements file")
     parser.add_argument("--model", type=str, default="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf",
                         help="Path to LLM model file")
-    parser.add_argument("--output", type=str, default="data/processed/requirements_deontic.json",
+    parser.add_argument("--output", type=str, default="data/processed/requirements_deontic_experiments.json",
                         help="Output JSON file path")
     args = parser.parse_args()
     
@@ -47,46 +47,53 @@ def main():
                 
                 # Create system prompt for deontic logic translation
                 system_prompt = """
-                You are an expert legal-knowledge engineer and Answer-Set-Programming (ASP) author.
+You are a specialized AI trained to translate legal requirements into formal Deontic Logic representations using Answer Set Programming (ASP) syntax.
 
-TASK:
-Convert a plain-language GDPR requirement into a symbolic representation in Deontic Logic via Anwer Set Programming (ASP).
+IMPORTANT OUTPUT RULES:
+1. ONLY output the ASP code - NO explanations, comments about facts, or additional text
+2. Output ONLY the deontic rules - DO NOT include any derived facts
+3. DO NOT include anything like "% Facts derived from rule conditions"
+4. Ensure all predicates have properly BALANCED parentheses: role(processor) NOT role(processor))
+5. DO NOT include "." at the end of conditions that follow ":-"
+6. Use only "-predicate" for negation, NEVER use "not(predicate)"
 
-OUTPUT:
-- Return **only** valid ASP code — no prose, no markdown, no JSON.  
-- Use exactly one line per rule; comments (starting with %) are allowed.  
-- Follow the pattern  
-      &obligatory{snake_case_atom} :- triggering_conditions.  
-  where “triggering_conditions” may be omitted if none are needed.
+RULES FOR PREDICATES:
+- Use snake_case for predicate names (e.g., ensure_security)
+- For role predicates, ONLY use either role(processor) or role(controller) - no other variations
+- Ensure ALL parentheses are properly balanced and closed
+- Keep predicates simple and meaningful
+- Avoid periods within predicates
 
-THINKING:
-Work out the mapping in an internal scratch-pad (Chain-of-Thought) but never reveal that reasoning.  
-Only the final ASP rule(s) should appear in the assistant message.
+PATTERN TO FOLLOW:
+&obligatory{action_predicate} :- condition1, condition2.
+&permitted{action_predicate} :- condition1, condition2.
+&forbidden{action_predicate} :- condition1, condition2.
 
-NAMING:
-- Strictly follow the syntax of Deontic Logic via ASP.  
-- Atom names: lowercase_snake_case, start with a verb when possible.  
-- Keep them concise yet self-explanatory (e.g. ensure_confidentiality).  
+EXAMPLES OF CORRECT OUTPUT:
 
-EXAMPLES: 
-USER: “Processor must delete personal data when the controller asks.”  
-ASSISTANT: 
-    &obligatory{delete_on_request} :- role(processor).
+Example 1:
+&obligatory{ensure_confidentiality} :- role(processor).
 
-USER: “Processors are forbidden from exporting data outside the EU.”  
-ASSISTANT:  
-    &obligatory{-export_outside_eu} :- role(processor).
+Example 2:
+&obligatory{not_engage_subprocessor} :- role(processor), -prior_authorization.
 
-Make sure your *assistant* message contains **only** the ASP code — one or more lines — and nothing else.
-                """
+Example 3:
+&obligatory{assist_controller} :- role(processor).
+&obligatory{ensure_compliance} :- role(processor).
+
+DO NOT include ANY explanatory text or anything other than the ASP rules.
+"""
                 
                 user_prompt = f"Translate this GDPR requirement into symbolic representation in Deontic Logic via ASP: {req_text}"
                 
                 # Generate symbolic representation
                 llm_output = llm_model.generate_symbolic_representation(user_prompt, system_prompt)
                 
+                # Clean the output - remove any facts or explanatory sections
+                cleaned_output = clean_symbolic_output(llm_output)
+                
                 # Fix common syntax issues
-                fixed_output = fix_symbolic_syntax(llm_output)
+                fixed_output = fix_symbolic_syntax(cleaned_output)
                 symbolic = translator.translate(fixed_output)
                 
                 # Extract atoms from symbolic representation
@@ -106,38 +113,100 @@ Make sure your *assistant* message contains **only** the ASP code — one or mor
     
     print(f"Translation complete! Processed {len(requirements)} requirements.")
 
+def clean_symbolic_output(output):
+    """Remove explanatory text, facts sections, and other non-rule content."""
+    lines = output.strip().split('\n')
+    cleaned_lines = []
+    
+    for line in lines:
+        # Skip empty lines
+        if not line.strip():
+            continue
+        
+        # Skip comment lines and facts sections
+        if line.strip().startswith('%'):
+            continue
+        
+        # Skip lines that don't contain deontic operators
+        if not any(op in line for op in ['&obligatory', '&permitted', '&forbidden']):
+            continue
+            
+        # Remove trailing periods from condition lists
+        if ':-' in line:
+            parts = line.split(':-')
+            if len(parts) == 2:
+                head = parts[0].strip()
+                body = parts[1].strip()
+                if body.endswith('.'):
+                    body = body[:-1]
+                line = f"{head} :- {body}."
+        
+        cleaned_lines.append(line.strip())
+    
+    return '\n'.join(cleaned_lines)
+
 def fix_symbolic_syntax(symbolic):
     """Fix common syntax errors in the symbolic representation."""
     fixed = symbolic
     
     # Replace not() with minus sign
-    fixed = fixed.replace("not(", "-").replace("not (", "-")
+    fixed = re.sub(r'not\s*\(([^)]+)\)', r'-\1', fixed)
     
     # Fix unclosed parentheses in predicates
-    parentheses_pattern = r'([a-zA-Z_][a-zA-Z0-9_]*)\(([^)]*?)(?=[,\.\n])'
+    parentheses_pattern = r'([a-zA-Z_][a-zA-Z0-9_]*)\(([^)]*?)(?=[,\.\s]|$)'
     fixed = re.sub(parentheses_pattern, r'\1(\2)', fixed)
+    
+    # Fix extra parentheses in role predicates - role(processor)) -> role(processor)
+    fixed = re.sub(r'role\(([a-z_]+)\)\)', r'role(\1)', fixed)
     
     # Fix role predicates with multiple arguments
     role_pattern = r'role\(([^,]+),\s*([^)]+)\)'
-    role_matches = re.findall(role_pattern, fixed)
-    for match in role_matches:
-        original = f"role({match[0]}, {match[1]})"
-        replacement = f"role({match[0]}), {match[1]}"
-        fixed = fixed.replace(original, replacement)
+    fixed = re.sub(role_pattern, r'role(\1), role(\2)', fixed)
     
-    # Ensure parentheses are balanced
+    # Remove extra spaces around commas
+    fixed = re.sub(r'\s*,\s*', r', ', fixed)
+    
+    # Ensure each line ends with a period
     lines = fixed.split('\n')
-    balanced_lines = []
-    for line in lines:
-        # Count opening and closing parentheses
-        open_count = line.count('(')
-        close_count = line.count(')')
-        # Add missing closing parentheses
-        if open_count > close_count:
-            line += ')' * (open_count - close_count)
-        balanced_lines.append(line)
+    for i in range(len(lines)):
+        line = lines[i].strip()
+        if line and not line.endswith('.'):
+            lines[i] = line + '.'
     
-    fixed = '\n'.join(balanced_lines)
+    fixed = '\n'.join(lines)
+    
+    # Handle unbalanced parentheses in the entire text
+    open_count = fixed.count('(')
+    close_count = fixed.count(')')
+    
+    if open_count > close_count:
+        fixed += ')' * (open_count - close_count)
+    
+    # Ensure all parentheses are properly balanced in each predicate
+    # This is a more thorough approach to handle nested parentheses
+    def balance_parentheses(text):
+        result = ""
+        stack = []
+        
+        for char in text:
+            if char == '(':
+                stack.append(char)
+                result += char
+            elif char == ')':
+                if stack:
+                    stack.pop()
+                    result += char
+                # Skip extra closing parentheses
+            else:
+                result += char
+                
+        # Add missing closing parentheses
+        result += ')' * len(stack)
+        return result
+    
+    # Apply to each predicate
+    predicate_pattern = r'([a-zA-Z_][a-zA-Z0-9_]*\([^,\.\s]*)'
+    fixed = re.sub(predicate_pattern, lambda m: balance_parentheses(m.group(0)), fixed)
     
     return fixed
 
@@ -167,8 +236,8 @@ def extract_atoms(symbolic):
             # Split by comma and extract predicates
             for part in condition.split(','):
                 part = part.strip()
-                if part.startswith('not '):
-                    part = part[4:].strip()
+                if part.startswith('-'):
+                    part = part[1:].strip()
                 
                 # Extract predicate without arguments
                 if '(' in part:
