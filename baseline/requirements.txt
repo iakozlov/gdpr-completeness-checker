@@ -1,0 +1,5 @@
+pandas>=1.5.0
+llama-cpp-python>=0.2.0
+numpy>=1.21.0
+tqdm>=4.65.0
+loguru>=0.7.0 
