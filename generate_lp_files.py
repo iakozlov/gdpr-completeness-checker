@@ -174,6 +174,8 @@ VERY IMPORTANT: Carefully analyze the SYMBOLIC representation to understand the 
 - The main obligation or permission (what's inside &obligatory{} or &permitted{})
 - The conditions that trigger the obligation (what follows the :- operator)
 - How the predicates relate to each other
+- Think step-by-step
+- The text of requirement and the segment may be significantly different, you shoudl check if semantically they are mentioning similar things
 
 Your task
 - Decide which (if any) of the listed predicates the clause semantically entails.
@@ -182,6 +184,22 @@ Your task
 - Produce nothing else: no prose, no JSON, no comments.
 
 Think step-by-step in private, but reveal ONLY the final facts line(s) or NO_FACTS.
+First, carefully analyze both the requirement and the DPA segment. Look for both explicit statements and implied relationships between entities (processor, controller, sub-processors, data subjects, etc.). Pay special attention to:
+
+1. SEMANTIC EQUIVALENCES:
+   - "Accountable" = "Liable" = "Responsible for" = "Answerable for"
+   - "Ensure" = "Guarantee" = "Make certain" = "Make sure"
+   - "Sub-processor" = "Subcontractor" = "Third party processor" = "Downstream processor"
+   - "Personal data" = "Data" (when referring to information about individuals)
+   - "Data subject" = "Individual" = "Person" (when referring to the person the data is about)
+
+2. OBLIGATION INDICATORS:
+   - "Shall" / "Must" / "Is required to" / "Is obligated to" / "Will" / "Is accountable for"
+   - "In the same way as" / "Equally" / "To the same degree" (indicates equivalence of obligations)
+
+3. IMPLICIT FACTS:
+   - If a segment states "X is accountable to Y for Z," extract this as "X_liable_for_Z" or "X_responsible_for_Z"
+   - If a segment discusses consequences or penalties, extract the underlying obligation
 
 Examples:
 Example 1:
@@ -195,7 +213,14 @@ Example 2:
 REQUIREMENT: Processor must encrypt personal data during transmission and at rest.
 SYMBOLIC: &obligatory{encrypt_data} :- role(processor).
 PREDICATES: encrypt_data; role(processor)
-CLAUSE: the Processor shall maintain detailed logs of all processing activities.
+CLAUSE: This DPA shall remain in effect so long as processor Processes Personal Data, notwithstanding the expiration or termination of the Agreement.
+Expected output: role(processor)
+
+Example 3:
+REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller..
+SYMBOLIC: &obligatory{-engage_sub_processor} :- -authorization(controller), role(processor).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
+CLAUSE: Subject matter: The subject matter of the data processing under this DPA is the Personal Data.
 Expected output: NO_FACTS
     """
     

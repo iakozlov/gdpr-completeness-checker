@@ -35,14 +35,25 @@ def map_r_label_to_req_number(r_label: str) -> str:
     """Map R-label to requirement number.
     
     Args:
-        r_label: The R-label (e.g. '7' from 'R7')
+        r_label: The R-label (e.g. '10' from 'R10')
         
     Returns:
         The corresponding requirement number
     """
-    # Convert R7-R25 to req 1-19 (subtract 6)
+    # Convert R10-R29 to req 1-20 (subtract 9)
+    # Note: R14 is not present in the dataset
     r_number = int(r_label)
-    req_number = r_number - 6
+    
+    # Adjust for the absence of R14
+    if r_number < 14:
+        # R10-R13 map to 1-4
+        req_number = r_number - 9
+    elif r_number == 14:
+        # R14 doesn't exist
+        req_number = -1  # Invalid
+    else:
+        # R15-R29 map to 5-19
+        req_number = r_number - 10
     
     return str(req_number) if req_number > 0 else r_label
 
@@ -86,15 +97,13 @@ def main():
     segment_ids = set(dpa_segments['ID'].astype(str))
     
     # Step 2: Parse requirement IDs
-    # Note: In ground_truth_requirements.txt, R5 is the first requirement, R6 is the second, etc.
     if args.req_ids.lower() != "all":
         req_ids = set(id.strip() for id in args.req_ids.split(","))
         print(f"Evaluating requirements: {', '.join(req_ids)}")
     else:
-        # Default to requirements R7-R25 if "all" is specified (19 requirements total)
-        # Note: In the ground truth file, R5 is the first requirement, R6 is the second, etc.
-        req_ids = set(str(i) for i in range(7, 26))
-        print(f"Evaluating all requirements (R7-R25)")
+        # Default to requirements R10-R29 if "all" is specified (19 requirements total, excluding R14)
+        req_ids = set(str(i) for i in range(10, 14)) | set(str(i) for i in range(15, 30))
+        print(f"Evaluating all requirements (R10-R13, R15-R29)")
     
     # Step 3: Load and parse Deolingo results
     print(f"\nProcessing Deolingo results from: {args.results}")
@@ -141,7 +150,7 @@ def main():
         results[req_id][segment_id] = status
     
     # Create a mapping of segments to their ground truth requirements
-    # Note: This maps segment IDs to sets of R-labels (e.g. '7', '8', etc.)
+    # Note: This maps segment IDs to sets of R-labels (e.g. '10', '11', etc.)
     segment_to_ground_truth_reqs = defaultdict(set)
     for _, row in dpa_segments.iterrows():
         segment_id = str(row['ID'])
@@ -304,7 +313,7 @@ def main():
         req_number = r_to_req_mapping.get(req_id, req_id)
         
         evaluation["requirements_details"][req_id] = {
-            "requirement_number": req_number,  # Mapped requirement number (R7->1, etc.)
+            "requirement_number": req_number,  # Mapped requirement number (R10->1, R15->5, etc.)
             "ground_truth": ground_truth_satisfied,
             "prediction": predicted_satisfied,
             "agreement": ground_truth_satisfied == predicted_satisfied,
