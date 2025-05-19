@@ -5,18 +5,18 @@ import argparse
 import pandas as pd
 import re
 from tqdm import tqdm
-from models.llm import LlamaModel
-from config.llm_config import LlamaConfig
+from models.gpt_model import GPTModel
+from config.gpt_config import GPTConfig
 
 def main():
     parser = argparse.ArgumentParser(description="Generate LP files for DPA segments")
-    parser.add_argument("--requirements", type=str, default="results/requirements_deontic.json",
+    parser.add_argument("--requirements", type=str, default="results/gpt4o_experiment/requirements_deontic.json",
                         help="Path to requirements deontic JSON file")
     parser.add_argument("--dpa", type=str, default="data/train_set.csv",
                         help="Path to DPA segments CSV file")
-    parser.add_argument("--model", type=str, default="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf",
-                        help="Path to LLM model file")
-    parser.add_argument("--output", type=str, default="results/lp_files",
+    parser.add_argument("--model", type=str, default="gpt-4o",
+                        help="GPT model to use")
+    parser.add_argument("--output", type=str, default="results/gpt4o_experiment/lp_files",
                         help="Output directory for LP files")
     parser.add_argument("--target_dpa", type=str, default="Online 1",
                         help="Target DPA to process (default: Online 1)")
@@ -30,10 +30,10 @@ def main():
     os.makedirs(args.output, exist_ok=True)
     
     # Initialize LLM
-    print(f"Initializing LLM with model: {args.model}")
-    llm_config = LlamaConfig(model_path=args.model, temperature=0.1)
-    llm_model = LlamaModel(llm_config)
-    print("LLM initialized successfully")
+    print(f"Initializing GPT model: {args.model}")
+    gpt_config = GPTConfig(model=args.model, temperature=0.1)
+    llm_model = GPTModel(gpt_config)
+    print("GPT model initialized successfully")
     
     # Load requirements
     print(f"Loading requirements from: {args.requirements}")
@@ -220,7 +220,7 @@ Example 3:
 REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller..
 SYMBOLIC: &obligatory{-engage_sub_processor} :- -authorization(controller), role(processor).
 PREDICATES: engage_sub_processor; role(processor); authorization(controller)
-CLAUSE: Subject matter: The subject matter of the data processing under this DPA is the Personal Data.
+CLAUSE: Subject matter: The subject matter of the data processing under this DPA is the Personal Data.
 Expected output: NO_FACTS
     """
     
@@ -309,11 +309,59 @@ def generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text
 % DPA Segment:
 % {segment_text}
 %
-% 1. Normative layer
-{clean_symbolic}
-
-% 2. Facts extracted from DPA segment
 """
+    
+    # Extract atoms from rule bodies that need external declarations
+    external_atoms = set()
+    
+    # Store atoms inside deontic operators to exclude them from external declarations
+    deontic_atoms = set()
+    
+    # Extract atoms from rule bodies
+    for line in clean_symbolic.split('\n'):
+        if ':-' in line:
+            body = line.split(':-')[1].strip()
+            if body.endswith('.'):
+                body = body[:-1]
+            # Extract individual atoms from the rule body
+            atoms = [a.strip() for a in body.split(',')]
+            for atom in atoms:
+                # Remove not or minus if present
+                if atom.startswith('not '):
+                    atom = atom[4:].strip()
+                elif atom.startswith('-'):
+                    atom = atom[1:].strip()
+                # Add to external_atoms
+                if '(' in atom and ')' in atom:
+                    external_atoms.add(atom)
+                else:
+                    external_atoms.add(atom)
+    
+    # Extract atoms from deontic operators to exclude them from external declarations
+    for op in ['&obligatory', '&permitted', '&forbidden']:
+        pattern = rf'{op}{{([^}}]+)}}'
+        matches = re.findall(pattern, clean_symbolic)
+        for match in matches:
+            # Store the atom without the negation sign
+            if match.startswith('-'):
+                deontic_atoms.add(match[1:].strip())
+            else:
+                deontic_atoms.add(match.strip())
+    
+    # Remove deontic atoms from external declarations
+    external_atoms = external_atoms - deontic_atoms
+    
+    # Add #external declarations for atoms in rule bodies
+    if external_atoms:
+        lp_content += "% External atom declarations\n"
+        for atom in external_atoms:
+            lp_content += f"#external {atom}.\n"
+        lp_content += "\n"
+    
+    lp_content += "% 1. Normative layer\n"
+    lp_content += f"{clean_symbolic}\n"
+    
+    lp_content += "% 2. Facts extracted from DPA segment\n"
     
     # Add facts from the DPA segment, ensuring no duplicates and valid syntax
     added_facts = False
@@ -365,31 +413,42 @@ def generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text
     lp_content += "\n"
     
     # Add status mapping rules
-    lp_content += """% 3. Map Deolingo's internal status atoms to our labels
-"""
+    lp_content += "% 3. Map Deolingo's internal status atoms to our labels\n"
     
-    # Extract obligation names from the symbolic representation
+    # Extract deontic operators and their contents from the symbolic representation
     obligation_pattern = r'&obligatory{([^}]+)}'
     obligations = re.findall(obligation_pattern, clean_symbolic)
+    
     forbidden_pattern = r'&forbidden{([^}]+)}'
     forbiddens = re.findall(forbidden_pattern, clean_symbolic)
+    
     permitted_pattern = r'&permitted{([^}]+)}'
     permitted = re.findall(permitted_pattern, clean_symbolic)
     
-    deontic_entities = obligations + forbiddens + permitted
-    
-    if not deontic_entities:
-        # If no obligations found, add a default status mapping
+    # If no deontic entities found, add a default status mapping
+    if not obligations and not forbiddens and not permitted:
         lp_content += """status(satisfied)     :- &fulfilled_obligation{default}.
 status(violated)      :- &violated_obligation{default}.
 status(not_mentioned) :- &undetermined_obligation{default}.
 """
     else:
-        # Add mapping rules for each deontic entity
-        for entity in deontic_entities:
+        # Add mapping rules for each obligation (keep negated obligations as obligations)
+        for entity in obligations:
             lp_content += f"status(satisfied)     :- &fulfilled_obligation{{{entity}}}.\n"
             lp_content += f"status(violated)      :- &violated_obligation{{{entity}}}.\n"
             lp_content += f"status(not_mentioned) :- &undetermined_obligation{{{entity}}}.\n\n"
+        
+        # Add mapping rules for each explicit forbidden
+        for entity in forbiddens:
+            lp_content += f"status(satisfied)     :- &fulfilled_prohibition{{{entity}}}.\n"
+            lp_content += f"status(violated)      :- &violated_prohibition{{{entity}}}.\n"
+            lp_content += f"status(not_mentioned) :- &undetermined_prohibition{{{entity}}}.\n\n"
+        
+        # Add mapping rules for each permission
+        for entity in permitted:
+            lp_content += f"status(satisfied)     :- &fulfilled_permission{{{entity}}}.\n"
+            lp_content += f"status(violated)      :- &violated_permission{{{entity}}}.\n"
+            lp_content += f"status(not_mentioned) :- &undetermined_permission{{{entity}}}.\n\n"
     
     # Add show directive
     lp_content += """#show status/1.

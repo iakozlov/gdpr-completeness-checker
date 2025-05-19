@@ -3,17 +3,17 @@ import os
 import re
 import json
 import argparse
-from models.llm import LlamaModel
+from models.gpt_model import GPTModel
 from solver.deontic_translator import DeonticTranslator
-from config.llm_config import LlamaConfig
+from config.gpt_config import GPTConfig
 
 def main():
     parser = argparse.ArgumentParser(description="Translate GDPR requirements to deontic logic")
     parser.add_argument("--requirements", type=str, default="data/requirements/ground_truth_requirements.txt",
                         help="Path to requirements file")
-    parser.add_argument("--model", type=str, default="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf",
-                        help="Path to LLM model file")
-    parser.add_argument("--output", type=str, default="data/processed/requirements_deontic_experiments.json",
+    parser.add_argument("--model", type=str, default="gpt-4o",
+                        help="GPT model to use")
+    parser.add_argument("--output", type=str, default="results/gpt4o_experiment/requirements_deontic.json",
                         help="Output JSON file path")
     args = parser.parse_args()
     
@@ -21,11 +21,11 @@ def main():
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
     
     # Initialize LLM and translator
-    print(f"Initializing LLM with model: {args.model}")
-    llm_config = LlamaConfig(model_path=args.model, temperature=0.1)
-    llm_model = LlamaModel(llm_config)
+    print(f"Initializing GPT model: {args.model}")
+    gpt_config = GPTConfig(model=args.model, temperature=0.1)
+    llm_model = GPTModel(gpt_config)
     translator = DeonticTranslator()
-    print("LLM initialized successfully")
+    print("GPT model initialized successfully")
     
     # Read and parse requirements
     print(f"Reading requirements from: {args.requirements}")

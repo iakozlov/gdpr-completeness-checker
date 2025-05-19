@@ -61,6 +61,32 @@ def aggregate_confusion_matrices(matrices: List[Dict]) -> Dict:
     
     return dict(result)
 
+def get_consistent_req_mapping():
+    """Return a consistent mapping of requirement IDs to requirement numbers."""
+    return {
+        # R10-R29 to correct requirement numbers
+        "10": "1",
+        "11": "2",
+        "12": "3",
+        "13": "4",
+        # R14 doesn't exist
+        "15": "5",
+        "16": "6",
+        "17": "7",
+        "18": "8",  # Important: 18 maps to 8, not 9
+        "19": "9",
+        "20": "10",
+        "21": "11",
+        "22": "12",
+        "23": "13",
+        "24": "14",
+        "25": "15",
+        "26": "16",
+        "27": "17",
+        "28": "18",  # This should be mapped consistently with evaluate_completeness.py
+        "29": "19",
+    }
+
 def main():
     parser = argparse.ArgumentParser(description="Aggregate evaluation results from multiple DPAs")
     parser.add_argument("--input_files", type=str, required=True, help="Space-separated list of input JSON files")
@@ -83,12 +109,23 @@ def main():
     
     print(f"Aggregating evaluation results from {len(input_files)} files")
     
+    # Get the consistent requirement mapping
+    req_mapping = get_consistent_req_mapping()
+    
     # Load all evaluation results
     all_evaluations = []
     for file_path in input_files:
         try:
             with open(file_path, 'r') as f:
-                all_evaluations.append(json.load(f))
+                eval_result = json.load(f)
+                
+                # Fix any inconsistent requirement_number in requirements_details
+                if "requirements_details" in eval_result:
+                    for req_id, details in eval_result["requirements_details"].items():
+                        if req_id in req_mapping:
+                            details["requirement_number"] = req_mapping[req_id]
+                
+                all_evaluations.append(eval_result)
             print(f"Loaded: {file_path}")
         except Exception as e:
             print(f"Error loading {file_path}: {e}")

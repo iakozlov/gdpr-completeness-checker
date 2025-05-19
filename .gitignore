@@ -20,3 +20,4 @@ results/
 results_v2/
 
 semantic_results/
+.env
