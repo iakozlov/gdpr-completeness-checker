@@ -5,23 +5,23 @@ import argparse
 import pandas as pd
 import re
 from tqdm import tqdm
-from models.gpt_model import GPTModel
-from config.gpt_config import GPTConfig
+from models.llama_model import LlamaModel
+from config.llama_config import LlamaConfig
 
 def main():
     parser = argparse.ArgumentParser(description="Generate LP files for DPA segments")
-    parser.add_argument("--requirements", type=str, default="results/gpt4o_experiment/requirements_deontic.json",
+    parser.add_argument("--requirements", type=str, default="results/requirements_deontic_experiments.json",
                         help="Path to requirements deontic JSON file")
-    parser.add_argument("--dpa", type=str, default="data/train_set.csv",
+    parser.add_argument("--dpa", type=str, default="data/test_set.csv",
                         help="Path to DPA segments CSV file")
-    parser.add_argument("--model", type=str, default="gpt-4o",
-                        help="GPT model to use")
-    parser.add_argument("--output", type=str, default="results/gpt4o_experiment/lp_files",
+    parser.add_argument("--model", type=str, default="meta-llama/Llama-3.3-70B-Instruct-Turbo",
+                        help="Model to use")
+    parser.add_argument("--output", type=str, default="results/llama_experiment/experiment_req/lp_files",
                         help="Output directory for LP files")
-    parser.add_argument("--target_dpa", type=str, default="Online 1",
-                        help="Target DPA to process (default: Online 1)")
-    parser.add_argument("--req_ids", type=str, default="all",
-                        help="Comma-separated list of requirement IDs to process, or 'all' (default: all)")
+    parser.add_argument("--target_dpa", type=str, default="Online 124",
+                        help="Target DPA to process (default: Online 124)")
+    parser.add_argument("--req_ids", type=str, default="1",
+                        help="Comma-separated list of requirement IDs to process, or 'all' (default: 1)")
     parser.add_argument("--max_segments", type=int, default=0,
                         help="Maximum number of segments to process (0 means all, default: 0)")
     args = parser.parse_args()
@@ -29,11 +29,11 @@ def main():
     # Create output directory
     os.makedirs(args.output, exist_ok=True)
     
-    # Initialize LLM
-    print(f"Initializing GPT model: {args.model}")
-    gpt_config = GPTConfig(model=args.model, temperature=0.1)
-    llm_model = GPTModel(gpt_config)
-    print("GPT model initialized successfully")
+    # Initialize Llama model
+    print(f"Initializing Llama model: {args.model}")
+    llama_config = LlamaConfig(model=args.model, temperature=0.1)
+    llm_model = LlamaModel(llama_config)
+    print("Llama model initialized successfully")
     
     # Load requirements
     print(f"Loading requirements from: {args.requirements}")
@@ -105,10 +105,10 @@ def main():
             with open(lp_file_path, 'w') as f:
                 f.write(lp_content)
     
-    print("LP file generation complete!")
+    print(f"LP file generation complete! Files saved to: {dpa_dir}")
 
 def extract_predicates(symbolic):
-    """Extract all predicates from a symbolic representation."""
+    """Extract all predicates from a symbolic representation with their parameters."""
     predicates = set()
     
     # Extract predicates from deontic operators
@@ -116,12 +116,11 @@ def extract_predicates(symbolic):
         pattern = rf'{op}{{([^}}]+)}}'
         matches = re.findall(pattern, symbolic)
         for match in matches:
-            # Extract predicate without arguments
-            if '(' in match:
-                predicate = match.split('(')[0].strip()
-                predicates.add(predicate)
-            else:
-                predicates.add(match.strip())
+            # Remove negation if present but preserve the entire predicate with arguments
+            predicate = match.strip()
+            if predicate.startswith('-'):
+                predicate = predicate[1:].strip()
+            predicates.add(predicate)
     
     # Extract predicates from conditions
     for line in symbolic.split('\n'):
@@ -133,15 +132,16 @@ def extract_predicates(symbolic):
             # Split by comma and extract predicates
             for part in condition.split(','):
                 part = part.strip()
+                
+                # Handle negation with 'not' keyword
                 if part.startswith('not '):
                     part = part[4:].strip()
+                # Handle negation with minus sign
+                elif part.startswith('-'):
+                    part = part[1:].strip()
                 
-                # Extract predicate without arguments
-                if '(' in part:
-                    predicate = part.split('(')[0].strip()
-                    predicates.add(predicate)
-                else:
-                    predicates.add(part)
+                # Add the full predicate with its parameters
+                predicates.add(part)
     
     return list(predicates)
 
@@ -268,15 +268,8 @@ CLAUSE: {segment_text}
         valid_lines = ["NO_FACTS"]
     
     # Process the valid lines
-    if "NO_FACTS" in valid_lines:
-        # Only add role facts based on the segment text
-        if 'processor' in segment_text.lower():
-            facts['role(processor)'] = True
-        elif 'controller' in segment_text.lower():
-            facts['role(controller)'] = True
-    else:
-        # Process normal fact extraction
-        for line in valid_lines:
+    if "NO_FACTS" not  in valid_lines:
+         for line in valid_lines:
             line = line.strip()
             if line:
                 if line.startswith('-'):
@@ -285,13 +278,7 @@ CLAUSE: {segment_text}
                 else:
                     facts[line] = True  # Positively mentioned
     
-    # Add role facts if they're not already present
-    if 'role(processor)' not in facts and 'role(controller)' not in facts:
-        # Check if the segment mentions processor or controller
-        if 'processor' in segment_text.lower():
-            facts['role(processor)'] = True
-        elif 'controller' in segment_text.lower():
-            facts['role(controller)'] = True
+    # Add role facts if they're not already presen
     
     return facts
 
