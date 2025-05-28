@@ -111,7 +111,7 @@ def main():
         os.makedirs(req_dir, exist_ok=True)
         
         # Extract predicates from the requirement
-        req_predicates = extract_predicates(req_symbolic, req_info)
+        req_predicates = extract_predicates(req_info)
         if args.verbose:
             print(f"Extracted predicates: {req_predicates}")
         
@@ -153,7 +153,7 @@ def main():
     
     print("LP file generation complete!")
 
-def extract_predicates(symbolic, req_info):
+def extract_predicates(req_info):
     """Extract predicates from the requirement's atoms field."""
     # Return the atoms directly from the requirement info
     return req_info.get("atoms", [])
@@ -175,26 +175,61 @@ def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates,
     Returns:
         Dictionary mapping predicates to their truth values
     """
-    system_prompt = """You are a legal-text extractor that converts Data-Processing-Agreement (DPA) segment into Answer-Set-Programming (ASP) facts based on semantic and contextual similarity with GDPR requirement.
+    system_prompt = """
+     You are a legal-text extractor that converts Data-Processing-Agreement (DPA) segment into Answer-Set-Programming (ASP) facts based on semantic and contextual similarity with GDPR requirement.
+
+Input always contains:
+
+1. "REQUIREMENT" – text of GDPR requirement
+2. "SYMBOLIC" - symbolic representation of GDPR requirement in Deontic Logic via ASP
+3. "PREDICATES" - the symbolic_atom(s) repeated from a symbolic representation of the requirement, semicolon-separated.
+4. "CLAUSE" - a single DPA segment.
 
 Analyze the SYMBOLIC representation of regulatory requirements to understand the structure of the requirement. Understand which textual parts of requirement relate to each predicates/atoms from a symbolic form. Understand the semantic meaning of each predicate in the context of regulatory requirement.
 
-Emit an ACTION predicate only if the clause contains BOTH:
-1. a verb that matches the action (e.g. "make available", "provide", "supply" for provide_compliance_information)
-2. an object / purpose that matches the predicate's intended goal
-   – for provide_compliance_information this means wording about "demonstrate / evidence / prove compliance", "Article 28", "records of processing", "documentation of GDPR compliance".
+ Emit an ACTION predicate only if the clause contains BOTH:
+ 1. a verb that matches the action (e.g. “make available”, “provide”, “supply” for provide_compliance_information)
+ 2. an object / purpose that matches the predicate’s intended goal
+    – for provide_compliance_information this means wording about “demonstrate / evidence / prove compliance”, “Article 28”, “records of processing”, “documentation of GDPR compliance”.
 
 TASK:
 - Decide which (if any) of the listed predicates the clause semantically entails.
 - Output all entailed by CLAUSE predicates separated by ;
 - If none are entailed, output exactly NO_FACTS.
 - Produce nothing else: no prose, no JSON, no comments.
-- If in the CLAUSE text a predicate from PREDICATES is explicitly violated in the text return it with - sign before it (e.g. -encrypt_data)"""
+- If in the CLAUSE text a predicate from PREDICATES is explicitly violated in the text return it with - sign before it (e.g. -encrypt_data)
+
+Examples:
+Example 1:
+REQUIREMENT: Processor must ensure that all authorised personnel are bound by confidentiality obligations.
+SYMBOLIC: &obligatory{ensure_confidentiality} :- role(processor).
+PREDICATES: ensure_confidentiality; role(processor)
+CLAUSE: The Processor shall ensure that every employee authorised to process Customer Personal Data is subject to a contractual duty of confidentiality.
+Expected output: ensure_confidentiality; role(processor)
+
+Example 2:
+REQUIREMENT: Processor must encrypt personal data during transmission and at rest.
+SYMBOLIC: &obligatory{encrypt_data} :- role(processor).
+PREDICATES: encrypt_data; role(processor)
+CLAUSE: This DPA shall remain in effect so long as processor Processes Personal Data, notwithstanding the expiration or termination of the Agreement.
+Expected output: role(processor)
+
+Example 3:
+REQUIREMENT: The processor must encrypt all the data collected from customers.
+SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
+PREDICATES: encrypt_collected_data; role(processor)
+CLAUSE: The processor will store customer's data in raw format.
+Expected output: -encrypt_collected_data; role(processor)
+
+Example 4:
+REQUIREMENT: The processor must notify controller about data breaches.
+SYMBOLIC: &obligatory{notyfy_controller_data_breaches} :- role(processor)
+PREDICATES: notyfy_controller_data_breaches; role(processor)
+CLAUSE: Sub-Processor rights
+Expected output: NO_FACTS
+    """
     
-    user_prompt = f"""REQUIREMENT: {req_text}
-SYMBOLIC: {req_symbolic}
-PREDICATES: {';'.join(req_predicates)}
-CLAUSE: {segment_text}"""
+    user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
     if use_ollama:
         response = llm_model.generate(user_prompt, model_name=model_name, system_prompt=system_prompt)
