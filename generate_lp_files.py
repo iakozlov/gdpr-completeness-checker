@@ -21,7 +21,7 @@ def main():
                         help="Model to use (gpt-4o-mini, llama2-70b, mistral-7b, etc.)")
     parser.add_argument("--output", type=str, default="results/lp_files",
                         help="Output directory for LP files")
-    parser.add_argument("--target_dpa", type=str, default="Online 124",
+    parser.add_argument("--target_dpa", type=str, default="Online 126",
                         help="Target DPA to process (default: Online 124)")
     parser.add_argument("--req_ids", type=str, default="all",
                         help="Comma-separated list of requirement IDs to process, or 'all' (default: all)")
@@ -39,18 +39,6 @@ def main():
     
     # Create output directory
     os.makedirs(args.output, exist_ok=True)
-    
-    # Initialize LLM
-    print(f"Initializing LLM with model: {args.model}")
-    if args.use_ollama:
-        llm_model = OllamaClient()
-        if not llm_model.check_health():
-            print("Error: Ollama server is not running. Please start it first.")
-            return
-    else:
-        llm_config = LlamaConfig(model=args.model, temperature=0.1)
-        llm_model = LlamaModel(llm_config)
-    print("LLM initialized successfully")
     
     # Load requirements
     print(f"Loading requirements from: {args.requirements}")
@@ -74,6 +62,7 @@ def main():
     df = pd.read_csv(args.dpa)
     
     # Filter for the target DPA only
+     # Filter for the target DPA only
     target_dpa = args.target_dpa
     df_filtered = df[df['DPA'] == target_dpa]
     
@@ -91,6 +80,18 @@ def main():
     # Create directory for this DPA
     dpa_dir = os.path.join(args.output, f"dpa_{target_dpa.replace(' ', '_')}")
     os.makedirs(dpa_dir, exist_ok=True)
+
+        # Initialize LLM
+    print(f"Initializing LLM with model: {args.model}")
+    if args.use_ollama:
+        llm_model = OllamaClient()
+        if not llm_model.check_health():
+            print("Error: Ollama server is not running. Please start it first.")
+            return
+    else:
+        llm_config = LlamaConfig(model=args.model, temperature=0.1)
+        llm_model = LlamaModel(llm_config)
+    print("LLM initialized successfully")
     
     # Process each requirement
     for req_id, req_info in tqdm(requirements.items(), desc="Processing requirements"):
@@ -101,19 +102,12 @@ def main():
         req_text = req_info["text"]
         req_symbolic = req_info["symbolic"]
         
-        if args.verbose:
-            print(f"\nProcessing requirement {req_id}:")
-            print(f"Text: {req_text}")
-            print(f"Symbolic: {req_symbolic}")
-        
         # Create directory for this requirement
         req_dir = os.path.join(dpa_dir, f"req_{req_id}")
         os.makedirs(req_dir, exist_ok=True)
         
         # Extract predicates from the requirement
         req_predicates = extract_predicates(req_info)
-        if args.verbose:
-            print(f"Extracted predicates: {req_predicates}")
         
         # Process each segment
         for idx, row in tqdm(df_filtered.iterrows(), total=len(df_filtered), desc=f"Processing segments for requirement {req_id}"):
@@ -135,9 +129,6 @@ def main():
             # Extract facts from DPA segment
             facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, args.use_ollama, args.model)
             
-            if args.verbose:
-                print(f"Extracted facts: {facts}")
-            
             # Generate LP file content
             lp_content = generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text)
             
@@ -147,9 +138,6 @@ def main():
             # Write to file
             with open(lp_file_path, 'w') as f:
                 f.write(lp_content)
-            
-            if args.verbose:
-                print(f"Written to: {lp_file_path}")
     
     print("LP file generation complete!")
 
