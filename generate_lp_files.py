@@ -217,12 +217,60 @@ CLAUSE: {segment_text}"""
     
     return facts
 
+def extract_body_atoms(symbolic_rule):
+    """Extract atoms from the body of an ASP rule.
+    
+    Args:
+        symbolic_rule (str): ASP rule in the format "head :- body."
+        
+    Returns:
+        List[str]: List of atoms in the body
+    """
+    if ":-" not in symbolic_rule:
+        return []
+    
+    # Split on :- to get the body part
+    parts = symbolic_rule.split(":-")
+    if len(parts) < 2:
+        return []
+    
+    body = parts[1].strip()
+    
+    # Remove the trailing period
+    if body.endswith('.'):
+        body = body[:-1]
+    
+    # Split by comma to get individual atoms
+    atoms = []
+    for atom in body.split(','):
+        atom = atom.strip()
+        
+        # Remove 'not ' prefix if present
+        if atom.startswith('not '):
+            atom = atom[4:].strip()
+        
+        # Add atom if it's not empty
+        if atom:
+            atoms.append(atom)
+    
+    return atoms
+
 def generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text):
     """Generate the content of an LP file."""
     # Start with the requirement's symbolic representation
     lp_content = f"% Requirement: {req_text}\n"
     lp_content += f"% Symbolic: {req_symbolic}\n"
     lp_content += f"% Segment: {segment_text}\n\n"
+    
+    # Extract body atoms from the symbolic rule
+    body_atoms = extract_body_atoms(req_symbolic)
+    
+    # Add external declarations only for body atoms
+    if body_atoms:
+        lp_content += "% External declarations for body atoms:\n"
+        for atom in body_atoms:
+            lp_content += f"#external {atom}.\n"
+        lp_content += "\n"
     
     # Add the requirement's symbolic representation
     lp_content += f"{req_symbolic}\n\n"
