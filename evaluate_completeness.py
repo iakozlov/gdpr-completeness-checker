@@ -174,12 +174,18 @@ def main():
         first_line = section.strip().split('\n')[0].strip()
         req_match = re.search(r'Requirement\s+(\d+)', first_line)
         seg_match = re.search(r'Segment\s+(\d+)', first_line)
+        dpa_match = re.search(r'Processing DPA (.+?), Requirement', first_line)
         
-        if not req_match or not seg_match:
+        if not req_match or not seg_match or not dpa_match:
             continue
             
         req_id = req_match.group(1)
         segment_id = seg_match.group(1)
+        dpa_name = dpa_match.group(1).strip()
+        
+        # Only process segments from the target DPA
+        if dpa_name != target_dpa:
+            continue
         
         # Get the corresponding R-label for this requirement ID
         r_label = req_number_to_r_label(req_id)
@@ -194,12 +200,39 @@ def main():
         if 'Error processing file' in section:
             status = 'not_mentioned'
         else:
-            # Check for FACTS line with status
+            # First check if there are any facts at all
+            has_facts = False
             for line in section.strip().split('\n'):
                 if line.startswith('FACTS:'):
+                    if line.strip() != 'FACTS:':  # If FACTS line is not empty
+                        has_facts = True
+                        status_match = re.search(r'status\((\w+)\)', line)
+                        if status_match:
+                            status = status_match.group(1)
+                    break
+            
+            # If no facts were found, check the entire output for status
+            if not has_facts:
+                for line in section.strip().split('\n'):
                     status_match = re.search(r'status\((\w+)\)', line)
                     if status_match:
                         status = status_match.group(1)
+                        break
+                
+                # If we still don't have a status, check if there are any obligations or prohibitions
+                has_obligations = False
+                has_prohibitions = False
+                for line in section.strip().split('\n'):
+                    if line.startswith('OBLIGATIONS:'):
+                        if line.strip() != 'OBLIGATIONS:':
+                            has_obligations = True
+                    elif line.startswith('PROHIBITIONS:'):
+                        if line.strip() != 'PROHIBITIONS:':
+                            has_prohibitions = True
+                
+                # If there are no facts, obligations, or prohibitions, it's definitely not_mentioned
+                if not (has_obligations or has_prohibitions):
+                    status = 'not_mentioned'
         
         # Store the status using the R-label
         results[r_label][segment_id] = status
