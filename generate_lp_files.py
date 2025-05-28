@@ -258,33 +258,64 @@ def extract_body_atoms(symbolic_rule):
 def generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text):
     """Generate the content of an LP file."""
     # Start with the requirement's symbolic representation
-    lp_content = f"% Requirement: {req_text}\n"
-    lp_content += f"% Symbolic: {req_symbolic}\n"
-    lp_content += f"% Segment: {segment_text}\n\n"
+    lp_content = f"% Requirement Text:\n% {req_text}\n%\n"
+    lp_content += f"% DPA Segment:\n% {segment_text}\n%\n"
     
     # Extract body atoms from the symbolic rule
     body_atoms = extract_body_atoms(req_symbolic)
     
     # Add external declarations only for body atoms
     if body_atoms:
-        lp_content += "% External declarations for body atoms:\n"
+        lp_content += "% External declarations for rule body predicates\n"
         for atom in body_atoms:
             lp_content += f"#external {atom}.\n"
         lp_content += "\n"
     
-    # Add the requirement's symbolic representation
+    # Add the requirement's symbolic representation (normative layer)
+    lp_content += "% 1. Normative layer\n"
     lp_content += f"{req_symbolic}\n\n"
     
     # Add facts
+    lp_content += "% 2. Facts extracted from DPA segment\n"
     if facts:
-        lp_content += "% Facts extracted from the segment:\n"
         for pred, value in facts.items():
             if value:
                 lp_content += f"{pred}.\n"
             else:
                 lp_content += f"not {pred}.\n"
     else:
-        lp_content += "% No facts extracted from the segment.\n"
+        lp_content += "% No semantically relevant facts found in this segment\n"
+    
+    lp_content += "\n"
+    
+    # Add status mapping - determine the deontic operator from the symbolic rule
+    lp_content += "% 3. Map Deolingo's internal status atoms to our labels\n"
+    
+    # Extract the deontic operator and predicate from the symbolic rule
+    if "&obligatory{" in req_symbolic:
+        # Extract predicate from &obligatory{predicate}
+        predicate = req_symbolic.split("&obligatory{")[1].split("}")[0]
+        lp_content += f"status(satisfied)     :- &fulfilled_obligation{{{predicate}}}.\n"
+        lp_content += f"status(violated)      :- &violated_obligation{{{predicate}}}.\n"
+        lp_content += f"status(not_mentioned) :- &undetermined_obligation{{{predicate}}}.\n"
+    elif "&forbidden{" in req_symbolic:
+        # Extract predicate from &forbidden{predicate}
+        predicate = req_symbolic.split("&forbidden{")[1].split("}")[0]
+        lp_content += f"status(satisfied)     :- &fulfilled_prohibition{{{predicate}}}.\n"
+        lp_content += f"status(violated)      :- &violated_prohibition{{{predicate}}}.\n"
+        lp_content += f"status(not_mentioned) :- &undetermined_prohibition{{{predicate}}}.\n"
+    elif "&permitted{" in req_symbolic:
+        # Extract predicate from &permitted{predicate}
+        predicate = req_symbolic.split("&permitted{")[1].split("}")[0]
+        lp_content += f"status(satisfied)     :- &fulfilled_permission{{{predicate}}}.\n"
+        lp_content += f"status(violated)      :- &violated_permission{{{predicate}}}.\n"
+        lp_content += f"status(not_mentioned) :- &undetermined_permission{{{predicate}}}.\n"
+    else:
+        # Fallback for unknown deontic operators
+        lp_content += "% Warning: Unknown deontic operator in symbolic rule\n"
+        lp_content += "status(not_mentioned) :- true.\n"
+    
+    lp_content += "\n#show status/1.\n"
     
     return lp_content
 
