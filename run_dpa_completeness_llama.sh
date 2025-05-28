@@ -8,14 +8,14 @@ set -e  # Exit on any error
 # Configuration
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/ground_truth_requirements.txt"
-MODEL="meta-llama/Llama-3.3-70B-Instruct-Turbo"  # Llama 3.3-70B model via Together.ai API
-OUTPUT_DIR="results/llama_experiment/experiment_req"
+MODEL="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"  # Llama 3.3-70B model via Together.ai API
+OUTPUT_DIR="results/llama_experiment/short_repr/experiment_req"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-REQUIREMENTS_DEONTIC="results/requirements_deontic.json"
+REQUIREMENTS_DEONTIC="results/requirements_deontic_ai_generated.json"
 TARGET_DPAS=("Online 124")  # Array of DPAs to process
-REQ_IDS="1"  # Focus on all requirements by default
+REQ_IDS="19"  # Focus on all requirements by default
 MAX_SEGMENTS=0  # Process all segments by default
 
 # Command line arguments

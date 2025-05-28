@@ -8,12 +8,12 @@ set -e  # Exit on any error
 # Configuration
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/ground_truth_requirements.txt"
-MODEL="gpt-4o"  # Changed from MODEL_PATH to MODEL for GPT API
-OUTPUT_DIR="results/gpt4o_experiment/experiment_req"
+MODEL="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"  # Changed from MODEL_PATH to MODEL for GPT API
+OUTPUT_DIR="results/symbolic_experuments/ai_short_repr"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-REQUIREMENTS_DEONTIC="results/gpt4o_experiment/requirements_deontic.json"
+REQUIREMENTS_DEONTIC="results/requirements_deontic_ai_generated.json"
 TARGET_DPAS=("Online 124" "Online 126")  # Array of DPAs to process
 REQ_IDS="all"  # Focus on all requirements by default
 MAX_SEGMENTS=0  # Process all segments by default
