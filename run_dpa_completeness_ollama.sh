@@ -190,14 +190,14 @@ case ${STEP} in
               --requirements "${REQUIREMENTS_FILE}" \
               --dpa ${DPA_CSV} \
               --model ${OLLAMA_MODEL} \
-              --output "${OUTPUT_DIR}/lp_files" \
+              --output "${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}" \
               --target_dpa "${TARGET_DPA}" \
               --max_segments ${MAX_SEGMENTS} \
               --req_ids "${REQ_IDS}" \
               --use_ollama \
               --verbose
         done
-        echo "Step 2 completed. LP files generated in: ${OUTPUT_DIR}/lp_files"
+        echo "Step 2 completed. LP files generated in: ${OUTPUT_DIR}/lp_files_[DPA_NAME]"
         ;;
     3)
         echo -e "\n[Step 3] Running Deolingo solver for all DPAs..."
@@ -205,7 +205,7 @@ case ${STEP} in
         echo "" > ${DEOLINGO_RESULTS}
         
         for TARGET_DPA in "${TARGET_DPAS[@]}"; do
-            DPA_DIR="${OUTPUT_DIR}/lp_files/dpa_${TARGET_DPA//' '/_}"
+            DPA_DIR="${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}/dpa_${TARGET_DPA//' '/_}"
             
             if [ ! -d "${DPA_DIR}" ]; then
                 echo "Error: LP files directory not found at ${DPA_DIR} for DPA ${TARGET_DPA}. Run Step 2 first."
@@ -328,7 +328,7 @@ case ${STEP} in
               --requirements "${REQUIREMENTS_FILE}" \
               --dpa ${DPA_CSV} \
               --model ${OLLAMA_MODEL} \
-              --output "${OUTPUT_DIR}/lp_files" \
+              --output "${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}" \
               --target_dpa "${TARGET_DPA}" \
               --max_segments ${MAX_SEGMENTS} \
               --req_ids "${REQ_IDS}" \
@@ -340,9 +340,10 @@ case ${STEP} in
         echo -e "\n[Step 3] Running Deolingo solver..."
         echo "" > ${DEOLINGO_RESULTS}
         for TARGET_DPA in "${TARGET_DPAS[@]}"; do
-            DPA_DIR="${OUTPUT_DIR}/lp_files/dpa_${TARGET_DPA//' '/_}"
+            DPA_DIR="${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}/dpa_${TARGET_DPA//' '/_}"
+            
             if [ ! -d "${DPA_DIR}" ]; then
-                echo "Error: LP files directory not found at ${DPA_DIR} for DPA ${TARGET_DPA}. Skipping..."
+                echo "Error: LP files directory not found at ${DPA_DIR} for DPA ${TARGET_DPA}. Run Step 2 first."
                 continue
             fi
             
