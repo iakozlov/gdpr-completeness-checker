@@ -139,6 +139,28 @@ run_deolingo() {
     fi
 }
 
+# Function to check if deolingo is installed
+check_deolingo() {
+    if ! command -v deolingo &> /dev/null; then
+        log "ERROR: deolingo command not found!"
+        log "Deolingo is required to run the solver (steps 3-5)."
+        log ""
+        log "To install deolingo on your server, run:"
+        log "  pip3 install git+https://github.com/ovidiomanteiga/deolingo.git@main"
+        log ""
+        log "Or install from the local repository:"
+        log "  cd $(pwd) && pip3 install -e ./deolingo/"
+        log ""
+        log "For detailed installation instructions, see:"
+        log "  docs/DEOLINGO_SERVER_SETUP.md"
+        log ""
+        log "After installation, make sure deolingo is in your PATH:"
+        log "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+        exit 1
+    fi
+    log "Deolingo is available"
+}
+
 # Create output directory
 mkdir -p "${OUTPUT_DIR}"
 
@@ -201,6 +223,10 @@ case ${STEP} in
         ;;
     3)
         echo -e "\n[Step 3] Running Deolingo solver for all DPAs..."
+        
+        # Check if deolingo is installed
+        check_deolingo
+        
         # Create output file for results
         echo "" > ${DEOLINGO_RESULTS}
         
@@ -338,7 +364,12 @@ case ${STEP} in
         
         # Step 3
         echo -e "\n[Step 3] Running Deolingo solver..."
+        
+        # Check if deolingo is installed
+        check_deolingo
+        
         echo "" > ${DEOLINGO_RESULTS}
+        
         for TARGET_DPA in "${TARGET_DPAS[@]}"; do
             DPA_DIR="${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}/dpa_${TARGET_DPA//' '/_}"
             
