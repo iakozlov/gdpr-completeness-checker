@@ -29,36 +29,28 @@ while [[ $# -gt 0 ]]; do
             REQUIREMENTS_REPRESENTATION="$2"
             shift 2
             ;;
-        --req-ids)
+        --req_ids)
             REQ_IDS="$2"
             shift 2
             ;;
-        --max-segments)
+        --max_segments)
             MAX_SEGMENTS="$2"
             shift 2
             ;;
-        --target-dpa)
-            TARGET_DPAS=("$2")
+        --target_dpas)
+            IFS=',' read -ra TARGET_DPAS <<< "$2"
             shift 2
             ;;
-        --output-dir)
+        --output_dir)
             OUTPUT_DIR="$2"
             shift 2
             ;;
-        --help)
-            echo "Usage: $0 [OPTIONS]"
-            echo "Options:"
-            echo "  --model MODEL                Ollama model to use (default: llama3.3:70b)"
-            echo "  --requirements REPR          Requirements representation (deontic, deontic_ai, deontic_experiments)"
-            echo "  --req-ids IDS               Comma-separated requirement IDs or 'all'"
-            echo "  --max-segments N            Maximum segments to process (0 for all)"
-            echo "  --target-dpa DPA            Target DPA to process"
-            echo "  --output-dir DIR            Output directory"
-            echo "  --help                      Show this help message"
-            exit 0
+        --debug)
+            DEBUG=true
+            shift
             ;;
         *)
-            echo "Unknown option: $1"
+            echo "Unknown parameter: $1"
             exit 1
             ;;
     esac
@@ -71,7 +63,6 @@ log() {
 
 # Function to check if Ollama is running
 check_ollama() {
-    log "Checking Ollama server status..."
     if ! curl -f -s http://localhost:11434/api/tags > /dev/null; then
         log "ERROR: Ollama server is not running!"
         log "Please start Ollama server first with: ollama serve"
@@ -124,13 +115,32 @@ set_requirements_file() {
     log "Using requirements file: $REQUIREMENTS_FILE"
 }
 
-# Create output directory
-log "Creating output directory: ${OUTPUT_DIR}"
-mkdir -p "${OUTPUT_DIR}"
+# Function to run deolingo with error handling (exactly like in llama script)
+run_deolingo() {
+    local lp_file=$1
+    local req_id=$2
+    local segment_id=$3
+    local dpa_name=$4
+    
+    # Run deolingo and capture output
+    deolingo_output=$(deolingo ${lp_file} 2>&1) || true
+    
+    # Check if there was an error
+    if [[ $deolingo_output == *"ERROR"* || $deolingo_output == *"error"* ]]; then
+        echo "Processing DPA ${dpa_name}, Requirement ${req_id}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
+        echo "Error processing file: ${lp_file}" >> ${DEOLINGO_RESULTS}
+        echo "Answer: not_mentioned" >> ${DEOLINGO_RESULTS}
+        echo "--------------------------------------------------" >> ${DEOLINGO_RESULTS}
+        echo "Warning: Error in file ${lp_file}. Skipping and continuing..." >&2
+    else
+        echo "Processing DPA ${dpa_name}, Requirement ${req_id}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
+        echo "${deolingo_output}" >> ${DEOLINGO_RESULTS}
+        echo "--------------------------------------------------" >> ${DEOLINGO_RESULTS}
+    fi
+}
 
-# Check Ollama server and model availability
-check_ollama
-ensure_model "$OLLAMA_MODEL"
+# Create output directory
+mkdir -p "${OUTPUT_DIR}"
 
 # Set requirements file
 set_requirements_file
@@ -140,105 +150,294 @@ DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${OLLAMA_MODEL//[^a-zA-Z0-9]/_}
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${OLLAMA_MODEL//[^a-zA-Z0-9]/_}_${REQUIREMENTS_REPRESENTATION}.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics_${OLLAMA_MODEL//[^a-zA-Z0-9]/_}_${REQUIREMENTS_REPRESENTATION}.json"
 
-log "Starting DPA completeness evaluation pipeline"
-log "Configuration:"
-log "  Model: ${OLLAMA_MODEL}"
-log "  Requirements: ${REQUIREMENTS_REPRESENTATION} (${REQUIREMENTS_FILE})"
-log "  Target DPAs: ${TARGET_DPAS[*]}"
-log "  Requirement IDs: ${REQ_IDS}"
-log "  Max segments: ${MAX_SEGMENTS}"
-log "  Output directory: ${OUTPUT_DIR}"
+echo "========== DPA Completeness Checker with Ollama =========="
+echo "Using Ollama Model: ${OLLAMA_MODEL}"
+echo "Requirements Representation: ${REQUIREMENTS_REPRESENTATION}"
+echo "Evaluating DPAs: ${TARGET_DPAS[*]}"
+echo "Focus on requirement(s): ${REQ_IDS}"
+echo "Using ${MAX_SEGMENTS} segments (0 means all)"
+echo "========================================================"
 
-# Step 1: Generate LP files using Ollama
-for DPA in "${TARGET_DPAS[@]}"; do
-    log "Step 1: Generating LP files for DPA: ${DPA}"
-    
-    LP_OUTPUT_DIR="${OUTPUT_DIR}/lp_files_${DPA// /_}"
-    
-    python3 generate_lp_files.py \
-        --requirements "${REQUIREMENTS_FILE}" \
-        --dpa "${DPA_CSV}" \
-        --model "${OLLAMA_MODEL}" \
-        --output "${LP_OUTPUT_DIR}" \
-        --target_dpa "${DPA}" \
-        --req_ids "${REQ_IDS}" \
-        --max_segments "${MAX_SEGMENTS}" \
-        --use_ollama \
-        --verbose
-    
-    if [[ $? -ne 0 ]]; then
-        log "ERROR: LP file generation failed for DPA: ${DPA}"
+# Show menu of available steps
+echo "Available steps:"
+echo "1. Translate all requirements to deontic logic (Not needed for Ollama - requirements already available)"
+echo "2. Generate LP files for specified requirements and segments for all DPAs"
+echo "3. Run Deolingo solver for all DPAs"
+echo "4. Evaluate DPA completeness (aggregated results)"
+echo "5. Calculate paragraph-level metrics (aggregated results)"
+echo "A. Run all steps sequentially"
+echo "Q. Quit"
+
+read -p "Enter step to run (2-5, A for all, Q to quit): " STEP
+
+case ${STEP} in
+    1)
+        echo -e "\n[Step 1] Requirements translation not needed for Ollama."
+        echo "Ollama uses pre-existing requirements files from data/requirements/ directory."
+        echo "Available representations: deontic, deontic_ai, deontic_experiments"
+        echo "Currently using: ${REQUIREMENTS_REPRESENTATION} (${REQUIREMENTS_FILE})"
+        ;;
+    2)
+        echo -e "\n[Step 2] Generating LP files for requirement(s) ${REQ_IDS} and ${MAX_SEGMENTS} segments..."
+        
+        # Check Ollama server and model availability (only needed for LP generation)
+        check_ollama
+        ensure_model "$OLLAMA_MODEL"
+        
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            echo "Processing DPA: ${TARGET_DPA}"
+            python3 generate_lp_files.py \
+              --requirements "${REQUIREMENTS_FILE}" \
+              --dpa ${DPA_CSV} \
+              --model ${OLLAMA_MODEL} \
+              --output "${OUTPUT_DIR}/lp_files" \
+              --target_dpa "${TARGET_DPA}" \
+              --max_segments ${MAX_SEGMENTS} \
+              --req_ids "${REQ_IDS}" \
+              --use_ollama \
+              --verbose
+        done
+        echo "Step 2 completed. LP files generated in: ${OUTPUT_DIR}/lp_files"
+        ;;
+    3)
+        echo -e "\n[Step 3] Running Deolingo solver for all DPAs..."
+        # Create output file for results
+        echo "" > ${DEOLINGO_RESULTS}
+        
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            DPA_DIR="${OUTPUT_DIR}/lp_files/dpa_${TARGET_DPA//' '/_}"
+            
+            if [ ! -d "${DPA_DIR}" ]; then
+                echo "Error: LP files directory not found at ${DPA_DIR} for DPA ${TARGET_DPA}. Run Step 2 first."
+                continue
+            fi
+            
+            echo "Processing DPA: ${TARGET_DPA}"
+            
+            # Process requirements - use only those specified by REQ_IDS if not "all"
+            if [ "${REQ_IDS}" == "all" ]; then
+                REQ_DIRS=$(find "${DPA_DIR}" -type d -name "req_*")
+            else
+                REQ_DIRS=""
+                for REQ_ID in $(echo ${REQ_IDS} | tr ',' ' '); do
+                    if [ -d "${DPA_DIR}/req_${REQ_ID}" ]; then
+                        REQ_DIRS="${REQ_DIRS} ${DPA_DIR}/req_${REQ_ID}"
+                    fi
+                done
+            fi
+            
+            for req_dir in ${REQ_DIRS}; do
+                req_id=$(basename ${req_dir} | sed 's/req_//')
+                echo "  Processing requirement ${req_id}..."
+                
+                # Process all .lp files for this requirement
+                find "${req_dir}" -name "*.lp" | while read lp_file; do
+                    # Extract segment ID from the file path
+                    segment_id=$(basename $lp_file | sed 's/segment_//' | sed 's/\.lp//')
+                    
+                    # Run deolingo with error handling
+                    run_deolingo "${lp_file}" "${req_id}" "${segment_id}" "${TARGET_DPA}"
+                done
+            done
+        done
+        echo "Step 3 completed. Results saved in: ${DEOLINGO_RESULTS}"
+        ;;
+    4)
+        echo -e "\n[Step 4] Evaluating DPA completeness (aggregated results)..."
+        if [ ! -f "${DEOLINGO_RESULTS}" ]; then
+            echo "Error: Deolingo results file not found. Run Step 3 first."
+            exit 1
+        fi
+        
+        # Process each DPA and then aggregate results
+        TEMP_OUTPUTS=""
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            TEMP_OUTPUT="${OUTPUT_DIR}/evaluation_${TARGET_DPA//' '/_}.json"
+            if [ -z "$TEMP_OUTPUTS" ]; then
+                TEMP_OUTPUTS="${TEMP_OUTPUT}"
+            else
+                TEMP_OUTPUTS="${TEMP_OUTPUTS},${TEMP_OUTPUT}"
+            fi
+            
+            echo "Processing DPA: ${TARGET_DPA}"
+            python3 evaluate_completeness.py \
+              --results ${DEOLINGO_RESULTS} \
+              --dpa ${DPA_CSV} \
+              --output ${TEMP_OUTPUT} \
+              --target_dpa "${TARGET_DPA}" \
+              --max_segments "${MAX_SEGMENTS}"
+        done
+        
+        # Aggregate results
+        python3 aggregate_evaluations.py \
+          --input_files "${TEMP_OUTPUTS}" \
+          --output ${EVALUATION_OUTPUT}
+        
+        echo "Step 4 completed. Aggregated evaluation results saved to: ${EVALUATION_OUTPUT}"
+        ;;
+    5)
+        echo -e "\n[Step 5] Calculating paragraph-level metrics (aggregated results)..."
+        if [ ! -f "${DEOLINGO_RESULTS}" ]; then
+            echo "Error: Deolingo results file not found. Run Step 3 first."
+            exit 1
+        fi
+        if [ ! -f "${EVALUATION_OUTPUT}" ]; then
+            echo "Error: Evaluation results file not found. Run Step 4 first."
+            exit 1
+        fi
+        
+        # Process each DPA and then aggregate results
+        TEMP_OUTPUTS=""
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            TEMP_OUTPUT="${OUTPUT_DIR}/paragraph_${TARGET_DPA//' '/_}.json"
+            if [ -z "$TEMP_OUTPUTS" ]; then
+                TEMP_OUTPUTS="${TEMP_OUTPUT}"
+            else
+                TEMP_OUTPUTS="${TEMP_OUTPUTS},${TEMP_OUTPUT}"
+            fi
+            
+            echo "Processing DPA: ${TARGET_DPA}"
+            python3 paragraph_metrics.py \
+              --results ${DEOLINGO_RESULTS} \
+              --dpa ${DPA_CSV} \
+              --evaluation ${EVALUATION_OUTPUT} \
+              --output ${TEMP_OUTPUT} \
+              --target_dpa "${TARGET_DPA}" \
+              --max_segments "${MAX_SEGMENTS}"
+        done
+        
+        # Aggregate results
+        python3 aggregate_paragraph_metrics.py \
+          --input_files "${TEMP_OUTPUTS}" \
+          --output ${PARAGRAPH_OUTPUT}
+        
+        echo "Step 5 completed. Paragraph metrics saved to: ${PARAGRAPH_OUTPUT}"
+        ;;
+    A|a)
+        echo -e "\nRunning all steps sequentially..."
+        # Step 2
+        echo -e "\n[Step 2] Generating LP files..."
+        
+        # Check Ollama server and model availability (only needed for LP generation)
+        check_ollama
+        ensure_model "$OLLAMA_MODEL"
+        
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            echo "Processing DPA: ${TARGET_DPA}"
+            python3 generate_lp_files.py \
+              --requirements "${REQUIREMENTS_FILE}" \
+              --dpa ${DPA_CSV} \
+              --model ${OLLAMA_MODEL} \
+              --output "${OUTPUT_DIR}/lp_files" \
+              --target_dpa "${TARGET_DPA}" \
+              --max_segments ${MAX_SEGMENTS} \
+              --req_ids "${REQ_IDS}" \
+              --use_ollama \
+              --verbose
+        done
+        
+        # Step 3
+        echo -e "\n[Step 3] Running Deolingo solver..."
+        echo "" > ${DEOLINGO_RESULTS}
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            DPA_DIR="${OUTPUT_DIR}/lp_files/dpa_${TARGET_DPA//' '/_}"
+            if [ ! -d "${DPA_DIR}" ]; then
+                echo "Error: LP files directory not found at ${DPA_DIR} for DPA ${TARGET_DPA}. Skipping..."
+                continue
+            fi
+            
+            echo "Processing DPA: ${TARGET_DPA}"
+            if [ "${REQ_IDS}" == "all" ]; then
+                REQ_DIRS=$(find "${DPA_DIR}" -type d -name "req_*")
+            else
+                REQ_DIRS=""
+                for REQ_ID in $(echo ${REQ_IDS} | tr ',' ' '); do
+                    if [ -d "${DPA_DIR}/req_${REQ_ID}" ]; then
+                        REQ_DIRS="${REQ_DIRS} ${DPA_DIR}/req_${REQ_ID}"
+                    fi
+                done
+            fi
+            
+            for req_dir in ${REQ_DIRS}; do
+                req_id=$(basename ${req_dir} | sed 's/req_//')
+                echo "  Processing requirement ${req_id}..."
+                find "${req_dir}" -name "*.lp" | while read lp_file; do
+                    segment_id=$(basename $lp_file | sed 's/segment_//' | sed 's/\.lp//')
+                    run_deolingo "${lp_file}" "${req_id}" "${segment_id}" "${TARGET_DPA}"
+                done
+            done
+        done
+        
+        # Step 4
+        echo -e "\n[Step 4] Evaluating DPA completeness..."
+        TEMP_OUTPUTS=""
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            TEMP_OUTPUT="${OUTPUT_DIR}/evaluation_${TARGET_DPA//' '/_}.json"
+            if [ -z "$TEMP_OUTPUTS" ]; then
+                TEMP_OUTPUTS="${TEMP_OUTPUT}"
+            else
+                TEMP_OUTPUTS="${TEMP_OUTPUTS},${TEMP_OUTPUT}"
+            fi
+            
+            echo "Processing DPA: ${TARGET_DPA}"
+            python3 evaluate_completeness.py \
+              --results ${DEOLINGO_RESULTS} \
+              --dpa ${DPA_CSV} \
+              --output ${TEMP_OUTPUT} \
+              --target_dpa "${TARGET_DPA}" \
+              --max_segments "${MAX_SEGMENTS}"
+        done
+        
+        python3 aggregate_evaluations.py \
+          --input_files "${TEMP_OUTPUTS}" \
+          --output ${EVALUATION_OUTPUT}
+        
+        # Step 5
+        echo -e "\n[Step 5] Calculating paragraph-level metrics..."
+        TEMP_OUTPUTS=""
+        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
+            TEMP_OUTPUT="${OUTPUT_DIR}/paragraph_${TARGET_DPA//' '/_}.json"
+            if [ -z "$TEMP_OUTPUTS" ]; then
+                TEMP_OUTPUTS="${TEMP_OUTPUT}"
+            else
+                TEMP_OUTPUTS="${TEMP_OUTPUTS},${TEMP_OUTPUT}"
+            fi
+            
+            echo "Processing DPA: ${TARGET_DPA}"
+            python3 paragraph_metrics.py \
+              --results ${DEOLINGO_RESULTS} \
+              --dpa ${DPA_CSV} \
+              --evaluation ${EVALUATION_OUTPUT} \
+              --output ${TEMP_OUTPUT} \
+              --target_dpa "${TARGET_DPA}" \
+              --max_segments "${MAX_SEGMENTS}"
+        done
+        
+        python3 aggregate_paragraph_metrics.py \
+          --input_files "${TEMP_OUTPUTS}" \
+          --output ${PARAGRAPH_OUTPUT}
+        
+        echo -e "\nAll steps completed successfully!"
+        echo "=========================================="
+        echo "Configuration used:"
+        echo "  Model: ${OLLAMA_MODEL}"
+        echo "  Requirements representation: ${REQUIREMENTS_REPRESENTATION}"
+        echo "  Target DPAs: ${TARGET_DPAS[*]}"
+        echo "  Requirement IDs: ${REQ_IDS}"
+        echo "  Max segments: ${MAX_SEGMENTS}"
+        echo ""
+        echo "Results saved to:"
+        echo "  Deolingo results: ${DEOLINGO_RESULTS}"
+        echo "  Evaluation results: ${EVALUATION_OUTPUT}"
+        echo "  Paragraph metrics: ${PARAGRAPH_OUTPUT}"
+        echo "=========================================="
+        ;;
+    Q|q)
+        echo "Exiting..."
+        exit 0
+        ;;
+    *)
+        echo "Invalid option. Please choose a valid step (2-5, A, or Q)."
         exit 1
-    fi
-    
-    log "LP files generated successfully for DPA: ${DPA}"
-    
-    # Step 2: Run Deolingo on generated LP files
-    log "Step 2: Running Deolingo on LP files for DPA: ${DPA}"
-    
-    python3 run_deolingo.py \
-        --input_dir "${LP_OUTPUT_DIR}" \
-        --output "${DEOLINGO_RESULTS}" \
-        --verbose
-    
-    if [[ $? -ne 0 ]]; then
-        log "ERROR: Deolingo execution failed for DPA: ${DPA}"
-        exit 1
-    fi
-    
-    log "Deolingo execution completed for DPA: ${DPA}"
-done
-
-# Step 3: Evaluate results
-log "Step 3: Evaluating results"
-
-python3 evaluate_completeness.py \
-    --deolingo_results "${DEOLINGO_RESULTS}" \
-    --dpa_csv "${DPA_CSV}" \
-    --requirements "${REQUIREMENTS_FILE}" \
-    --output "${EVALUATION_OUTPUT}" \
-    --target_dpas "${TARGET_DPAS[*]}" \
-    --verbose
-
-if [[ $? -ne 0 ]]; then
-    log "ERROR: Evaluation failed"
-    exit 1
-fi
-
-log "Evaluation completed successfully"
-
-# Step 4: Generate paragraph-level metrics
-log "Step 4: Generating paragraph-level metrics"
-
-python3 calculate_paragraph_metrics.py \
-    --evaluation_results "${EVALUATION_OUTPUT}" \
-    --output "${PARAGRAPH_OUTPUT}" \
-    --verbose
-
-if [[ $? -ne 0 ]]; then
-    log "ERROR: Paragraph metrics calculation failed"
-    exit 1
-fi
-
-log "Paragraph metrics calculated successfully"
-
-# Step 5: Display summary
-log "============================================"
-log "EXPERIMENT COMPLETED SUCCESSFULLY"
-log "============================================"
-log "Configuration used:"
-log "  Model: ${OLLAMA_MODEL}"
-log "  Requirements representation: ${REQUIREMENTS_REPRESENTATION}"
-log "  Target DPAs: ${TARGET_DPAS[*]}"
-log "  Requirement IDs: ${REQ_IDS}"
-log "  Max segments: ${MAX_SEGMENTS}"
-log ""
-log "Results saved to:"
-log "  Deolingo results: ${DEOLINGO_RESULTS}"
-log "  Evaluation results: ${EVALUATION_OUTPUT}"
-log "  Paragraph metrics: ${PARAGRAPH_OUTPUT}"
-log ""
-log "To view results:"
-log "  cat ${EVALUATION_OUTPUT}"
-log "  cat ${PARAGRAPH_OUTPUT}"
-log "============================================" 
+        ;;
+esac 
