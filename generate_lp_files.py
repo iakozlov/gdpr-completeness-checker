@@ -11,6 +11,24 @@ from models.llama_model import LlamaModel
 from config.llama_config import LlamaConfig
 from ollama_client import OllamaClient
 
+def filter_think_sections(text):
+    """
+    Remove <think> sections from model responses.
+    
+    Args:
+        text (str): The raw model response
+        
+    Returns:
+        str: The filtered text with <think> sections removed
+    """
+    # Use regex to remove everything between <think> and </think> tags (case insensitive, multiline)
+    filtered = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE)
+    
+    # Clean up any extra whitespace that might be left
+    filtered = re.sub(r'\n\s*\n', '\n', filtered.strip())
+    
+    return filtered
+
 def main():
     parser = argparse.ArgumentParser(description="Generate LP files for DPA segments")
     parser.add_argument("--requirements", type=str, default="results/requirements_deontic_ai_generated.json",
@@ -222,6 +240,9 @@ Explanation: NO_FACTS is in output as CLAUSE does not mention any of predicates 
         # For non-Ollama models, combine system and user prompts
         combined_prompt = f"{system_prompt}\n\n{user_prompt}"
         response = llm_model.generate(combined_prompt)
+    
+    # Filter out <think> sections from reasoning models like qwen3
+    response = filter_think_sections(response)
     
     # Parse the response
     if response.strip() == "NO_FACTS":
