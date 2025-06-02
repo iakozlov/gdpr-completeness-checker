@@ -159,24 +159,26 @@ def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates,
         llm_model: The LLM model to use for extraction
         use_ollama: Whether to use Ollama for inference
         model_name: Name of the model to use
-        
     Returns:
         Dictionary mapping predicates to their truth values
     """
-    system_prompt = """You are a legal-text extractor that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic (Deontic Logic via Answer Set Programming) and contextual similarity with GDPR regulatory requirements.
+    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
 Input always contains:
 1. "REQUIREMENT" – text of the GDPR requirement
-2. "SYMBOLIC" – deontic ASP representation of the requirement
+2. "SYMBOLIC" – symbolic representation of the requirement in deontic logic via Answer Set Programming (ASP)
 3. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
 4. "CLAUSE" – one DPA segment
 
 TASK:
-- Emit a predicate only if the CLAUSE explicitly mentions the same key concept (word or very close synonym) found in the REQUIREMENT.
-- Decide which (if any) predicates are entailed and output them separated by ;
-- If none are entailed, output exactly NO_FACTS
-- If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
-- Output nothing else: no prose, no formatting
+Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
+
+INSTRUCTIONS:
+1) Output a predicate from symbolic rule's body only if the CLAUSE explicitly and fully mentions the same concept this predicate mentions in the REQUIREMENT.
+2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
+3) If no predicated are entailed, output exactly NO_FACTS
+4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
+5) Output nothing else than predicates or NO_FACTS
 
 Examples:
 Example 1:
@@ -185,13 +187,15 @@ SYMBOLIC: &obligatory{ensure_confidentiality_authorized_persons} :- role(process
 PREDICATES: ensure_confidentiality_authorized_persons; role(processor)
 CLAUSE: The Processor shall ensure that every employee authorized to process Customer Personal Data is subject to a contractual duty of confidentiality.
 Expected output: ensure_confidentiality_authorized_persons; role(processor)
+Explanation: ensure_confidentiality_authorized_persons is in output as the CLAUSE defines a rule for a processor which is same as rule in the REQUIREMENt. role(processor) is in output as the CLAUSE mentions the requirement for the processor
 
 Example 2:
 REQUIREMENT: Processor must encrypt personal data during transmission and at rest.
 SYMBOLIC: &obligatory{encrypt_personal_data} :- role(processor).
 PREDICATES: encrypt_personal_data; role(processor)
-CLAUSE: This DPA shall remain in effect so long as processor Processes Personal Data, notwithstanding the expiration or termination of the Agreement.
+CLAUSE: This DPA shall remain in effect so long as processor processes Personal Data, notwithstanding the expiration or termination of the Agreement.
 Expected output: role(processor)
+Explanation: role(processor) is in output as CLAUSE mentions action made by processor. encrypt_personal_data is not in output as CLAUSE does not mention any rule for a processor
 
 Example 3:
 REQUIREMENT: The processor must encrypt all the data collected from customers.
@@ -199,6 +203,7 @@ SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
 PREDICATES: encrypt_collected_data; role(processor)
 CLAUSE: The processor will store customer's data in raw format.
 Expected output: -encrypt_collected_data; role(processor)
+EXPLANATION: -encrypt_collected_data is in output as CLAUSE violated REQUIREMENT by saying that data will not be encrypted. role(processor) is in output as CLAUSE mentions action by a processor
 
 Example 4:
 REQUIREMENT: The processor must notify controller about data breaches.
@@ -206,13 +211,7 @@ SYMBOLIC: &obligatory{notyfy_controller_data_breaches} :- role(processor)
 PREDICATES: notyfy_controller_data_breaches; role(processor)
 CLAUSE: Sub-Processor rights
 Expected output: NO_FACTS
-
-Example 5:
-REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
-SYMBOLIC: &obligatory{process_data_on_documented_instructions} :- role(processor).
-PREDICATES: process_data_on_documented_instructions; role(processor)
-CLAUSE: The processor will process personal data on behalf of the controller.
-Expected output: role(processor)"""
+Explanation: NO_FACTS is in output as CLAUSE does not mention any of predicates and not define any rule for a processor"""
 
     
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
@@ -227,7 +226,6 @@ Expected output: role(processor)"""
     # Parse the response
     if response.strip() == "NO_FACTS":
         return {}
-    
     facts = {}
     for pred in response.strip().split(';'):
         pred = pred.strip()

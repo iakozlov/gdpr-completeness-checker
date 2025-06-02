@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: clingox
+Version: 1.2.1
+Summary: Support library for clingo.
+Home-page: https://github.com/potassco/python-clingox
+Author: Roland Kaminski
+Author-email: kaminski@cs.uni-potsdam.de
+License: MIT
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: clingo >=5.5
+Requires-Dist: dataclasses ; python_version < "3.7"
+
+Please check the [API documentation](https://potassco.org/clingo/python-api/current/) on how to use this module.

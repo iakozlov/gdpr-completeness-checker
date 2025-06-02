@@ -6,14 +6,14 @@ set -e  # Exit on any error
 
 # Configuration
 DPA_CSV="data/test_set.csv"
-REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
-OLLAMA_MODEL="llama3.3:70b"  # Default Ollama model
-OUTPUT_DIR="results/ollama_experiments"
+REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai.json"
+OLLAMA_MODEL="qwen3:30b"  # Default Ollama model
+OUTPUT_DIR="results/ollama_experiments/qwen3-30b/ai_repr"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-REQUIREMENTS_DEONTIC="results/requirements_deontic_ai_generated.json"
-TARGET_DPAS=("Online 124")  # Array of DPAs to process
+REQUIREMENTS_DEONTIC="results/requirements_deontic.json"
+TARGET_DPAS=("Online 124" "Online 126" "Online 132")  # Array of DPAs to process
 REQ_IDS="all"  # Focus on all requirements by default
 MAX_SEGMENTS=0  # Process all segments by default
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
