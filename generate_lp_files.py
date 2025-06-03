@@ -196,7 +196,7 @@ INSTRUCTIONS:
 2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
 3) If no predicated are entailed, output exactly NO_FACTS
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
-5) Output nothing else than predicates or NO_FACTS
+5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
 
 Examples:
 Example 1:

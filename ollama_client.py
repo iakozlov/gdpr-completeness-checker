@@ -124,7 +124,7 @@ class OllamaClient:
             response = requests.post(
                 f"{self.base_url}/api/chat",
                 json=payload,
-                timeout=120
+                timeout=200
             )
             response.raise_for_status()
             
