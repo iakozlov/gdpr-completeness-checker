@@ -1,0 +1,90 @@
+{
+  "dpa": "Online 124",
+  "segments_evaluated": 114,
+  "requirements_evaluated": [
+    "12"
+  ],
+  "ground_truth": {
+    "is_complete": true,
+    "requirements": {
+      "12": true
+    },
+    "missing_requirements": []
+  },
+  "prediction": {
+    "is_complete": true,
+    "requirements": {
+      "12": true
+    },
+    "missing_requirements": []
+  },
+  "agreement": true,
+  "requirements_metrics": {
+    "overall": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "confusion_matrix": {
+      "true_positives": 1,
+      "false_positives": 0,
+      "true_negatives": 0,
+      "false_negatives": 0
+    }
+  },
+  "segment_metrics": {
+    "overall": {
+      "accuracy": 0.93,
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1_score": 0.333
+    },
+    "by_requirement": {
+      "12": {
+        "metrics": {
+          "accuracy": 0.93,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1_score": 0.333
+        },
+        "confusion_matrix": {
+          "true_positives": 2,
+          "false_positives": 8,
+          "true_negatives": 104,
+          "false_negatives": 0
+        }
+      }
+    },
+    "confusion_matrix": {
+      "true_positives": 2,
+      "false_positives": 8,
+      "true_negatives": 104,
+      "false_negatives": 0
+    }
+  },
+  "requirements_details": {
+    "12": {
+      "requirement_number": "3",
+      "ground_truth": true,
+      "prediction": true,
+      "agreement": true,
+      "satisfied_segments": [
+        "14",
+        "24",
+        "25",
+        "31",
+        "36",
+        "54",
+        "6",
+        "74",
+        "76",
+        "91"
+      ],
+      "ground_truth_segments": [
+        "24",
+        "31"
+      ]
+    }
+  }
+}

@@ -6,17 +6,18 @@ set -e  # Exit on any error
 
 # Configuration
 DPA_CSV="data/test_set.csv"
-REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai.json"
-OLLAMA_MODEL="qwen3:30b"  # Default Ollama model
-OUTPUT_DIR="results/ollama_experiments/qwen3-30b/ai_repr"
+REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
+OLLAMA_MODEL="gemma3:27b"  # Default Ollama model
+OUTPUT_DIR="results/gemma3_27b/llm_created_repr"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-REQUIREMENTS_DEONTIC="results/requirements_deontic.json"
-TARGET_DPAS=("Online 124" "Online 126" "Online 132")  # Array of DPAs to process
+REQUIREMENTS_DEONTIC="${OUTPUT_DIR}/requirements_deontic_generated.json"
+TARGET_DPAS=("Online 124")  # Array of DPAs to process
 REQ_IDS="all"  # Focus on all requirements by default
 MAX_SEGMENTS=0  # Process all segments by default
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
+USE_PREDEFINED=false  # Default to using generated requirements (Step 1)
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -45,6 +46,10 @@ while [[ $# -gt 0 ]]; do
             OUTPUT_DIR="$2"
             shift 2
             ;;
+        --use_generated)
+            USE_PREDEFINED=false
+            shift
+            ;;
         --debug)
             DEBUG=true
             shift
@@ -64,11 +69,11 @@ log() {
 # Function to check if Ollama is running
 check_ollama() {
     if ! curl -f -s http://localhost:11434/api/tags > /dev/null; then
-        log "ERROR: Ollama server is not running!"
-        log "Please start Ollama server first with: ollama serve"
+        log "ERROR: iOllama server is not running!"
+        log "Please start iOllama server first"
         exit 1
     fi
-    log "Ollama server is running"
+    log "iOllama server is running"
 }
 
 # Function to pull model if not available
@@ -76,9 +81,9 @@ ensure_model() {
     local model=$1
     log "Checking if model ${model} is available..."
     
-    if ! ollama list | grep -q "${model}"; then
+    if ! iollama list | grep -q "${model}"; then
         log "Model ${model} not found locally. Pulling from registry..."
-        if ! ollama pull "${model}"; then
+        if ! iollama pull "${model}"; then
             log "ERROR: Failed to pull model ${model}"
             exit 1
         fi
@@ -90,29 +95,37 @@ ensure_model() {
 
 # Function to set requirements file based on representation
 set_requirements_file() {
-    case $REQUIREMENTS_REPRESENTATION in
-        "deontic")
-            REQUIREMENTS_FILE="data/requirements/requirements_deontic.json"
-            ;;
-        "deontic_ai")
-            REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
-            ;;
-        "deontic_experiments")
-            REQUIREMENTS_FILE="data/requirements/requirements_deontic_experiments.json"
-            ;;
-        *)
-            log "ERROR: Unknown requirements representation: $REQUIREMENTS_REPRESENTATION"
-            log "Available options: deontic, deontic_ai, deontic_experiments"
+    if [ "$USE_PREDEFINED" = true ]; then
+        # Use predefined requirements files
+        case $REQUIREMENTS_REPRESENTATION in
+            "deontic")
+                REQUIREMENTS_FILE="data/requirements/requirements_deontic.json"
+                ;;
+            "deontic_ai")
+                REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
+                ;;
+            "deontic_experiments")
+                REQUIREMENTS_FILE="data/requirements/requirements_deontic_experiments.json"
+                ;;
+            *)
+                log "ERROR: Unknown requirements representation: $REQUIREMENTS_REPRESENTATION"
+                log "Available options: deontic, deontic_ai, deontic_experiments"
+                exit 1
+                ;;
+        esac
+        
+        if [[ ! -f "$REQUIREMENTS_FILE" ]]; then
+            log "ERROR: Requirements file not found: $REQUIREMENTS_FILE"
             exit 1
-            ;;
-    esac
-    
-    if [[ ! -f "$REQUIREMENTS_FILE" ]]; then
-        log "ERROR: Requirements file not found: $REQUIREMENTS_FILE"
-        exit 1
+        fi
+        
+        log "Using predefined requirements file: $REQUIREMENTS_FILE"
+    else
+        # Use generated requirements file (will be created in Step 1)
+        REQUIREMENTS_FILE="$REQUIREMENTS_DEONTIC"
+        log "Will use generated requirements file: $REQUIREMENTS_FILE"
+        log "Note: You must run Step 1 first to generate the requirements"
     fi
-    
-    log "Using requirements file: $REQUIREMENTS_FILE"
 }
 
 # Function to run deolingo with error handling (exactly like in llama script)
@@ -168,21 +181,33 @@ mkdir -p "${OUTPUT_DIR}"
 set_requirements_file
 
 # Update output paths based on configuration
-DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${OLLAMA_MODEL//[^a-zA-Z0-9]/_}_${REQUIREMENTS_REPRESENTATION}.txt"
-EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${OLLAMA_MODEL//[^a-zA-Z0-9]/_}_${REQUIREMENTS_REPRESENTATION}.json"
-PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics_${OLLAMA_MODEL//[^a-zA-Z0-9]/_}_${REQUIREMENTS_REPRESENTATION}.json"
+MODEL_SAFE_NAME=$(echo "${OLLAMA_MODEL}" | tr ':' '_' | tr '/' '_')
+DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${MODEL_SAFE_NAME}_${REQUIREMENTS_REPRESENTATION}.txt"
+EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${MODEL_SAFE_NAME}_${REQUIREMENTS_REPRESENTATION}.json"
+PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics_${MODEL_SAFE_NAME}_${REQUIREMENTS_REPRESENTATION}.json"
 
-echo "========== DPA Completeness Checker with Ollama =========="
-echo "Using Ollama Model: ${OLLAMA_MODEL}"
+echo "========== DPA Completeness Checker with iOllama =========="
+echo "Using iOllama Model: ${OLLAMA_MODEL}"
 echo "Requirements Representation: ${REQUIREMENTS_REPRESENTATION}"
+if [ "$USE_PREDEFINED" = true ]; then
+    echo "Requirements Source: Predefined (${REQUIREMENTS_FILE})"
+else
+    echo "Requirements Source: Generated (will be created in Step 1)"
+    echo "Generated requirements will be saved to: ${REQUIREMENTS_DEONTIC}"
+fi
 echo "Evaluating DPAs: ${TARGET_DPAS[*]}"
 echo "Focus on requirement(s): ${REQ_IDS}"
 echo "Using ${MAX_SEGMENTS} segments (0 means all)"
+echo "Output Directory: ${OUTPUT_DIR}"
 echo "========================================================"
 
 # Show menu of available steps
 echo "Available steps:"
-echo "1. Translate all requirements to deontic logic (Not needed for Ollama - requirements already available)"
+if [ "$USE_PREDEFINED" = true ]; then
+    echo "1. Translate all requirements to deontic logic (Not needed - using predefined requirements)"
+else
+    echo "1. Translate all requirements to deontic logic (REQUIRED - will generate requirements for steps 2-5)"
+fi
 echo "2. Generate LP files for specified requirements and segments for all DPAs"
 echo "3. Run Deolingo solver for all DPAs"
 echo "4. Evaluate DPA completeness (aggregated results)"
@@ -190,19 +215,59 @@ echo "5. Calculate paragraph-level metrics (aggregated results)"
 echo "A. Run all steps sequentially"
 echo "Q. Quit"
 
-read -p "Enter step to run (2-5, A for all, Q to quit): " STEP
+read -p "Enter step to run (1-5, A for all, Q to quit): " STEP
 
 case ${STEP} in
     1)
-        echo -e "\n[Step 1] Requirements translation not needed for Ollama."
-        echo "Ollama uses pre-existing requirements files from data/requirements/ directory."
-        echo "Available representations: deontic, deontic_ai, deontic_experiments"
-        echo "Currently using: ${REQUIREMENTS_REPRESENTATION} (${REQUIREMENTS_FILE})"
+        if [ "$USE_PREDEFINED" = true ]; then
+            echo -e "\n[Step 1] Requirements translation not needed."
+            echo "Using predefined requirements files from data/requirements/ directory."
+            echo "Available representations: deontic, deontic_ai, deontic_experiments"
+            echo "Currently using: ${REQUIREMENTS_REPRESENTATION} (${REQUIREMENTS_FILE})"
+            echo ""
+            echo "To use generated requirements instead, run with --use_generated flag"
+        else
+            echo -e "\n[Step 1] Translating all requirements to deontic logic using ${OLLAMA_MODEL}..."
+            echo "This will generate requirements that will be used by steps 2-5."
+            
+            # Check iOllama server and model availability
+            check_ollama
+            ensure_model "$OLLAMA_MODEL"
+            
+            # Use the ground truth requirements as input for translation
+            INPUT_REQUIREMENTS="data/requirements/ground_truth_requirements.txt"
+            if [[ ! -f "$INPUT_REQUIREMENTS" ]]; then
+                log "ERROR: Input requirements file not found: $INPUT_REQUIREMENTS"
+                exit 1
+            fi
+            
+            echo "Input: ${INPUT_REQUIREMENTS}"
+            echo "Output: ${REQUIREMENTS_DEONTIC}"
+            
+            python3 translate_requirements.py \
+              --requirements "$INPUT_REQUIREMENTS" \
+              --model "$OLLAMA_MODEL" \
+              --output "$REQUIREMENTS_DEONTIC"
+            
+            echo "Step 1 completed. Generated requirements saved to: ${REQUIREMENTS_DEONTIC}"
+            echo "Note: Steps 2-5 will now use the generated requirements file"
+        fi
         ;;
     2)
         echo -e "\n[Step 2] Generating LP files for requirement(s) ${REQ_IDS} and ${MAX_SEGMENTS} segments..."
         
-        # Check Ollama server and model availability (only needed for LP generation)
+        # Check if requirements file exists (especially important for generated requirements)
+        if [[ ! -f "$REQUIREMENTS_FILE" ]]; then
+            if [ "$USE_PREDEFINED" = false ]; then
+                log "ERROR: Generated requirements file not found: $REQUIREMENTS_FILE"
+                log "Please run Step 1 first to generate the requirements"
+            else
+                log "ERROR: Predefined requirements file not found: $REQUIREMENTS_FILE"
+            fi
+            exit 1
+        fi
+        
+        # Check iOllama server and model availability (only needed for LP generation)
         check_ollama
         ensure_model "$OLLAMA_MODEL"
         
@@ -341,10 +406,40 @@ case ${STEP} in
         ;;
     A|a)
         echo -e "\nRunning all steps sequentially..."
-        # Step 2
-        echo -e "\n[Step 2] Generating LP files..."
         
-        # Check Ollama server and model availability (only needed for LP generation)
+        # Step 1 (only if using generated requirements)
+        if [ "$USE_PREDEFINED" = false ]; then
+            echo -e "\n[Step 1] Translating all requirements to deontic logic using ${OLLAMA_MODEL}..."
+            echo "This will generate requirements that will be used by steps 2-5."
+            
+            # Check iOllama server and model availability
+            check_ollama
+            ensure_model "$OLLAMA_MODEL"
+            
+            # Use the ground truth requirements as input for translation
+            INPUT_REQUIREMENTS="data/requirements/ground_truth_requirements.txt"
+            if [[ ! -f "$INPUT_REQUIREMENTS" ]]; then
+                log "ERROR: Input requirements file not found: $INPUT_REQUIREMENTS"
+                exit 1
+            fi
+            
+            echo "Input: ${INPUT_REQUIREMENTS}"
+            echo "Output: ${REQUIREMENTS_DEONTIC}"
+            
+            python3 translate_requirements.py \
+              --requirements "$INPUT_REQUIREMENTS" \
+              --model "$OLLAMA_MODEL" \
+              --output "$REQUIREMENTS_DEONTIC"
+            
+            echo "Step 1 completed. Generated requirements saved to: ${REQUIREMENTS_DEONTIC}"
+        else
+            echo -e "\n[Step 1] Skipped - using predefined requirements: ${REQUIREMENTS_FILE}"
+        fi
+        
+        # Step 2
+        echo -e "\n[Step 2] Generating LP files for requirement(s) ${REQ_IDS} and ${MAX_SEGMENTS} segments..."
+        
+        # Check iOllama server and model availability (only needed for LP generation)
         check_ollama
         ensure_model "$OLLAMA_MODEL"
         
@@ -452,16 +547,25 @@ case ${STEP} in
         echo -e "\nAll steps completed successfully!"
         echo "=========================================="
         echo "Configuration used:"
-        echo "  Model: ${OLLAMA_MODEL}"
+        echo "  Model: ${OLLAMA_MODEL} (iOllama)"
         echo "  Requirements representation: ${REQUIREMENTS_REPRESENTATION}"
+        if [ "$USE_PREDEFINED" = false ]; then
+            echo "  Requirements source: Generated in Step 1"
+        else
+            echo "  Requirements source: Predefined"
+        fi
         echo "  Target DPAs: ${TARGET_DPAS[*]}"
         echo "  Requirement IDs: ${REQ_IDS}"
         echo "  Max segments: ${MAX_SEGMENTS}"
         echo ""
         echo "Results saved to:"
+        echo "  Output directory: ${OUTPUT_DIR}"
         echo "  Deolingo results: ${DEOLINGO_RESULTS}"
         echo "  Evaluation results: ${EVALUATION_OUTPUT}"
         echo "  Paragraph metrics: ${PARAGRAPH_OUTPUT}"
+        if [ "$USE_PREDEFINED" = false ]; then
+            echo "  Generated requirements: ${REQUIREMENTS_DEONTIC}"
+        fi
         echo "=========================================="
         ;;
     Q|q)
@@ -469,7 +573,7 @@ case ${STEP} in
         exit 0
         ;;
     *)
-        echo "Invalid option. Please choose a valid step (2-5, A, or Q)."
+        echo "Invalid option. Please choose a valid step (1-5, A, or Q)."
         exit 1
         ;;
 esac 
