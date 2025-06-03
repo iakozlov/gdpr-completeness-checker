@@ -164,17 +164,10 @@ def main():
                         help="Comma-separated list of requirement IDs to process, or 'all'")
     parser.add_argument("--max_segments", type=int, default=0,
                         help="Maximum number of segments to process per DPA (0 means all)")
-    parser.add_argument("--sample_ratio", type=float, default=0.1,
-                        help="Ratio of random segments to sample for baseline evaluation (default: 0.1)")
     parser.add_argument("--verbose", action="store_true",
                         help="Enable verbose output")
-    parser.add_argument("--seed", type=int, default=42,
-                        help="Random seed for reproducible sampling")
     
     args = parser.parse_args()
-    
-    # Set random seed for reproducible results
-    random.seed(args.seed)
     
     # Create output directory
     os.makedirs(args.output, exist_ok=True)
@@ -221,11 +214,7 @@ def main():
         if args.max_segments > 0:
             df_filtered = df_filtered.head(args.max_segments)
         
-        # Sample segments randomly for baseline evaluation
-        n_sample = max(1, int(len(df_filtered) * args.sample_ratio))
-        df_sampled = df_filtered.sample(n=n_sample, random_state=args.seed)
-        
-        print(f"Sampled {len(df_sampled)} segments from {len(df_filtered)} total segments")
+        print(f"Processing {len(df_filtered)} segments")
         
         # Create deolingo-compatible results file
         deolingo_format_file = os.path.join(args.output, f"baseline_deolingo_results_{target_dpa.replace(' ', '_')}.txt")
@@ -235,8 +224,8 @@ def main():
             for req_id, req_text in tqdm(requirements.items(), desc=f"Processing requirements for {target_dpa}"):
                 r_label = req_number_to_r_label(req_id)
                 
-                # Process each sampled segment
-                for idx, row in tqdm(df_sampled.iterrows(), total=len(df_sampled), 
+                # Process each segment
+                for idx, row in tqdm(df_filtered.iterrows(), total=len(df_filtered), 
                                    desc=f"Processing segments for requirement {req_id}", leave=False):
                     segment_id = row["ID"]
                     segment_text = row["Sentence"]
