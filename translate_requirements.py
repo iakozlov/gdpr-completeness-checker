@@ -53,12 +53,19 @@ def extract_predicates_from_symbolic(symbolic_repr: str) -> list:
             else:
                 predicate = condition.strip()
             
-            # Extract predicate name (before parentheses if any)
-            if '(' in predicate:
-                predicate = predicate.split('(')[0]
-            
-            if predicate and predicate not in ['not', 'true', 'false']:
+            # Special handling for standard predicates with arguments
+            if predicate.startswith('role(') or predicate.startswith('authorization('):
+                # Keep the full predicate with arguments for standard predicates
                 predicates.add(predicate)
+            elif '(' in predicate:
+                # For other predicates, extract just the predicate name
+                predicate_name = predicate.split('(')[0]
+                if predicate_name and predicate_name not in ['not', 'true', 'false']:
+                    predicates.add(predicate_name)
+            else:
+                # Simple predicate without parentheses
+                if predicate and predicate not in ['not', 'true', 'false']:
+                    predicates.add(predicate)
     
     return sorted(list(predicates))
 
@@ -80,26 +87,35 @@ LOGICAL STRUCTURE:
 - Use 'not' for negation
 - Use commas to separate multiple conditions
 - End statements with a period
+- Generate ONLY ONE deontic operator per rule
+- Do NOT use multiple &obligatory{} statements in a single rule
 
 PREDICATE NAMING:
 - Create meaningful predicate names using snake_case
 - Use descriptive names that capture the essence of the requirement
 - Keep predicates concise but clear
+- Do NOT use logical operators like "or", "and" as predicate names
+- Do NOT include punctuation or special characters in predicate names
 
 EXAMPLES:
-- "The entity must not perform action X without proper authorization" 
+- "The processor must not perform action X without proper authorization" 
   → &obligatory{-perform_action_x} :- role(processor), not proper_authorization.
 
-- "The entity shall notify the authority when incidents occur"
+- "The processor shall notify the authority when incidents occur"
   → &obligatory{notify_authority} :- role(processor), incident_occurs.
 
-- "If special conditions apply, the entity must follow additional procedures"
+- "If special conditions apply, the processor must follow additional procedures"
   → &obligatory{follow_additional_procedures} :- role(processor), special_conditions.
 
-- "The entity is forbidden from sharing data without consent"
+- "The processor is forbidden from sharing data without user consent"
   → &forbidden{share_data} :- role(processor), not user_consent.
 
-IMPORTANT: Provide ONLY the symbolic representation without any additional explanation, comments, or formatting."""
+IMPORTANT RULES:
+1. Generate exactly ONE deontic logic statement per requirement
+2. Use only ONE &obligatory{}, &forbidden{}, or &permitted{} per rule
+3. Do NOT use words like "or", "and", "not" as standalone predicates
+4. Keep predicate names simple and descriptive
+5. Provide ONLY the symbolic representation without any additional explanation, comments, or formatting."""
 
 def create_user_prompt(requirement_text: str) -> str:
     """Create the user prompt for a specific requirement.
@@ -162,9 +178,13 @@ def main():
             if not line:
                 continue
                 
-            # Check if this is a requirement ID line
-            req_match = re.match(r'^R(\d+):', line)
-            if req_match:
+            # Check if this is a requirement ID line - support both formats
+            # Format 1: "R1: text..." 
+            req_match_r = re.match(r'^R(\d+):', line)
+            # Format 2: "1. text..."
+            req_match_num = re.match(r'^(\d+)\.\s+(.+)', line)
+            
+            if req_match_r:
                 # Save previous requirement if exists
                 if current_req_id is not None:
                     requirements[current_req_id] = {
@@ -173,12 +193,25 @@ def main():
                         'atoms': []
                     }
                 
-                # Start new requirement
-                current_req_id = req_match.group(1)
+                # Start new requirement (R format)
+                current_req_id = req_match_r.group(1)
                 current_req_text = [line]
+            elif req_match_num:
+                # Save previous requirement if exists
+                if current_req_id is not None:
+                    requirements[current_req_id] = {
+                        'text': ' '.join(current_req_text),
+                        'symbolic': None,
+                        'atoms': []
+                    }
+                
+                # Start new requirement (numbered format)
+                current_req_id = req_match_num.group(1)
+                current_req_text = [req_match_num.group(2)]  # Just the text part, not the number
             else:
                 # Add to current requirement text
-                current_req_text.append(line)
+                if current_req_id is not None:
+                    current_req_text.append(line)
         
         # Save last requirement
         if current_req_id is not None:

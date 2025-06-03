@@ -70,11 +70,11 @@ log() {
 # Function to check if Ollama is running
 check_ollama() {
     if ! curl -f -s http://localhost:11434/api/tags > /dev/null; then
-        log "ERROR: iOllama server is not running!"
-        log "Please start iOllama server first"
+        log "ERROR: Ollama server is not running!"
+        log "Please start Ollama server first"
         exit 1
     fi
-    log "iOllama server is running"
+    log "Ollama server is running"
 }
 
 # Function to pull model if not available
@@ -82,9 +82,9 @@ ensure_model() {
     local model=$1
     log "Checking if model ${model} is available..."
     
-    if ! iollama list | grep -q "${model}"; then
+    if ! ollama list | grep -q "${model}"; then
         log "Model ${model} not found locally. Pulling from registry..."
-        if ! iollama pull "${model}"; then
+        if ! ollama pull "${model}"; then
             log "ERROR: Failed to pull model ${model}"
             exit 1
         fi
@@ -187,8 +187,8 @@ DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${MODEL_SAFE_NAME}_${REQUIREMEN
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${MODEL_SAFE_NAME}_${REQUIREMENTS_REPRESENTATION}.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics_${MODEL_SAFE_NAME}_${REQUIREMENTS_REPRESENTATION}.json"
 
-echo "========== DPA Completeness Checker with iOllama =========="
-echo "Using iOllama Model: ${OLLAMA_MODEL}"
+echo "========== DPA Completeness Checker with Ollama =========="
+echo "Using Ollama Model: ${OLLAMA_MODEL}"
 echo "Requirements Representation: ${REQUIREMENTS_REPRESENTATION}"
 if [ "$USE_PREDEFINED" = true ]; then
     echo "Requirements Source: Predefined (${REQUIREMENTS_FILE})"
@@ -231,7 +231,7 @@ case ${STEP} in
             echo -e "\n[Step 1] Translating all requirements to deontic logic using ${OLLAMA_MODEL}..."
             echo "This will generate requirements that will be used by steps 2-5."
             
-            # Check iOllama server and model availability
+            # Check Ollama server and model availability
             check_ollama
             ensure_model "$OLLAMA_MODEL"
             
@@ -268,7 +268,7 @@ case ${STEP} in
             exit 1
         fi
         
-        # Check iOllama server and model availability (only needed for LP generation)
+        # Check Ollama server and model availability (only needed for LP generation)
         check_ollama
         ensure_model "$OLLAMA_MODEL"
         
@@ -413,7 +413,7 @@ case ${STEP} in
             echo -e "\n[Step 1] Translating all requirements to deontic logic using ${OLLAMA_MODEL}..."
             echo "This will generate requirements that will be used by steps 2-5."
             
-            # Check iOllama server and model availability
+            # Check Ollama server and model availability
             check_ollama
             ensure_model "$OLLAMA_MODEL"
             
@@ -440,7 +440,7 @@ case ${STEP} in
         # Step 2
         echo -e "\n[Step 2] Generating LP files for requirement(s) ${REQ_IDS} and ${MAX_SEGMENTS} segments..."
         
-        # Check iOllama server and model availability (only needed for LP generation)
+        # Check Ollama server and model availability (only needed for LP generation)
         check_ollama
         ensure_model "$OLLAMA_MODEL"
         
@@ -548,7 +548,7 @@ case ${STEP} in
         echo -e "\nAll steps completed successfully!"
         echo "=========================================="
         echo "Configuration used:"
-        echo "  Model: ${OLLAMA_MODEL} (iOllama)"
+        echo "  Model: ${OLLAMA_MODEL} (Ollama)"
         echo "  Requirements representation: ${REQUIREMENTS_REPRESENTATION}"
         if [ "$USE_PREDEFINED" = false ]; then
             echo "  Requirements source: Generated in Step 1"
