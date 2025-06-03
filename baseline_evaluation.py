@@ -5,8 +5,12 @@ import argparse
 import pandas as pd
 import random
 import re
+import logging
 from tqdm import tqdm
 from ollama_client import OllamaClient
+
+# Suppress INFO logs from ollama_client to reduce output clutter
+logging.getLogger('ollama_client').setLevel(logging.WARNING)
 
 def filter_think_sections(text):
     """
@@ -200,8 +204,11 @@ def main():
     # Process each DPA
     all_results = []
     
-    for target_dpa in target_dpas:
-        print(f"\nProcessing DPA: {target_dpa}")
+    # Progress bar for DPAs
+    dpa_progress = tqdm(target_dpas, desc="Processing DPAs", position=0)
+    
+    for target_dpa in dpa_progress:
+        dpa_progress.set_description(f"Processing DPA: {target_dpa}")
         
         # Filter for the target DPA
         df_filtered = df[df['DPA'] == target_dpa].copy()
@@ -214,19 +221,19 @@ def main():
         if args.max_segments > 0:
             df_filtered = df_filtered.head(args.max_segments)
         
-        print(f"Processing {len(df_filtered)} segments")
-        
         # Create deolingo-compatible results file
         deolingo_format_file = os.path.join(args.output, f"baseline_deolingo_results_{target_dpa.replace(' ', '_')}.txt")
         
         with open(deolingo_format_file, 'w') as deolingo_file:
-            # Process each requirement
-            for req_id, req_text in tqdm(requirements.items(), desc=f"Processing requirements for {target_dpa}"):
+            # Progress bar for requirements within this DPA
+            req_progress = tqdm(requirements.items(), desc="Requirements", position=1, leave=False)
+            
+            for req_id, req_text in req_progress:
+                req_progress.set_description(f"Req {req_id}")
                 r_label = req_number_to_r_label(req_id)
                 
-                # Process each segment
-                for idx, row in tqdm(df_filtered.iterrows(), total=len(df_filtered), 
-                                   desc=f"Processing segments for requirement {req_id}", leave=False):
+                # Process each segment (no progress bar for segments to reduce clutter)
+                for idx, row in df_filtered.iterrows():
                     segment_id = row["ID"]
                     segment_text = row["Sentence"]
                     
