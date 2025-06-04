@@ -200,20 +200,18 @@ INSTRUCTIONS:
 
 Examples:
 Example 1:
-REQUIREMENT: Processor must ensure that all authorized persons are bound by confidentiality obligations.
-SYMBOLIC: &obligatory{ensure_confidentiality_authorized_persons} :- role(processor).
-PREDICATES: ensure_confidentiality_authorized_persons; role(processor)
+REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
+SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
+PREDICATES: ensure_confidentiality_commitment; role(processor)
 CLAUSE: The Processor shall ensure that every employee authorized to process Customer Personal Data is subject to a contractual duty of confidentiality.
-Expected output: ensure_confidentiality_authorized_persons; role(processor)
-Explanation: ensure_confidentiality_authorized_persons is in output as the CLAUSE defines a rule for a processor which is same as rule in the REQUIREMENt. role(processor) is in output as the CLAUSE mentions the requirement for the processor
+Expected output: ensure_confidentiality_commitment; role(processor)
 
 Example 2:
-REQUIREMENT: Processor must encrypt personal data during transmission and at rest.
-SYMBOLIC: &obligatory{encrypt_personal_data} :- role(processor).
-PREDICATES: encrypt_personal_data; role(processor)
-CLAUSE: This DPA shall remain in effect so long as processor processes Personal Data, notwithstanding the expiration or termination of the Agreement.
+REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller..
+SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
+CLAUSE: Where processor authorises any sub-processor as described in Section 6.1
 Expected output: role(processor)
-Explanation: role(processor) is in output as CLAUSE mentions action made by processor. encrypt_personal_data is not in output as CLAUSE does not mention any rule for a processor
 
 Example 3:
 REQUIREMENT: The processor must encrypt all the data collected from customers.
@@ -221,15 +219,13 @@ SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
 PREDICATES: encrypt_collected_data; role(processor)
 CLAUSE: The processor will store customer's data in raw format.
 Expected output: -encrypt_collected_data; role(processor)
-EXPLANATION: -encrypt_collected_data is in output as CLAUSE violated REQUIREMENT by saying that data will not be encrypted. role(processor) is in output as CLAUSE mentions action by a processor
 
 Example 4:
 REQUIREMENT: The processor must notify controller about data breaches.
 SYMBOLIC: &obligatory{notyfy_controller_data_breaches} :- role(processor)
 PREDICATES: notyfy_controller_data_breaches; role(processor)
 CLAUSE: Sub-Processor rights
-Expected output: NO_FACTS
-Explanation: NO_FACTS is in output as CLAUSE does not mention any of predicates and not define any rule for a processor"""
+Expected output: NO_FACTS"""
 
     
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
