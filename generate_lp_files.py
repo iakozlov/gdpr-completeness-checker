@@ -53,6 +53,8 @@ def main():
                         help="Enable verbose output for debugging")
     parser.add_argument("--use_ollama", action="store_true",
                         help="Use Ollama for model inference")
+    parser.add_argument("--requirement_prompts", type=str, default="requirement_prompts.json",
+                        help="Path to requirement-specific prompts JSON file")
     args = parser.parse_args()
     
     # Create output directory
@@ -62,6 +64,17 @@ def main():
     print(f"Loading requirements from: {args.requirements}")
     with open(args.requirements, 'r') as f:
         all_requirements = json.load(f)
+    
+    # Load requirement-specific prompts if available
+    requirement_prompts = {}
+    if os.path.exists(args.requirement_prompts):
+        print(f"Loading requirement-specific prompts from: {args.requirement_prompts}")
+        with open(args.requirement_prompts, 'r') as f:
+            requirement_prompts = json.load(f)
+        print(f"Loaded prompts for {len(requirement_prompts)} requirements")
+    else:
+        print(f"Warning: Requirement prompts file not found at {args.requirement_prompts}")
+        print("Using generic system prompt for all requirements")
     
     # Filter requirements by ID if specified
     if args.req_ids.lower() != "all":
@@ -145,7 +158,7 @@ def main():
             lp_file_path = os.path.join(req_dir, f"segment_{segment_id}.lp")
             
             # Extract facts from DPA segment
-            facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, args.use_ollama, args.model)
+            facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, args.use_ollama, args.model, req_id, requirement_prompts)
             
             # Generate LP file content
             lp_content = generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text)
@@ -164,7 +177,7 @@ def extract_predicates(req_info):
     # Return the atoms directly from the requirement info
     return req_info.get("atoms", [])
 
-def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, use_ollama=False, model_name="llama3.3:70b"):
+def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, use_ollama=False, model_name="llama3.3:70b", req_id="", requirement_prompts={}):
     """
     Use LLM to extract facts from a DPA segment based on requirement symbolic representation,
     considering semantic similarity between requirement context and DPA context.
@@ -177,10 +190,17 @@ def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates,
         llm_model: The LLM model to use for extraction
         use_ollama: Whether to use Ollama for inference
         model_name: Name of the model to use
+        req_id: ID of the current requirement
+        requirement_prompts: Dictionary of requirement-specific prompts
     Returns:
         Dictionary mapping predicates to their truth values
     """
-    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
+    # Use requirement-specific prompt if available, otherwise use generic prompt
+    if req_id in requirement_prompts and 'system_prompt' in requirement_prompts[req_id]:
+        system_prompt = requirement_prompts[req_id]['system_prompt']
+    else:
+        # Fallback to generic system prompt
+        system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
 Input always contains:
 1. "REQUIREMENT" – text of the GDPR requirement
@@ -227,15 +247,13 @@ PREDICATES: notyfy_controller_data_breaches; role(processor)
 CLAUSE: Sub-Processor rights
 Expected output: NO_FACTS"""
 
-    
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
     if use_ollama:
         response = llm_model.generate(user_prompt, model_name=model_name, system_prompt=system_prompt)
     else:
-        # For non-Ollama models, combine system and user prompts
-        combined_prompt = f"{system_prompt}\n\n{user_prompt}"
-        response = llm_model.generate(combined_prompt)
+        # For non-Ollama models (LlamaModel), use the correct method
+        response = llm_model.generate_symbolic_representation(user_prompt, system_prompt)
     
     # Filter out <think> sections from reasoning models like qwen3
     response = filter_think_sections(response)
