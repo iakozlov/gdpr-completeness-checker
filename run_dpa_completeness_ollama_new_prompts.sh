@@ -8,14 +8,14 @@ set -e  # Exit on any error
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
 OLLAMA_MODEL="gemma3:27b"  # Default Ollama model
-OUTPUT_DIR="results/ollama_experiment/new_prompts"
+OUTPUT_DIR="results/ollama_experiment/new_prompts/gemma3_27b"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
 REQUIREMENTS_DEONTIC="${OUTPUT_DIR}/requirements_deontic_generated.json"
-TARGET_DPAS=("Online 124")  # Default DPA for testing new prompts
-REQ_IDS="1,2,3,4,5,6"  # Focus on requirements 1-6 for testing
-MAX_SEGMENTS=50  # Limit to 50 segments for testing
+TARGET_DPAS=("Online 124" "Online 126" "Online 132")  # Default DPA for testing new prompts
+REQ_IDS="all"  # Focus on requirements 1-6 for testing
+MAX_SEGMENTS=0  # Limit to 50 segments for testing
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
 USE_PREDEFINED=true  # Default to using predefined requirements
 REQUIREMENT_PROMPTS="requirement_prompts.json"  # New requirement-specific prompts
@@ -322,24 +322,34 @@ case ${STEP} in
             
             echo "Processing DPA: ${TARGET_DPA}"
             
-            # Process only the specified requirements (1-6 by default)
+            # Handle both specific requirement IDs and "all" case
             REQ_DIRS=""
-            for REQ_ID in $(echo ${REQ_IDS} | tr ',' ' '); do
-                if [ -d "${DPA_DIR}/req_${REQ_ID}" ]; then
-                    REQ_DIRS="${REQ_DIRS} ${DPA_DIR}/req_${REQ_ID}"
-                fi
-            done
+            if [ "${REQ_IDS}" = "all" ]; then
+                # Find all requirement directories automatically
+                for req_dir in "${DPA_DIR}"/req_*; do
+                    if [ -d "${req_dir}" ]; then
+                        REQ_DIRS="${REQ_DIRS} ${req_dir}"
+                    fi
+                done
+            else
+                # Process only the specified requirements
+                for REQ_ID in $(echo ${REQ_IDS} | tr ',' ' '); do
+                    if [ -d "${DPA_DIR}/req_${REQ_ID}" ]; then
+                        REQ_DIRS="${REQ_DIRS} ${DPA_DIR}/req_${REQ_ID}"
+                    fi
+                done
+            fi
+            
+            if [ -z "${REQ_DIRS}" ]; then
+                echo "  Warning: No requirement directories found in ${DPA_DIR}"
+                continue
+            fi
             
             for req_dir in ${REQ_DIRS}; do
                 req_id=$(basename ${req_dir} | sed 's/req_//')
                 echo "  Processing requirement ${req_id}..."
-                
-                # Process all .lp files for this requirement
                 find "${req_dir}" -name "*.lp" | while read lp_file; do
-                    # Extract segment ID from the file path
                     segment_id=$(basename $lp_file | sed 's/segment_//' | sed 's/\.lp//')
-                    
-                    # Run deolingo with error handling
                     run_deolingo "${lp_file}" "${req_id}" "${segment_id}" "${TARGET_DPA}"
                 done
             done
@@ -488,12 +498,29 @@ case ${STEP} in
             fi
             
             echo "Processing DPA: ${TARGET_DPA}"
+            
+            # Handle both specific requirement IDs and "all" case
             REQ_DIRS=""
-            for REQ_ID in $(echo ${REQ_IDS} | tr ',' ' '); do
-                if [ -d "${DPA_DIR}/req_${REQ_ID}" ]; then
-                    REQ_DIRS="${REQ_DIRS} ${DPA_DIR}/req_${REQ_ID}"
-                fi
-            done
+            if [ "${REQ_IDS}" = "all" ]; then
+                # Find all requirement directories automatically
+                for req_dir in "${DPA_DIR}"/req_*; do
+                    if [ -d "${req_dir}" ]; then
+                        REQ_DIRS="${REQ_DIRS} ${req_dir}"
+                    fi
+                done
+            else
+                # Process only the specified requirements
+                for REQ_ID in $(echo ${REQ_IDS} | tr ',' ' '); do
+                    if [ -d "${DPA_DIR}/req_${REQ_ID}" ]; then
+                        REQ_DIRS="${REQ_DIRS} ${DPA_DIR}/req_${REQ_ID}"
+                    fi
+                done
+            fi
+            
+            if [ -z "${REQ_DIRS}" ]; then
+                echo "  Warning: No requirement directories found in ${DPA_DIR}"
+                continue
+            fi
             
             for req_dir in ${REQ_DIRS}; do
                 req_id=$(basename ${req_dir} | sed 's/req_//')
