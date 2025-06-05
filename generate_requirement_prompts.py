@@ -93,16 +93,35 @@ def categorize_segments_by_requirement(df: pd.DataFrame) -> Dict[str, Dict[str, 
     
     return categorized
 
-def select_examples(segments: List[Tuple[str, str]], max_examples: int = 3) -> List[Tuple[str, str]]:
-    """Select a random sample of examples."""
-    if len(segments) <= max_examples:
-        return segments
-    return random.sample(segments, max_examples)
+def select_examples(segments: List[Tuple[str, str]], max_examples: int = 3, used_examples: set = None) -> List[Tuple[str, str]]:
+    """Select a random sample of examples, avoiding duplicates."""
+    if used_examples is None:
+        used_examples = set()
+    
+    # Filter out already used examples
+    available_segments = [seg for seg in segments if seg[0] not in used_examples]
+    
+    if len(available_segments) <= max_examples:
+        selected = available_segments
+    else:
+        selected = random.sample(available_segments, max_examples)
+    
+    # Add selected examples to used set
+    for seg in selected:
+        used_examples.add(seg[0])
+    
+    return selected
 
-def generate_requirement_prompt(req_id: str, req_info: Dict, examples: Dict[str, List[Tuple[str, str]]]) -> str:
+def generate_requirement_prompt(req_id: str, req_info: Dict, examples: Dict[str, List[Tuple[str, str]]], global_used_examples: set = None) -> Dict:
     """Generate a system prompt for a specific requirement with examples."""
     
-    base_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
+    if global_used_examples is None:
+        global_used_examples = set()
+    
+    # Track examples used within this requirement to avoid internal duplicates
+    local_used_examples = set()
+    
+    base_instructions = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
 Input always contains:
 1. "REQUIREMENT" – text of the GDPR requirement
@@ -118,82 +137,114 @@ INSTRUCTIONS:
 2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
 3) If no predicated are entailed, output exactly NO_FACTS
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
-5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
+5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else."""
 
-Examples:
-"""
-
-    # Initialize prompt with base prompt
-    prompt = base_prompt
     req_text = req_info.get('text', '')
     req_symbolic = req_info.get('symbolic', '')
     req_predicates = req_info.get('atoms', [])
     
+    # Generate examples as structured data
+    prompt_examples = []
     example_count = 1
     
-    # Add satisfying examples
-    satisfying_examples = select_examples(examples.get('satisfying', []), 2)
+    # Add satisfying examples (avoid both global and local duplicates)
+    satisfying_examples = select_examples(examples.get('satisfying', []), 2, global_used_examples.union(local_used_examples))
     if satisfying_examples:
         for i, (sentence, dpa) in enumerate(satisfying_examples):
-            prompt += f"Example {example_count}:\n"
-            prompt += f"REQUIREMENT: {req_text}\n"
-            prompt += f"SYMBOLIC: {req_symbolic}\n"
-            prompt += f"PREDICATES: {'; '.join(req_predicates)}\n"
-            prompt += f"CLAUSE: {sentence}\n"
-            # For satisfying examples, output all predicates from the requirement
-            prompt += f"Expected output: {'; '.join(req_predicates)}\n\n"
+            example = {
+                "example_number": example_count,
+                "type": "satisfying",
+                "requirement": req_text,
+                "symbolic": req_symbolic,
+                "predicates": '; '.join(req_predicates),
+                "clause": sentence,
+                "expected_output": '; '.join(req_predicates),
+                "dpa_source": dpa
+            }
+            prompt_examples.append(example)
+            local_used_examples.add(sentence)
             example_count += 1
     
-    # Add partial examples (mentions processor but doesn't satisfy this requirement)
-    partial_examples = select_examples(examples.get('partial', []), 1)
+    # Add partial examples (avoid both global and local duplicates)
+    partial_examples = select_examples(examples.get('partial', []), 1, global_used_examples.union(local_used_examples))
     if partial_examples:
         sentence, dpa = partial_examples[0]
-        prompt += f"Example {example_count}:\n"
-        prompt += f"REQUIREMENT: {req_text}\n"
-        prompt += f"SYMBOLIC: {req_symbolic}\n"
-        prompt += f"PREDICATES: {'; '.join(req_predicates)}\n"
-        prompt += f"CLAUSE: {sentence}\n"
-        # For partial examples, only output role(processor) if it's in the predicates
-        if 'role(processor)' in req_predicates:
-            prompt += f"Expected output: role(processor)\n\n"
-        else:
-            prompt += f"Expected output: NO_FACTS\n\n"
+        expected_output = "role(processor)" if 'role(processor)' in req_predicates else "NO_FACTS"
+        example = {
+            "example_number": example_count,
+            "type": "partial",
+            "requirement": req_text,
+            "symbolic": req_symbolic,
+            "predicates": '; '.join(req_predicates),
+            "clause": sentence,
+            "expected_output": expected_output,
+            "dpa_source": dpa
+        }
+        prompt_examples.append(example)
+        local_used_examples.add(sentence)
         example_count += 1
     
-    # Add violation example (synthetic)
-    prompt += f"Example {example_count}:\n"
-    prompt += f"REQUIREMENT: {req_text}\n"
-    prompt += f"SYMBOLIC: {req_symbolic}\n"
-    prompt += f"PREDICATES: {'; '.join(req_predicates)}\n"
-    
-    # Create synthetic violation example based on the requirement
+    # Add violation example (synthetic - always unique)
     violation_clause = create_violation_example(req_text, req_symbolic)
-    prompt += f"CLAUSE: {violation_clause}\n"
-    
-    # For violation examples, identify which predicate is violated and prefix with -
     violated_predicate = get_main_predicate_from_symbolic(req_symbolic)
     if violated_predicate and violated_predicate in req_predicates:
         other_predicates = [p for p in req_predicates if p != violated_predicate]
         violation_output = f"-{violated_predicate}"
         if other_predicates:
             violation_output += f"; {'; '.join(other_predicates)}"
-        prompt += f"Expected output: {violation_output}\n\n"
     else:
-        prompt += f"Expected output: NO_FACTS\n\n"
+        violation_output = "NO_FACTS"
+    
+    example = {
+        "example_number": example_count,
+        "type": "violation",
+        "requirement": req_text,
+        "symbolic": req_symbolic,
+        "predicates": '; '.join(req_predicates),
+        "clause": violation_clause,
+        "expected_output": violation_output,
+        "dpa_source": "synthetic"
+    }
+    prompt_examples.append(example)
     example_count += 1
     
-    # Add no_facts example
-    no_facts_examples = select_examples(examples.get('no_facts', []), 1)
+    # Add no_facts example (avoid both global and local duplicates)
+    no_facts_examples = select_examples(examples.get('no_facts', []), 1, global_used_examples.union(local_used_examples))
     if no_facts_examples:
         sentence, dpa = no_facts_examples[0]
-        prompt += f"Example {example_count}:\n"
-        prompt += f"REQUIREMENT: {req_text}\n"
-        prompt += f"SYMBOLIC: {req_symbolic}\n"
-        prompt += f"PREDICATES: {'; '.join(req_predicates)}\n"
-        prompt += f"CLAUSE: {sentence}\n"
-        prompt += f"Expected output: NO_FACTS\n\n"
+        example = {
+            "example_number": example_count,
+            "type": "no_facts",
+            "requirement": req_text,
+            "symbolic": req_symbolic,
+            "predicates": '; '.join(req_predicates),
+            "clause": sentence,
+            "expected_output": "NO_FACTS",
+            "dpa_source": dpa
+        }
+        prompt_examples.append(example)
+        local_used_examples.add(sentence)
     
-    return prompt
+    # Add all local examples to global used set
+    global_used_examples.update(local_used_examples)
+    
+    # Create the full system prompt by combining instructions and examples
+    full_prompt = base_instructions + "\n\nExamples:\n"
+    for example in prompt_examples:
+        full_prompt += f"Example {example['example_number']}:\n"
+        full_prompt += f"REQUIREMENT: {example['requirement']}\n"
+        full_prompt += f"SYMBOLIC: {example['symbolic']}\n"
+        full_prompt += f"PREDICATES: {example['predicates']}\n"
+        full_prompt += f"CLAUSE: {example['clause']}\n"
+        full_prompt += f"Expected output: {example['expected_output']}\n\n"
+    
+    return {
+        'system_prompt': full_prompt,
+        'base_instructions': base_instructions,
+        'examples': prompt_examples,
+        'requirement_text': req_text,
+        'requirement_symbolic': req_symbolic
+    }
 
 def create_violation_example(req_text: str, req_symbolic: str) -> str:
     """Create a synthetic violation example based on the requirement."""
@@ -273,6 +324,7 @@ def main():
     
     # Generate prompts for each requirement
     requirement_prompts = {}
+    global_used_examples = set()  # Track examples used across all requirements
     
     for req_id, req_info in requirements.items():
         print(f"Generating prompt for requirement {req_id}...")
@@ -281,10 +333,12 @@ def main():
         examples = categorized_segments.get(req_id, {})
         
         # Generate the prompt
-        prompt = generate_requirement_prompt(req_id, req_info, examples)
+        prompt_data = generate_requirement_prompt(req_id, req_info, examples, global_used_examples)
         
         requirement_prompts[req_id] = {
-            'system_prompt': prompt,
+            'system_prompt': prompt_data['system_prompt'],
+            'base_instructions': prompt_data['base_instructions'],
+            'examples': prompt_data['examples'],
             'requirement_text': req_info.get('text', ''),
             'requirement_symbolic': req_info.get('symbolic', ''),
             'examples_count': {

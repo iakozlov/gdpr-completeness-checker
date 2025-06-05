@@ -8,7 +8,7 @@ set -e  # Exit on any error
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
 OLLAMA_MODEL="gemma3:27b"  # Default Ollama model
-OUTPUT_DIR="results/ollama_experiment/new_prompts/gemma3_27b"
+OUTPUT_DIR="results/ollama_experiment/new_prompts/gemma3-27b"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
