@@ -269,6 +269,11 @@ Expected output: NO_FACTS"""
         else:
             facts[pred] = True
     
+    # CRITICAL CHECK: If role(processor) is not among the extracted facts, 
+    # treat this segment as NO_FACTS since GDPR requirements are about processor obligations
+    if "role(processor)" not in facts:
+        return {}
+    
     return facts
 
 def extract_body_atoms(symbolic_rule):
