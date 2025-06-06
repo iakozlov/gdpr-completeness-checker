@@ -8,7 +8,7 @@ set -e  # Exit on any error
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
 OLLAMA_MODEL="gemma3:27b"  # Default Ollama model
-OUTPUT_DIR="results/ollama_experiment/new_prompts/gemma3-27b"
+OUTPUT_DIR="results/ollama_experiment/fixed_prompts/gemma2-27b"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
@@ -18,7 +18,7 @@ REQ_IDS="all"  # Focus on requirements 1-6 for testing
 MAX_SEGMENTS=0  # Limit to 50 segments for testing
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
 USE_PREDEFINED=true  # Default to using predefined requirements
-REQUIREMENT_PROMPTS="requirement_prompts.json"  # New requirement-specific prompts
+REQUIREMENT_PROMPTS="requirement_prompts_fixed.json"  # New requirement-specific prompts
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -179,8 +179,8 @@ check_deolingo() {
     log "Deolingo is available"
 }
 
-# Create output directory
-mkdir -p "${OUTPUT_DIR}"
+# Create output directory with model name
+mkdir -p "$OUTPUT_DIR"
 
 # Set requirements file
 set_requirements_file
@@ -191,9 +191,9 @@ DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${MODEL_SAFE_NAME}_new_prompts.
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${MODEL_SAFE_NAME}_new_prompts.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics_${MODEL_SAFE_NAME}_new_prompts.json"
 
-echo "========== DPA Completeness Checker with Ollama - New Prompts =========="
+echo "========== DPA Completeness Checker with Ollama - Fixed Prompts =========="
 echo "Using Ollama Model: ${OLLAMA_MODEL}"
-echo "Testing NEW REQUIREMENT-SPECIFIC PROMPTS approach"
+echo "Testing FIXED REQUIREMENT-SPECIFIC PROMPTS (with head predicates in satisfying examples)"
 echo "Requirements Representation: ${REQUIREMENTS_REPRESENTATION}"
 if [ "$USE_PREDEFINED" = true ]; then
     echo "Requirements Source: Predefined (${REQUIREMENTS_FILE})"

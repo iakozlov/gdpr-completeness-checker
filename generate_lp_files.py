@@ -178,9 +178,7 @@ def extract_predicates(req_info):
     return req_info.get("atoms", [])
 
 def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, use_ollama=False, model_name="llama3.3:70b", req_id="", requirement_prompts={}):
-    """
-    Use LLM to extract facts from a DPA segment based on requirement symbolic representation,
-    considering semantic similarity between requirement context and DPA context.
+    """Extract facts from a DPA segment using the LLM.
     
     Args:
         segment_text: The text of the DPA segment
@@ -197,7 +195,33 @@ def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates,
     """
     # Use requirement-specific prompt if available, otherwise use generic prompt
     if req_id in requirement_prompts and 'system_prompt' in requirement_prompts[req_id]:
-        system_prompt = requirement_prompts[req_id]['system_prompt']
+        base_system_prompt = requirement_prompts[req_id]['system_prompt']
+        
+        # If we have examples, add them to the prompt
+        if 'examples' in requirement_prompts[req_id]:
+            system_prompt = base_system_prompt + f"""
+
+REQUIREMENT TO ANALYZE:
+{req_text}
+
+SYMBOLIC REPRESENTATION:
+{req_symbolic}
+
+EXPECTED PREDICATES:
+{'; '.join(req_predicates)}
+
+EXAMPLES:
+"""
+            
+            # Add examples from the structured format
+            for example in requirement_prompts[req_id]['examples']:
+                system_prompt += f"""
+SEGMENT: {example['segment']}
+OUTPUT: {example['expected_output']}
+"""
+        else:
+            # No examples available, just use the base prompt
+            system_prompt = base_system_prompt
     else:
         # Fallback to generic system prompt
         system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.

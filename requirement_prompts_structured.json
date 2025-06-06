@@ -1,0 +1,962 @@
+{
+  "1": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.",
+    "requirement_symbolic": "&obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).",
+    "expected_predicates": [
+      "role(processor)",
+      "authorization(controller)",
+      "engage_sub_processor"
+    ],
+    "examples": [
+      {
+        "segment": "that, in the event of subprocessing, it has previously informed the controller and obtained its prior written consent;",
+        "expected_output": "role(processor); authorization(controller)",
+        "type": "satisfying"
+      },
+      {
+        "segment": "The processor shall not subcontract any of its processing operations performed on behalf of the controller under the Clauses without the prior written consent of the controller. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "controller hereby approves the engagement of any affiliates of processor and any other Sub-Processors contained in Attachment 3 and any additional Sub-Processors may be agreed in accordance with Section 3. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 141,
+      "no_facts": 8998,
+      "partial": 4098
+    }
+  },
+  "2": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "In case of general written authorization, the processor shall inform the controller of any intended changes concerning the addition or replacement of sub-processors.",
+    "requirement_symbolic": "&obligatory{inform_controller_changes} :- role(processor), general_written_authorization.",
+    "expected_predicates": [
+      "role(processor)",
+      "general_written_authorization",
+      "inform_controller_changes"
+    ],
+    "examples": [
+      {
+        "segment": "processor shall notify controller with at least ten (10) days\u2019 prior notice before authorizing any new Sub-Processors to access controller\u2019s Personal Data;",
+        "expected_output": "role(processor); general_written_authorization",
+        "type": "satisfying"
+      },
+      {
+        "segment": "In such case processor shall inform controller of the Emergency Replacement without undue delay and the process as described in Section 7. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "processor will (i) provide an up-to-date list of the Sub-processors it has appointed upon written request from controller; and (ii) notify controller (for which email will suffice) if it adds a Sub-processors at least ten (10) days prior to any such changes. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 64,
+      "no_facts": 8998,
+      "partial": 4175
+    }
+  },
+  "3": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall process personal data only on documented instructions from the controller.",
+    "requirement_symbolic": "&obligatory{process_data_on_documented_instructions} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "process_data_on_documented_instructions"
+    ],
+    "examples": [
+      {
+        "segment": "processor will process controller Data only in accordance with Documented Instructions.",
+        "expected_output": "role(processor); process_data_on_documented_instructions",
+        "type": "satisfying"
+      },
+      {
+        "segment": "to process the personal data only on behalf of the controller and in compliance with its instructions and the Clauses; if it cannot provide such compliance for whatever reasons, it agrees to inform promptly the controller of its inability to comply, in which case the controller is entitled to suspend the transfer of data and/or terminate the contract;. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "As Processor, processor shall only Process Personal Data upon controller\u2019s documented instructions. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 115,
+      "no_facts": 8998,
+      "partial": 4124
+    }
+  },
+  "4": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "If the processor is required by Union or Member-State law to process personal data without instructions and such law does not prohibit informing the controller on grounds of public interest, the processor shall inform the controller of that legal requirement before processing.",
+    "requirement_symbolic": "&obligatory{inform_legal_requirement} :- role(processor), required_by_law, not prohibited_informing_public_interest.",
+    "expected_predicates": [
+      "role(processor)",
+      "required_by_law",
+      "prohibited_informing_public_interest",
+      "inform_legal_requirement"
+    ],
+    "examples": [
+      {
+        "segment": "In case of such a request, processor or the Sub-Processor will (i) redirect such requesting entity to request data directly from controller and may provide controller\u2019s basic contact information, and (ii) promptly notify controller and provide a copy of the request, unless processor is prevented from doing so by applicable laws or governmental order.",
+        "expected_output": "role(processor); required_by_law",
+        "type": "satisfying"
+      },
+      {
+        "segment": "(a) to process the personal data only on behalf of the controller and in compliance with its instructions and the Clauses; if it cannot provide such compliance for whatever reasons, it agrees to inform promptly the controller of its inability to comply, in which case the controller is entitled to suspend the transfer of data and/or terminate the contract;. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "process the Personal Data only (i) on documented instructions from Controller, as further specified in the Agreement, or (ii) where required to do so by Union or Member State law to which Processor is subject, in which case Processor shall inform Controller in advance, unless prohibited by law;. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 40,
+      "no_facts": 8998,
+      "partial": 4199
+    }
+  },
+  "5": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall ensure that persons authorised to process personal data are bound by confidentiality.",
+    "requirement_symbolic": "&obligatory{ensure_confidentiality_commitment} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "ensure_confidentiality_commitment"
+    ],
+    "examples": [
+      {
+        "segment": "processor imposes appropriate contractual obligations upon its personnel, including relevant obligations regarding confidentiality, data protection and data security.",
+        "expected_output": "role(processor); ensure_confidentiality_commitment",
+        "type": "satisfying"
+      },
+      {
+        "segment": "processor shall ensure that personnel engaged in providing the Services shall maintain the confidentiality of Personal Data. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "In case audits relate to Sub-Processors, controller and Further Service Recipients may be required to enter into non- disclosure agreements directly with the respective Sub-Processor before issuing Audit Reports to controller or Further Service Recipients. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 86,
+      "no_facts": 8998,
+      "partial": 4153
+    }
+  },
+  "6": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.",
+    "requirement_symbolic": "&obligatory{ensure_security_of_processing} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "ensure_security_of_processing"
+    ],
+    "examples": [
+      {
+        "segment": "This document describes the Measures which processor shall implement as a minimum in connection with the Processing of Personal Data carried out by processor, taking into account the state of the art in technology, the costs of implementation and the nature, scope, context and purposes of Processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons.",
+        "expected_output": "role(processor); ensure_security_of_processing",
+        "type": "satisfying"
+      },
+      {
+        "segment": "Unauthorized persons will be prevented from gaining physical access to premises, buildings or rooms where data processing systems are located which Process and/or use the Personal Data. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "Measures: All data centers adhere to strict security procedures enforced by security personnel, surveillance equipment, motion detectors, access control mechanisms and other measures to prevent equipment and data center facilities from being compromised. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 1068,
+      "no_facts": 8998,
+      "partial": 3171
+    }
+  },
+  "7": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject\u2019s rights.",
+    "requirement_symbolic": "&obligatory{assist_controller_requests_data_subject_rights} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "assist_controller_requests_data_subject_rights"
+    ],
+    "examples": [
+      {
+        "segment": "any request received directly from the data subjects without responding to that request, unless it has been otherwise authorised to do so;",
+        "expected_output": "role(processor); assist_controller_requests_data_subject_rights",
+        "type": "satisfying"
+      },
+      {
+        "segment": "processor shall notify controller without undue delay of (i) complaints or requests of data subjects whose Personal Data is Processed pursuant to this DPA or (ii) orders or requests by a competent supervisory authority or court. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "The Service provides controller with a number of controls that controller may use to retrieve, correct, delete, or restrict controller Data, which controller may use to assist it in connection with its obligations under Data Protection Laws including, for example, its obligations relating to responding to Data Subject Requests. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 147,
+      "no_facts": 8998,
+      "partial": 4092
+    }
+  },
+  "8": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall assist the controller in ensuring the security of processing.",
+    "requirement_symbolic": "&obligatory{assist_controller_security} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "assist_controller_security"
+    ],
+    "examples": [
+      {
+        "segment": "At controller\u2019s request and at the controller\u2019s reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller\u2019s further obligations as Controller under Applicable Data Protection Law.",
+        "expected_output": "role(processor); assist_controller_security",
+        "type": "satisfying"
+      },
+      {
+        "segment": "assist the controller in ensuring compliance with its legal obligations, such as, data security, data breach notification, data protection assessment and prior consulting obligations, as required of the processor by the Laws, taking into account the nature of Processing and the information available to the processor;. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "use all reasonable endeavours, in accordance with Good Industry Practice, to assist controller to comply with the obligations imposed on controller by the Data Protection Legislation, including: (A) compliance with the Security Requirements; (B) obligations relating to notifications required by the Data Protection Legislation to the Regulator and/ or any relevant Data Subjects; and (C) undertaking any Data Protection Impact Assessments (and, where required by the Data Protection Legislation, consulting with the Regulator in respect of any such Data Protection Impact Assessments). The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 27,
+      "no_facts": 8998,
+      "partial": 4212
+    }
+  },
+  "9": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall assist the controller in notifying a personal-data breach to the supervisory authority.",
+    "requirement_symbolic": "&obligatory{assist_notification_supervisory_authority} :- role(processor), data_breach.",
+    "expected_predicates": [
+      "role(processor)",
+      "data_breach",
+      "assist_notification_supervisory_authority"
+    ],
+    "examples": [
+      {
+        "segment": "At controller\u2019s request and at the controller\u2019s reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller\u2019s further obligations as Controller under Applicable Data Protection Law.",
+        "expected_output": "role(processor); data_breach",
+        "type": "satisfying"
+      },
+      {
+        "segment": "assist the controller in ensuring compliance with its legal obligations, such as, data security, data breach notification, data protection assessment and prior consulting obligations, as required of the processor by the Laws, taking into account the nature of Processing and the information available to the processor;. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "use all reasonable endeavours, in accordance with Good Industry Practice, to assist controller to comply with the obligations imposed on controller by the Data Protection Legislation, including: (A) compliance with the Security Requirements; (B) obligations relating to notifications required by the Data Protection Legislation to the Regulator and/ or any relevant Data Subjects; and (C) undertaking any Data Protection Impact Assessments (and, where required by the Data Protection Legislation, consulting with the Regulator in respect of any such Data Protection Impact Assessments). The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 29,
+      "no_facts": 8998,
+      "partial": 4210
+    }
+  },
+  "10": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall assist the controller in communicating a personal-data breach to the data subject.",
+    "requirement_symbolic": "&obligatory{assist_communication_data_subject} :- role(processor), data_breach.",
+    "expected_predicates": [
+      "role(processor)",
+      "data_breach",
+      "assist_communication_data_subject"
+    ],
+    "examples": [
+      {
+        "segment": "processor shall (i) reasonably cooperate with controller in the investigation of such Personal Data Breach; (ii) provide reasonable support in assisting in controller in its security breach notification obligations under Applicable Data Protection Law (if applicable); and (iii) initiate respective and reasonable remedy measures.",
+        "expected_output": "role(processor); data_breach",
+        "type": "satisfying"
+      },
+      {
+        "segment": "assist the controller in ensuring compliance with its legal obligations, such as, data security, data breach notification, data protection assessment and prior consulting obligations, as required of the processor by the Laws, taking into account the nature of Processing and the information available to the processor;. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "The processor will assist the controller in ensuring compliance with the obligations with regard to security of proces- sing; notification of a personal data breach to the supervisory au- thority; communication of a personal data breach to the Data Sub- ject; and data protection impact assessment. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 39,
+      "no_facts": 8998,
+      "partial": 4200
+    }
+  },
+  "11": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall assist the controller in ensuring compliance with data-protection impact-assessment obligations.",
+    "requirement_symbolic": "&obligatory{assist_impact_assessment_compliance} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "assist_impact_assessment_compliance"
+    ],
+    "examples": [
+      {
+        "segment": "processor shall (i) reasonably cooperate with controller in the investigation of such Personal Data Breach; (ii) provide reasonable support in assisting in controller in its security breach notification obligations under Applicable Data Protection Law (if applicable); and (iii) initiate respective and reasonable remedy measures.",
+        "expected_output": "role(processor); assist_impact_assessment_compliance",
+        "type": "satisfying"
+      },
+      {
+        "segment": "The processor will assist the controller in ensuring compliance with the obligations with regard to security of proces- sing; notification of a personal data breach to the supervisory au- thority; communication of a personal data breach to the Data Sub- ject; and data protection impact assessment. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "notify controller promptly (and in any event within twenty-four (24) hours) upon becoming aware of any actual or suspected, threatened or \u2018near miss\u2019 Personal Data Breach, with sufficient information to allow controller to meet any obligations under Data Protection Legislation to report or inform Data Subjects of the data breach, and: (A) implement any measures necessary to restore the security of compromised Personal Data; and (B) assist the Data Controller to make any notifications to the Regulator and affected Data Subjects; . The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 29,
+      "no_facts": 8998,
+      "partial": 4210
+    }
+  },
+  "12": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall assist the controller in consulting the supervisory authorities prior to processing where the processing would result in a high risk in the absence of measures taken by the controller to mitigate the risk.",
+    "requirement_symbolic": "&obligatory{assist_consulting_supervisory_authorities} :- role(processor), high_risk_processing.",
+    "expected_predicates": [
+      "role(processor)",
+      "high_risk_processing",
+      "assist_consulting_supervisory_authorities"
+    ],
+    "examples": [
+      {
+        "segment": "At controller\u2019s request and at the controller\u2019s reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller\u2019s further obligations as Controller under Applicable Data Protection Law.",
+        "expected_output": "role(processor); high_risk_processing",
+        "type": "satisfying"
+      },
+      {
+        "segment": "To the extent processor is required under applicable Data Protection Laws, processor will provide reasonably requested information regarding the Service to enable the controller to carry out data protection impact assessments or prior consultations with data protection authorities as required by law or pursuant to Articles 35 and 36 or GDPR, respectively. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "2. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 56,
+      "no_facts": 8998,
+      "partial": 4183
+    }
+  },
+  "13": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall return or delete all personal data to the controller after the end of the provision of services relating to processing.",
+    "requirement_symbolic": "&obligatory{return_or_delete_personal_data} :- role(processor), end_of_services.",
+    "expected_predicates": [
+      "role(processor)",
+      "end_of_services",
+      "return_or_delete_personal_data"
+    ],
+    "examples": [
+      {
+        "segment": "processor will delete controller Data when requested by controller by using the Service controls provided for this purpose by processor.",
+        "expected_output": "role(processor); end_of_services",
+        "type": "satisfying"
+      },
+      {
+        "segment": "The parties agree that on the termination of the provision of data processing services, the processor and the subprocessor shall, at the choice of the controller, return all the personal data transferred and the copies thereof to the controller or shall destroy all the personal data and certify to the controller that it has done so, unless legislation imposed upon the processor prevents it from returning or destroying all or part of the personal data transferred. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "Upon termination of the Services, unless otherwise agreed between the Parties, processor shall erase all Personal Data made available to processor or obtained or generated by processor on behalf of controller in connection with the Services, unless required to retain in accordance with applicable law. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 123,
+      "no_facts": 8998,
+      "partial": 4116
+    }
+  },
+  "14": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall immediately inform the controller if an instruction infringes the GDPR or other data-protection provisions.",
+    "requirement_symbolic": "&obligatory{inform_instruction_infringement} :- role(processor), instruction_infringes_law.",
+    "expected_predicates": [
+      "role(processor)",
+      "instruction_infringes_law",
+      "inform_instruction_infringement"
+    ],
+    "examples": [
+      {
+        "segment": "processor shall inform controller if, in the opinion of processor, an instruction infringes Applicable Data Protection Law.",
+        "expected_output": "role(processor); instruction_infringes_law",
+        "type": "satisfying"
+      },
+      {
+        "segment": "processor shall: (i) Process Personal Data only on controller\u2019s behalf and in accordance with controller\u2019s documented lawful instructions and shall treat Personal Data as confidential information subject to the confidentiality provisions of the Agreement; (ii) notify controller in writing immediately if, in processor\u2019s reasonable opinion, processor believes that any instruction given by controller infringes Data Protection Laws; (iii) perform the Service and Process Personal Data in compliance with Data Protection Laws and the Agreement; (iv) promptly notify controller of any noncompliance with this DPA. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "inform Controller if, in Processor\u2019s opinion, any instruction infringes the GDPR or other Union or Member State data protection provisions, provided that Processor shall have no obligation to independently inspect or verify Controller use or processing of Personal Data; and. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 50,
+      "no_facts": 8998,
+      "partial": 4189
+    }
+  },
+  "15": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall make available to the controller the information necessary to demonstrate compliance with Article 28 obligations.",
+    "requirement_symbolic": "&obligatory{provide_compliance_information} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "provide_compliance_information"
+    ],
+    "examples": [
+      {
+        "segment": "Upon controller\u2019s request, processor shall provide any relevant information in connection with its data protection obligations from such audit reports and corresponding information (together \u201cAudit Reports\u201d) for the Services concerned.",
+        "expected_output": "role(processor); provide_compliance_information",
+        "type": "satisfying"
+      },
+      {
+        "segment": "processor will make available to controller all information necessary to demonstrate compliance with the obligations of Data Processors laid down in Article 28 of GDPR (\u201cArticle 28 Requirements\u201d). The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "To this end, processor will provide written responses to all reasonable requests for information made by controller, including responses to information security and audit questionnaires that are necessary to confirm processor\u2019s compliance with Article 28 Requirements, provided that controller will not exercise this right more than once per year. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 108,
+      "no_facts": 8998,
+      "partial": 4131
+    }
+  },
+  "16": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",
+    "requirement_symbolic": "&obligatory{allow_contribute_audits} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "allow_contribute_audits"
+    ],
+    "examples": [
+      {
+        "segment": "at the request of the controller to submit its data processing facilities for audit of the processing activities covered by the Clauses which shall be carried out by the controller or an inspection body composed of independent members and in possession of the required professional qualifications bound by a duty of confidentiality, selected by the controller, where applicable, in agreement with the supervisory authority;",
+        "expected_output": "role(processor); allow_contribute_audits",
+        "type": "satisfying"
+      },
+      {
+        "segment": "The parties agree that the supervisory authority has the right to conduct an audit of the processor, and of any subprocessor, which has the same scope and is subject to the same conditions as would apply to an audit of the controller under the applicable data protection law. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "controller shall have the right to audit, in accordance with Sections 10. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 127,
+      "no_facts": 8998,
+      "partial": 4112
+    }
+  },
+  "17": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall impose the same obligations on engaged sub-processors by way of contract or other legal act under Union or Member-State law.",
+    "requirement_symbolic": "&obligatory{impose_same_obligations_sub_processors} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "impose_same_obligations_sub_processors"
+    ],
+    "examples": [
+      {
+        "segment": "processor will enter into a written agreement with the sub-processor and, to the extent that the sub-processor is performing the same data processing services that are being provided by processor under this DPA, processor will impose on the sub- processor the same contractual obligations that processor has under this DPA; and",
+        "expected_output": "role(processor); impose_same_obligations_sub_processors",
+        "type": "satisfying"
+      },
+      {
+        "segment": "Where the processor subcontracts its obligations under the Clauses, with the consent of the controller, it shall do so only by way of a written agreement with the subprocessor which imposes the same obligations on the subprocessor as are imposed on the processor under the Clauses. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "processor will: (i) enter into a written agreement with the Sub-processor imposing data protection terms that require the Sub-processor to protect the controller Data to the standard required by Data Protection Laws; and (ii) remain responsible for its compliance with the obligations of this DPA and for any acts or omissions of the Sub-processor that cause processor to breach any of its obligations under this DPA. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 114,
+      "no_facts": 8998,
+      "partial": 4125
+    }
+  },
+  "18": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "The processor shall remain fully liable to the controller for the performance of sub-processor obligations.",
+    "requirement_symbolic": "&obligatory{remain_fully_liable_sub_processors} :- role(processor).",
+    "expected_predicates": [
+      "role(processor)",
+      "remain_fully_liable_sub_processors"
+    ],
+    "examples": [
+      {
+        "segment": "processor will remain responsible for its compliance with the obligations of this DPA and for any acts or omissions of the sub-processors that cause processor to breach any of processor\u2019s obligations under this DPA.",
+        "expected_output": "role(processor); remain_fully_liable_sub_processors",
+        "type": "satisfying"
+      },
+      {
+        "segment": "Where the subprocessor fails to fulfil its data protection obligations under such written agreement the processor shall remain fully liable to the controller for the performance of the subprocessor's obligations under such agreement. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "processor shall remain fully liable to controller for the performance of the Sub-Processor\u2019s obligations. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 83,
+      "no_facts": 8998,
+      "partial": 4156
+    }
+  },
+  "19": {
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "requirement_text": "When assessing the level of security, the processor shall take into account the risk of accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to personal data transmitted, stored or processed.",
+    "requirement_symbolic": "&obligatory{assess_security_risk} :- role(processor), risk_assessment_required.",
+    "expected_predicates": [
+      "role(processor)",
+      "risk_assessment_required",
+      "assess_security_risk"
+    ],
+    "examples": [
+      {
+        "segment": "(d) that after assessment of the requirements of the applicable data protection law, the security measures are appropriate to protect personal data against accidental or unlawful destruction or accidental loss, alteration, unauthorised disclosure or access, in particular where the processing involves the transmission of data over a network, and against all other unlawful forms of processing, and that these measures ensure a level of security appropriate to the risks presented by the processing and the nature of the data to be protected having regard to the state of the art and the cost of their implementation;",
+        "expected_output": "role(processor); risk_assessment_required",
+        "type": "satisfying"
+      },
+      {
+        "segment": "the risks that are presented by the Processing, in particular from accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to the Personal Data transmitted, stored or otherwise processed. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "The processor shall implement appropriate technical and organizational measures to secure all Personal Data accessed or processed by the processor against accidental or unlawful loss; against destruction or damage; against any unauthorized ac- cess to and knowledge of the personal data and against any other processing of personal data in violation of this Agreement. The processor handles data processing operations.",
+        "expected_output": "role(processor)",
+        "type": "processor_only"
+      },
+      {
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      }
+    ],
+    "examples_used": 6,
+    "satisfying_examples": 1,
+    "processor_only_examples": 2,
+    "no_facts_examples": 6,
+    "examples_count": {
+      "satisfying": 55,
+      "no_facts": 8998,
+      "partial": 4184
+    }
+  }
+}
