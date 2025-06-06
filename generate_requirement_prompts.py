@@ -208,10 +208,10 @@ CRITICAL RULES:
             })
             processor_only_added += 1
     
-    # 3. Add 3 NO_FACTS examples from different sources
+    # 3. Add 3 NO_FACTS examples from different sources + sophisticated negative examples
     no_facts_added = 0
     for segment, _ in no_facts_examples[:10]:  # Try first 10 to find good ones
-        if no_facts_added >= 3:
+        if no_facts_added >= 2:  # Reduce to 2 instead of 3
             break
         segment_id = f"{req_id}_{hash(segment)}"
         if segment_id not in global_used_examples and len(segment.split()) > 10:  # Ensure meaningful length
@@ -223,28 +223,35 @@ CRITICAL RULES:
             })
             no_facts_added += 1
     
-    # 4. If we need more examples, add some generic discriminating examples
+    # 4. Add sophisticated negative examples targeting high false-positive requirements
+    sophisticated_negatives = get_sophisticated_negative_examples(req_id, head_predicate)
+    for negative_example in sophisticated_negatives:
+        if len(prompt_examples) >= 8:  # Limit total examples
+            break
+        prompt_examples.append({
+            "segment": negative_example["segment"],
+            "expected_output": negative_example["expected_output"],
+            "type": "sophisticated_negative"
+        })
+    
+    # 5. Fill remaining slots with generic discriminating examples
     example_count = len(prompt_examples)
-    while example_count < 6:
-        if example_count == 3:
-            prompt_examples.append({
-                "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
-                "expected_output": "NO_FACTS",
-                "type": "no_facts"
-            })
-        elif example_count == 4:
-            prompt_examples.append({
-                "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
-                "expected_output": "NO_FACTS",
-                "type": "no_facts"
-            })
-        elif example_count == 5:
-            prompt_examples.append({
-                "segment": "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.",
-                "expected_output": "NO_FACTS",
-                "type": "no_facts"
-            })
-        example_count += 1
+    while example_count < 8:  # Increase total examples to 8
+        if example_count == len(prompt_examples):  # Avoid infinite loop
+            if example_count < 8:
+                generic_examples = [
+                    "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
+                    "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
+                    "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA."
+                ]
+                if example_count - 6 < len(generic_examples):
+                    prompt_examples.append({
+                        "segment": generic_examples[example_count - 6],
+                        "expected_output": "NO_FACTS",
+                        "type": "no_facts"
+                    })
+            break
+        example_count = len(prompt_examples)
     
     return {
         'requirement_id': req_id,
@@ -286,6 +293,119 @@ def create_violation_example(req_text: str, req_symbolic: str) -> str:
     
     # Default generic violation
     return "The processor will not comply with this data protection requirement."
+
+def get_sophisticated_negative_examples(req_id: str, head_predicate: str) -> List[Dict]:
+    """Generate sophisticated negative examples for high false-positive requirements."""
+    
+    sophisticated_examples = []
+    
+    # High false positive requirements with targeted negative examples
+    examples_by_req = {
+        # Req 16: audits and inspections
+        "16": [
+            {
+                "segment": "The processor shall conduct regular internal audits of its security procedures and provide summary reports to management.",
+                "expected_output": "role(processor)",
+                "explanation": "Internal audits, not controller audits"
+            },
+            {
+                "segment": "processor may be subject to regulatory audits by data protection authorities as required by applicable law.",
+                "expected_output": "role(processor)",
+                "explanation": "Regulatory audits, not controller-conducted audits"
+            }
+        ],
+        # Req 18: liability  
+        "18": [
+            {
+                "segment": "processor disclaims any liability for damages arising from controller's use of the services beyond the scope of this agreement.",
+                "expected_output": "role(processor)",
+                "explanation": "Disclaiming liability, not accepting sub-processor liability"
+            },
+            {
+                "segment": "controller shall be liable for any breach of its obligations under this DPA that results in harm to data subjects.",
+                "expected_output": "NO_FACTS",
+                "explanation": "Controller liability, not processor liability for sub-processors"
+            }
+        ],
+        # Req 17: sub-processor obligations
+        "17": [
+            {
+                "segment": "processor may engage sub-processors to assist with data processing activities subject to the terms of this agreement.",
+                "expected_output": "role(processor)",
+                "explanation": "General sub-processor engagement, not imposing same obligations"
+            },
+            {
+                "segment": "Sub-processors must comply with all applicable data protection laws and regulations in their jurisdiction.",
+                "expected_output": "NO_FACTS", 
+                "explanation": "Legal compliance requirement, not contractual obligation imposition"
+            }
+        ],
+        # Req 25: compliance information
+        "25": [
+            {
+                "segment": "processor maintains appropriate technical and organizational measures to ensure compliance with data protection requirements.",
+                "expected_output": "role(processor)",
+                "explanation": "General compliance maintenance, not providing compliance information"
+            },
+            {
+                "segment": "controller may request information about processor's data processing activities for its own compliance purposes.",
+                "expected_output": "role(processor)",
+                "explanation": "Controller requesting info, not processor providing compliance demonstration"
+            }
+        ],
+        # Req 12: consulting supervisory authorities
+        "12": [
+            {
+                "segment": "processor shall comply with all requests from supervisory authorities regarding data protection matters.",
+                "expected_output": "role(processor)",
+                "explanation": "Direct compliance with authorities, not assisting controller consultation"
+            },
+            {
+                "segment": "The parties may consult with legal counsel regarding interpretation of data protection requirements.",
+                "expected_output": "NO_FACTS",
+                "explanation": "Legal consultation, not supervisory authority consultation assistance"
+            }
+        ],
+        # Req 13: return or delete data
+        "13": [
+            {
+                "segment": "processor shall retain personal data only for as long as necessary to provide the contracted services.",
+                "expected_output": "role(processor)",
+                "explanation": "Data retention during service, not return/deletion after termination"
+            },
+            {
+                "segment": "controller may delete personal data from its own systems at any time during the contract term.",
+                "expected_output": "NO_FACTS",
+                "explanation": "Controller deleting data, not processor return/deletion obligation"
+            }
+        ],
+        # Req 19: security risk assessment
+        "19": [
+            {
+                "segment": "processor implements industry-standard security measures to protect personal data from unauthorized access.",
+                "expected_output": "role(processor)",
+                "explanation": "General security measures, not risk-based security assessment"
+            },
+            {
+                "segment": "controller is responsible for assessing the risks associated with its data processing activities.",
+                "expected_output": "NO_FACTS",
+                "explanation": "Controller risk assessment, not processor security risk consideration"
+            }
+        ]
+    }
+    
+    # Return examples for this requirement if available
+    if req_id in examples_by_req:
+        return examples_by_req[req_id][:2]  # Return max 2 examples
+    
+    # Generic sophisticated negative examples for other requirements
+    return [
+        {
+            "segment": f"processor maintains appropriate measures related to data processing activities and ensures compliance with applicable requirements.",
+            "expected_output": "role(processor)",
+            "explanation": "Generic compliance mention without specific requirement satisfaction"
+        }
+    ]
 
 def main():
     parser = argparse.ArgumentParser(description="Generate requirement-specific system prompts")
