@@ -176,7 +176,7 @@
         "type": "satisfying"
       },
       {
-        "segment": "to process the personal data only on behalf of the controller and in compliance with its instructions and the Clauses; if it cannot provide such compliance for whatever reasons, it agrees to inform promptly the controller of its inability to comply, in which case the controller is entitled to suspend the transfer of data and/or terminate the contract;. The processor handles data processing operations.",
+        "segment": "(a) to process the personal data only on behalf of the controller and in compliance with its instructions and the Clauses; if it cannot provide such compliance for whatever reasons, it agrees to inform promptly the controller of its inability to comply, in which case the controller is entitled to suspend the transfer of data and/or terminate the contract;. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
@@ -959,6 +959,46 @@
         "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
         "expected_output": "NO_FACTS",
         "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor conducts regular internal security audits and maintains audit documentation",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor maintains detailed audit logs of all data processing activities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor undergoes annual financial audits by independent accounting firms",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor may be subject to regulatory audits by supervisory authorities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor provides audit reports to demonstrate compliance with security standards",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor implements robust audit procedures for monitoring data access",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "Internal audit teams regularly review processor's compliance procedures",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's quality management system includes regular audit requirements",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
       }
     ],
     "examples_used": 12,
@@ -1219,7 +1259,7 @@
     }
   },
   "16": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE explicit CONTROLLER-MANDATED audits, not internal/regulatory audits\n9. REJECT processor's own internal audits or self-conducted audits\n10. ONLY accept audits specifically conducted BY or FOR the controller\n\nREQUIREMENT TO ANALYZE:\nThe processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.\n\nFALSE POSITIVE PREVENTION:\n- \"processor conducts internal audits\" → role(processor) only\n- \"processor may be subject to regulatory audits\" → role(processor) only\n- \"financial audits\" or \"business audits\" → NO_FACTS\n- \"audit reports\" without controller involvement → role(processor) only\n- Generic \"audit\" mentions → role(processor) only",
     "requirement_text": "The processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",
     "requirement_symbolic": "&obligatory{allow_contribute_audits} :- role(processor).",
     "expected_predicates": [
@@ -1291,12 +1331,52 @@
         "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
         "expected_output": "NO_FACTS",
         "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor conducts regular internal security audits and maintains audit documentation",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor maintains detailed audit logs of all data processing activities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor undergoes annual financial audits by independent accounting firms",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor may be subject to regulatory audits by supervisory authorities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor provides audit reports to demonstrate compliance with security standards",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor implements robust audit procedures for monitoring data access",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "Internal audit teams regularly review processor's compliance procedures",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's quality management system includes regular audit requirements",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 12,
+    "examples_used": 20,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 10,
+    "no_facts_examples": 17,
     "examples_count": {
       "satisfying": 127,
       "no_facts": 8998,
