@@ -43,12 +43,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 141,
       "no_facts": 8998,
@@ -99,12 +124,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 64,
       "no_facts": 8998,
@@ -112,7 +162,7 @@
     }
   },
   "3": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. IGNORE generic processor mentions in titles, definitions, or business contexts\n9. REQUIRE explicit connection between processor and \"documented instructions\" constraint\n10. REJECT processing mentions without explicit instruction limitations\n\nREQUIREMENT TO ANALYZE:\nThe processor shall process personal data only on documented instructions from the controller.\n\nFALSE POSITIVE PREVENTION:\n- Generic \"Service Agreement\" titles → NO_FACTS\n- \"processor's delivery of services\" without instruction constraint → NO_FACTS  \n- Processing mentions without \"documented instructions\" → role(processor) only\n- Business operations context → NO_FACTS",
     "requirement_text": "The processor shall process personal data only on documented instructions from the controller.",
     "requirement_symbolic": "&obligatory{process_data_on_documented_instructions} :- role(processor).",
     "expected_predicates": [
@@ -154,12 +204,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 115,
       "no_facts": 8998,
@@ -211,12 +286,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 40,
       "no_facts": 8998,
@@ -266,12 +366,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 86,
       "no_facts": 8998,
@@ -321,12 +446,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 1068,
       "no_facts": 8998,
@@ -334,8 +484,8 @@
     }
   },
   "7": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
-    "requirement_text": "The processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject\u2019s rights.",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE specific mention of DATA SUBJECT RIGHTS assistance, not general assistance\n9. REJECT processor assistance with DPIAs, technical support, breach investigations, audits\n10. ONLY accept assistance specifically for individual data subject requests/rights\n\nREQUIREMENT TO ANALYZE:\nThe processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject's rights.\n\nFALSE POSITIVE PREVENTION:\n- \"assist with data protection impact assessments\" → role(processor) only\n- \"assist with technical support\" → role(processor) only\n- \"assist in breach investigation\" → role(processor) only\n- \"assist with audit preparation\" → role(processor) only\n- Vague \"assist with requests\" without \"data subject\" context → role(processor) only",
+    "requirement_text": "The processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject's rights.",
     "requirement_symbolic": "&obligatory{assist_controller_requests_data_subject_rights} :- role(processor).",
     "expected_predicates": [
       "role(processor)",
@@ -373,15 +523,40 @@
         "type": "sophisticated_negative"
       },
       {
-        "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "processor shall assist the Controller in preparing data protection impact assessments",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor shall assist Controller with technical support and bug fixing",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will assist in the investigation, mitigation and remediation of Personal Data Breaches",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor assistance is necessary and relevant for audit preparation",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "The processor is given reasonable time to assist the Controller with such requests",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
         "expected_output": "NO_FACTS",
-        "type": "no_facts"
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 147,
       "no_facts": 8998,
@@ -431,12 +606,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 27,
       "no_facts": 8998,
@@ -487,12 +687,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 29,
       "no_facts": 8998,
@@ -543,12 +768,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 39,
       "no_facts": 8998,
@@ -595,15 +845,40 @@
         "type": "sophisticated_negative"
       },
       {
-        "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "processor shall assist the Controller in preparing data protection impact assessments",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor shall assist Controller with technical support and bug fixing",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will assist in the investigation, mitigation and remediation of Personal Data Breaches",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor assistance is necessary and relevant for audit preparation",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "The processor is given reasonable time to assist the Controller with such requests",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
         "expected_output": "NO_FACTS",
-        "type": "no_facts"
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 14,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 11,
     "examples_count": {
       "satisfying": 29,
       "no_facts": 8998,
@@ -659,12 +934,37 @@
         "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 8,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 7,
+    "no_facts_examples": 10,
     "examples_count": {
       "satisfying": 56,
       "no_facts": 8998,
@@ -720,12 +1020,37 @@
         "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 8,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 7,
+    "no_facts_examples": 10,
     "examples_count": {
       "satisfying": 123,
       "no_facts": 8998,
@@ -776,12 +1101,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 50,
       "no_facts": 8998,
@@ -831,12 +1181,37 @@
         "segment": "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the Agreement) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 7,
+    "examples_used": 11,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 6,
+    "no_facts_examples": 9,
     "examples_count": {
       "satisfying": 108,
       "no_facts": 8998,
@@ -891,12 +1266,37 @@
         "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 8,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 7,
+    "no_facts_examples": 10,
     "examples_count": {
       "satisfying": 127,
       "no_facts": 8998,
@@ -951,12 +1351,37 @@
         "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 8,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 7,
+    "no_facts_examples": 10,
     "examples_count": {
       "satisfying": 114,
       "no_facts": 8998,
@@ -964,7 +1389,7 @@
     }
   },
   "18": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE explicit SUB-PROCESSOR liability, not general processor liability\n9. REJECT liability disclaimers, limitations, or controller liability statements\n10. ONLY accept liability specifically for sub-processor actions/performance\n\nREQUIREMENT TO ANALYZE:\nThe processor shall remain fully liable to the controller for the performance of sub-processor obligations.\n\nFALSE POSITIVE PREVENTION:\n- \"processor disclaims liability\" → role(processor) only\n- \"liability is limited\" → NO_FACTS\n- \"controller shall be liable\" → NO_FACTS\n- \"insurance coverage for liabilities\" → role(processor) only\n- General responsibility without \"sub-processor\" → role(processor) only",
     "requirement_text": "The processor shall remain fully liable to the controller for the performance of sub-processor obligations.",
     "requirement_symbolic": "&obligatory{remain_fully_liable_sub_processors} :- role(processor).",
     "expected_predicates": [
@@ -1011,12 +1436,67 @@
         "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "controller shall be liable for any breach of its obligations under this DPA that results in harm to data subjects.",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor disclaims any liability for damages arising from controller's use of the services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "Each party's cumulated liability under this Service Agreement is limited",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor is exempted from liability for non-performance with the Main Agreement",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor shall maintain appropriate insurance coverage for potential liabilities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor acknowledges its responsibility under applicable data protection laws",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 8,
+    "examples_used": 14,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 7,
+    "no_facts_examples": 11,
     "examples_count": {
       "satisfying": 83,
       "no_facts": 8998,
@@ -1072,12 +1552,37 @@
         "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 8,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 7,
+    "no_facts_examples": 10,
     "examples_count": {
       "satisfying": 55,
       "no_facts": 8998,
