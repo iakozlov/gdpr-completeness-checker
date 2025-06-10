@@ -181,7 +181,7 @@
         "type": "processor_only"
       },
       {
-        "segment": "As Processor, processor shall only Process Personal Data upon controller\u2019s documented instructions. The processor handles data processing operations.",
+        "segment": "As Processor, processor shall only Process Personal Data upon controller's documented instructions. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
@@ -253,7 +253,7 @@
     ],
     "examples": [
       {
-        "segment": "In case of such a request, processor or the Sub-Processor will (i) redirect such requesting entity to request data directly from controller and may provide controller\u2019s basic contact information, and (ii) promptly notify controller and provide a copy of the request, unless processor is prevented from doing so by applicable laws or governmental order.",
+        "segment": "In case of such a request, processor or the Sub-Processor will (i) redirect such requesting entity to request data directly from controller and may provide controller's basic contact information, and (ii) promptly notify controller and provide a copy of the request, unless processor is prevented from doing so by applicable laws or governmental order.",
         "expected_output": "role(processor); required_by_law; inform_legal_requirement",
         "type": "satisfying"
       },
@@ -484,7 +484,7 @@
     }
   },
   "7": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE specific mention of DATA SUBJECT RIGHTS assistance, not general assistance\n9. REJECT processor assistance with DPIAs, technical support, breach investigations, audits\n10. ONLY accept assistance specifically for individual data subject requests/rights\n\nREQUIREMENT TO ANALYZE:\nThe processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject's rights.\n\nFALSE POSITIVE PREVENTION:\n- \"assist with data protection impact assessments\" → role(processor) only\n- \"assist with technical support\" → role(processor) only\n- \"assist in breach investigation\" → role(processor) only\n- \"assist with audit preparation\" → role(processor) only\n- Vague \"assist with requests\" without \"data subject\" context → role(processor) only",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE explicit \"DATA SUBJECT RIGHTS\" or \"DATA SUBJECT REQUESTS\" language\n9. REJECT general assistance, technical support, breach investigations, audits, DPIAs\n10. ONLY accept assistance specifically for individual data subject requests/rights\n11. REQUIRE explicit mention of \"access, rectification, erasure, portability, restriction\" rights\n\nREQUIREMENT TO ANALYZE:\nThe processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject's rights.\n\nFALSE POSITIVE PREVENTION:\n- \"assist with data protection impact assessments\" → role(processor) only\n- \"assist with technical support\" → role(processor) only\n- \"assist in breach investigation\" → role(processor) only\n- \"assist with audit preparation\" → role(processor) only\n- \"assist with compliance\" (without data subject context) → role(processor) only\n- \"assist with notifications\" → role(processor) only\n- \"provide assistance\" (general) → role(processor) only\n- \"support controller obligations\" (general) → role(processor) only",
     "requirement_text": "The processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject's rights.",
     "requirement_symbolic": "&obligatory{assist_controller_requests_data_subject_rights} :- role(processor).",
     "expected_predicates": [
@@ -508,42 +508,87 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\"DPA\") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \"Agreement\") when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
       {
-        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "segment": "This DPA is an agreement between you and the entity you represent (\"controller\", \"you\" or \"your\") and the applicable Amazon Web Services contracting entity under the Agreement (\"processor\").",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
       {
-        "segment": "processor maintains appropriate measures related to data processing activities and ensures compliance with applicable requirements.",
+        "segment": "processor shall assist controller with conducting data protection impact assessments as required by applicable law",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
       {
-        "segment": "processor shall assist the Controller in preparing data protection impact assessments",
+        "segment": "processor provides technical support and assistance to controller for system maintenance and updates",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
       {
-        "segment": "processor shall assist Controller with technical support and bug fixing",
+        "segment": "processor will assist controller in investigating any suspected personal data breaches",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
       {
-        "segment": "processor will assist in the investigation, mitigation and remediation of Personal Data Breaches",
+        "segment": "processor shall provide assistance to controller in preparing for regulatory audits and inspections",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
       {
-        "segment": "processor assistance is necessary and relevant for audit preparation",
+        "segment": "processor assists controller with general compliance activities under applicable data protection laws",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
       {
-        "segment": "The processor is given reasonable time to assist the Controller with such requests",
+        "segment": "processor will assist controller in providing notifications to supervisory authorities regarding data processing activities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor provides general assistance and support to controller as reasonably requested",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor shall support controller in fulfilling its obligations under applicable data protection legislation",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor provides ongoing assistance to controller for maintaining data security standards",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will assist with controller's documentation and record-keeping requirements",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "This DPA is an agreement between you and the entity you represent (controller, you or your) and the applicable Amazon Web Services contracting entity under the Agreement (processor).",
+        "expected_output": "NO_FACTS",
+        "type": "no_facts"
+      },
+      {
+        "segment": "Service Agreement",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's delivery of the Main Services to the Controller",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor processes personal data about the Controller and the Controller's employees",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor will process the Personal Data with the purpose of delivering the Main Services",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
@@ -573,7 +618,7 @@
     ],
     "examples": [
       {
-        "segment": "At controller\u2019s request and at the controller\u2019s reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller\u2019s further obligations as Controller under Applicable Data Protection Law.",
+        "segment": "At controller's request and at the controller's reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller's further obligations as Controller under Applicable Data Protection Law.",
         "expected_output": "role(processor); assist_controller_security",
         "type": "satisfying"
       },
@@ -588,7 +633,7 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -654,7 +699,7 @@
     ],
     "examples": [
       {
-        "segment": "At controller\u2019s request and at the controller\u2019s reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller\u2019s further obligations as Controller under Applicable Data Protection Law.",
+        "segment": "At controller's request and at the controller's reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller's further obligations as Controller under Applicable Data Protection Law.",
         "expected_output": "role(processor); data_breach; assist_notification_supervisory_authority",
         "type": "satisfying"
       },
@@ -669,7 +714,7 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -750,7 +795,7 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -896,7 +941,7 @@
     ],
     "examples": [
       {
-        "segment": "At controller\u2019s request and at the controller\u2019s reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller\u2019s further obligations as Controller under Applicable Data Protection Law.",
+        "segment": "At controller's request and at the controller's reasonable expense on a time and materials basis, processor shall reasonably support controller in (i) dealing with complaints, requests or orders described in Section 9.2 or (ii) fulfilling any of controller's further obligations as Controller under Applicable Data Protection Law.",
         "expected_output": "role(processor); high_risk_processing; assist_consulting_supervisory_authorities",
         "type": "satisfying"
       },
@@ -911,7 +956,7 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -1113,12 +1158,12 @@
         "type": "satisfying"
       },
       {
-        "segment": "processor shall: (i) Process Personal Data only on controller\u2019s behalf and in accordance with controller\u2019s documented lawful instructions and shall treat Personal Data as confidential information subject to the confidentiality provisions of the Agreement; (ii) notify controller in writing immediately if, in processor\u2019s reasonable opinion, processor believes that any instruction given by controller infringes Data Protection Laws; (iii) perform the Service and Process Personal Data in compliance with Data Protection Laws and the Agreement; (iv) promptly notify controller of any noncompliance with this DPA. The processor handles data processing operations.",
+        "segment": "processor shall: (i) Process Personal Data only on controller's behalf and in accordance with controller's documented lawful instructions and shall treat Personal Data as confidential information subject to the confidentiality provisions of the Agreement; (ii) notify controller in writing immediately if, in processor's reasonable opinion, processor believes that any instruction given by controller infringes Data Protection Laws; (iii) perform the Service and Process Personal Data in compliance with Data Protection Laws and the Agreement; (iv) promptly notify controller of any noncompliance with this DPA. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
       {
-        "segment": "inform Controller if, in Processor\u2019s opinion, any instruction infringes the GDPR or other Union or Member State data protection provisions, provided that Processor shall have no obligation to independently inspect or verify Controller use or processing of Personal Data; and. The processor handles data processing operations.",
+        "segment": "inform Controller if, in Processor's opinion, any instruction infringes the GDPR or other Union or Member State data protection provisions, provided that Processor shall have no obligation to independently inspect or verify Controller use or processing of Personal Data; and. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
@@ -1188,7 +1233,7 @@
     ],
     "examples": [
       {
-        "segment": "Upon controller\u2019s request, processor shall provide any relevant information in connection with its data protection obligations from such audit reports and corresponding information (together \u201cAudit Reports\u201d) for the Services concerned.",
+        "segment": "Upon controller's request, processor shall provide any relevant information in connection with its data protection obligations from such audit reports and corresponding information (together \u201cAudit Reports\u201d) for the Services concerned.",
         "expected_output": "role(processor); provide_compliance_information",
         "type": "satisfying"
       },
@@ -1198,12 +1243,12 @@
         "type": "processor_only"
       },
       {
-        "segment": "To this end, processor will provide written responses to all reasonable requests for information made by controller, including responses to information security and audit questionnaires that are necessary to confirm processor\u2019s compliance with Article 28 Requirements, provided that controller will not exercise this right more than once per year. The processor handles data processing operations.",
+        "segment": "To this end, processor will provide written responses to all reasonable requests for information made by controller, including responses to information security and audit questionnaires that are necessary to confirm processor's compliance with Article 28 Requirements, provided that controller will not exercise this right more than once per year. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -1259,46 +1304,101 @@
     }
   },
   "16": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE explicit CONTROLLER-MANDATED audits, not internal/regulatory audits\n9. REJECT processor's own internal audits or self-conducted audits\n10. ONLY accept audits specifically conducted BY or FOR the controller\n\nREQUIREMENT TO ANALYZE:\nThe processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.\n\nFALSE POSITIVE PREVENTION:\n- \"processor conducts internal audits\" → role(processor) only\n- \"processor may be subject to regulatory audits\" → role(processor) only\n- \"financial audits\" or \"business audits\" → NO_FACTS\n- \"audit reports\" without controller involvement → role(processor) only\n- Generic \"audit\" mentions → role(processor) only",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE explicit \"CONTROLLER-MANDATED\" or \"CONTROLLER-CONDUCTED\" audit language\n9. ABSOLUTELY REJECT processor's own internal audits, regulatory audits, financial audits\n10. REQUIRE explicit mention of controller's right to audit or controller-appointed auditor\n11. ZERO TOLERANCE for security audits, compliance audits, business audits\n\nREQUIREMENT TO ANALYZE:\nThe processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.\n\nFALSE POSITIVE PREVENTION:\n- \"processor conducts internal audits\" → role(processor) only\n- \"processor undergoes regulatory audits\" → role(processor) only\n- \"processor maintains audit logs\" → role(processor) only\n- \"annual security audits\" → role(processor) only\n- \"financial audit requirements\" → NO_FACTS\n- \"compliance audit procedures\" → role(processor) only\n- \"audit trail mechanisms\" → role(processor) only\n- \"business audit practices\" → NO_FACTS\n- \"independent auditor reviews\" → NO_FACTS (unless controller-mandated)",
     "requirement_text": "The processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",
-    "requirement_symbolic": "&obligatory{allow_contribute_audits} :- role(processor).",
+    "requirement_symbolic": "&obligatory{allow_contribute_audits_by_controller_or_other_auditor} :- role(processor).",
     "expected_predicates": [
       "role(processor)",
-      "allow_contribute_audits"
+      "allow_contribute_audits_by_controller_or_other_auditor"
     ],
     "examples": [
       {
-        "segment": "at the request of the controller to submit its data processing facilities for audit of the processing activities covered by the Clauses which shall be carried out by the controller or an inspection body composed of independent members and in possession of the required professional qualifications bound by a duty of confidentiality, selected by the controller, where applicable, in agreement with the supervisory authority;",
-        "expected_output": "role(processor); allow_contribute_audits",
+        "segment": "processor will allow controller to audit processor\u2019s compliance with this DPA during normal business hours. Such audits may be conducted by controller or by an independent third party auditor appointed by controller and shall be subject to reasonable confidentiality provisions.",
+        "expected_output": "role(processor); allow_contribute_audits_by_controller_or_other_auditor",
         "type": "satisfying"
       },
       {
-        "segment": "The parties agree that the supervisory authority has the right to conduct an audit of the processor, and of any subprocessor, which has the same scope and is subject to the same conditions as would apply to an audit of the controller under the applicable data protection law. The processor handles data processing operations.",
+        "segment": "processor agrees to submit to audit by controller or an independent third party auditor designated by controller to verify compliance with its obligations under this DPA, provided such audits shall not be conducted more frequently than once every twelve months. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
       {
-        "segment": "controller shall have the right to audit, in accordance with Sections 10. The processor handles data processing operations.",
+        "segment": "Upon controller's request, processor shall provide any relevant information in connection with its data protection obligations from such audit reports and corresponding information (together \"Audit Reports\") for the Services concerned. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\"DPA\") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \"Agreement\") when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
       {
-        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "segment": "This DPA is an agreement between you and the entity you represent (\"controller\", \"you\" or \"your\") and the applicable Amazon Web Services contracting entity under the Agreement (\"processor\").",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
       {
-        "segment": "The processor shall conduct regular internal audits of its security procedures and provide summary reports to management.",
+        "segment": "processor conducts regular internal security audits to ensure compliance with established policies and procedures",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
       {
-        "segment": "processor may be subject to regulatory audits by data protection authorities as required by applicable law.",
+        "segment": "processor undergoes annual financial audits by certified public accounting firms",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor may be subject to regulatory audits by supervisory authorities and government agencies",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor maintains comprehensive audit logs for all data processing activities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "annual security audits are conducted to verify processor's technical and organizational measures",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor follows established compliance audit procedures as required by industry standards",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "audit trail mechanisms are implemented to track all access to personal data",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor implements robust audit procedures for monitoring data access and system activities",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "independent auditor reviews are conducted annually to assess processor's security controls",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "business audit practices ensure processor's operational efficiency and risk management",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor provides audit reports to demonstrate compliance with security standards and regulations",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "external audit firms conduct periodic reviews of processor's data handling practices",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor's quality management system includes regular audit requirements and documentation",
         "expected_output": "role(processor)",
         "type": "sophisticated_negative"
       },
@@ -1331,52 +1431,12 @@
         "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
         "expected_output": "NO_FACTS",
         "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor conducts regular internal security audits and maintains audit documentation",
-        "expected_output": "role(processor)",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor maintains detailed audit logs of all data processing activities",
-        "expected_output": "role(processor)",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor undergoes annual financial audits by independent accounting firms",
-        "expected_output": "NO_FACTS",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor may be subject to regulatory audits by supervisory authorities",
-        "expected_output": "role(processor)",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor provides audit reports to demonstrate compliance with security standards",
-        "expected_output": "role(processor)",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor implements robust audit procedures for monitoring data access",
-        "expected_output": "role(processor)",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "Internal audit teams regularly review processor's compliance procedures",
-        "expected_output": "NO_FACTS",
-        "type": "sophisticated_negative"
-      },
-      {
-        "segment": "processor's quality management system includes regular audit requirements",
-        "expected_output": "role(processor)",
-        "type": "sophisticated_negative"
       }
     ],
-    "examples_used": 20,
+    "examples_used": 12,
     "satisfying_examples": 1,
     "processor_only_examples": 2,
-    "no_facts_examples": 17,
+    "no_facts_examples": 10,
     "examples_count": {
       "satisfying": 127,
       "no_facts": 8998,
@@ -1384,8 +1444,8 @@
     }
   },
   "17": {
-    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more",
-    "requirement_text": "The processor shall impose the same obligations on engaged sub-processors by way of contract or other legal act under Union or Member-State law.",
+    "system_prompt": "You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.\n\nYour task is to extract ONLY the predicates that are EXPLICITLY and CLEARLY mentioned in the segment for the specific requirement below.\n\nCRITICAL RULES:\n1. Be EXTREMELY strict - only extract predicates if they are clearly and explicitly present\n2. If role(processor) is not mentioned, output: NO_FACTS\n3. If only processor role is mentioned but requirement not satisfied, output: role(processor)\n4. Only output predicates that are semantically relevant to the specific requirement\n5. Do NOT infer or assume predicates that are not explicitly stated\n6. Use EXACT predicate names from the requirement specification\n7. Be VERY conservative - when in doubt, output less rather than more\n8. REQUIRE explicit \"impose same obligations\" or \"same contractual obligations\" language\n9. REJECT vague \"assist\" or \"ensure compliance\" without specific sub-processor obligations\n10. ONLY accept explicit sub-processor obligation imposition, not general sub-processor requirements\n\nREQUIREMENT TO ANALYZE:\nThe processor shall impose the same obligations on engaged sub-processors by way of contract or other legal act under Union or Member State law.\n\nFALSE POSITIVE PREVENTION:\n- \"assist sub-processors with compliance\" → role(processor) only\n- \"sub-processors must comply with laws\" → NO_FACTS\n- \"ensure sub-processors follow procedures\" → role(processor) only  \n- \"sub-processor requirements apply\" → NO_FACTS\n- General sub-processor mentions → role(processor) only",
+    "requirement_text": "The processor shall impose the same obligations on engaged sub-processors by way of contract or other legal act under Union or Member State law.",
     "requirement_symbolic": "&obligatory{impose_same_obligations_sub_processors} :- role(processor).",
     "expected_predicates": [
       "role(processor)",
@@ -1408,12 +1468,12 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\"DPA\") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \"Agreement\") when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
       {
-        "segment": "This DPA is an agreement between you and the entity you represent (\u201ccontroller\u201d, \u201cyou\u201d or \u201cyour\u201d) and the applicable Amazon Web Services contracting entity under the Agreement (\u201cprocessor\u201d).",
+        "segment": "This DPA is an agreement between you and the entity you represent (\"controller\", \"you\" or \"your\") and the applicable Amazon Web Services contracting entity under the Agreement (\"processor\").",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -1456,6 +1516,46 @@
         "segment": "processor and the Controller's employees in connection with the processor's sale, marketing and product development",
         "expected_output": "NO_FACTS",
         "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor shall assist sub-processors in understanding their compliance obligations under applicable data protection laws",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor ensures that all sub-processors follow established data security procedures and guidelines",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "sub-processors are required to maintain appropriate security measures for personal data processing",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor provides training and guidance to sub-processors on data protection best practices",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "all sub-processor agreements include standard data protection clauses as required by GDPR",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor monitors sub-processor compliance with established data processing protocols",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "sub-processors must notify processor of any potential data protection compliance issues",
+        "expected_output": "NO_FACTS",
+        "type": "sophisticated_negative"
+      },
+      {
+        "segment": "processor establishes clear performance standards and expectations for all engaged sub-processors",
+        "expected_output": "role(processor)",
+        "type": "sophisticated_negative"
       }
     ],
     "examples_used": 12,
@@ -1478,7 +1578,7 @@
     ],
     "examples": [
       {
-        "segment": "processor will remain responsible for its compliance with the obligations of this DPA and for any acts or omissions of the sub-processors that cause processor to breach any of processor\u2019s obligations under this DPA.",
+        "segment": "processor will remain responsible for its compliance with the obligations of this DPA and for any acts or omissions of the sub-processors that cause processor to breach any of processor's obligations under this DPA.",
         "expected_output": "role(processor); remain_fully_liable_sub_processors",
         "type": "satisfying"
       },
@@ -1488,12 +1588,12 @@
         "type": "processor_only"
       },
       {
-        "segment": "processor shall remain fully liable to controller for the performance of the Sub-Processor\u2019s obligations. The processor handles data processing operations.",
+        "segment": "processor shall remain fully liable to controller for the performance of the Sub-Processor's obligations. The processor handles data processing operations.",
         "expected_output": "role(processor)",
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
@@ -1609,7 +1709,7 @@
         "type": "processor_only"
       },
       {
-        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller\u2019s use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
+        "segment": "This Data Processing Addendum (\u201cDPA\u201d) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings (the \u201cAgreement\u201d) when the GDPR applies to your use of the processor Services to process controller Data.",
         "expected_output": "NO_FACTS",
         "type": "no_facts"
       },
