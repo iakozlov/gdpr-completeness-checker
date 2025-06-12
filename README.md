@@ -68,7 +68,7 @@ The system can be run using one of the main shell scripts that orchestrate the e
 
 ```bash
 # For Llama model implementation
-bash run_dpa_completeness.sh
+bash run_dpa_completeness_ollama.sh
 
 # For GPT-4o API implementation
 bash run_dpa_completeness_gpt4o.sh
@@ -86,7 +86,7 @@ The script accepts the following parameters:
 
 Example:
 ```bash
-bash run_dpa_completeness.sh --req_ids 6,8,12 --max_segments 50 --target_dpa "Online 2"
+bash run_dpa_completeness_ollama.sh --req_ids 6,8,12 --max_segments 50 --target_dpa "Online 2"
 ```
 
 ### Pipeline Steps
@@ -128,7 +128,7 @@ The system can run any of these steps individually:
 
 - **translate_requirements.py**: Converts GDPR requirements to deontic logic format
 - **generate_lp_files.py**: Extracts facts from DPA segments and creates LP files
-- **run_dpa_completeness.sh**: Master script to orchestrate the entire pipeline
+ - **run_dpa_completeness_ollama.sh**: Master script to orchestrate the entire pipeline using Ollama
 - **evaluate_completeness.py**: Evaluates completeness of DPAs against requirements
 
 ## Configuration
@@ -158,3 +158,20 @@ The system generates several output files:
 - `results/evaluation_results.json`: Final evaluation results with completeness assessment
 
 The evaluation results show which requirements are satisfied, which are missing, and provide segment-level details about requirement satisfaction.
+
+## Comparing Baseline and Symbolic Approaches
+
+After running both the baseline pipeline (`run_baseline_evaluation.sh`) and the symbolic pipeline (`run_dpa_completeness_ollama.sh` with predefined requirements), you can generate a detailed comparison of their predictions using `compare_experiments.py`:
+
+```bash
+python compare_experiments.py \
+  --baseline_dir results/my_experiment/baseline \
+  --deolingo_results results/my_experiment/symbolic/deolingo_results.txt \
+  --lp_root results/my_experiment/symbolic/lp_files \
+  --output results/my_experiment/comparison.json
+```
+
+You can also run `run_full_experiment.sh` to execute both pipelines and generate
+the comparison in one step.
+
+The output lists segments where the baseline classified a requirement as satisfied while the symbolic approach did not, and vice versa. For each case the JSON includes the ground truth label, the baseline prediction, the symbolic prediction, and the facts extracted by the LLM for the symbolic method.
