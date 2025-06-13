@@ -1,0 +1,1261 @@
+{
+  "dpas": [
+    "Online 124",
+    "Online 132"
+  ],
+  "total_evaluations": 2,
+  "segments_evaluated": 274,
+  "requirements_evaluated": [
+    "10",
+    "11",
+    "12",
+    "13",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29"
+  ],
+  "aggregated_metrics": {
+    "requirements": {
+      "overall": {
+        "accuracy": 0.684,
+        "precision": 0.7,
+        "recall": 0.709,
+        "f1_score": 0.697
+      },
+      "confusion_matrix": {
+        "true_positives": 14,
+        "false_positives": 6,
+        "true_negatives": 12,
+        "false_negatives": 6
+      }
+    },
+    "segments": {
+      "overall": {
+        "accuracy": 0.992,
+        "precision": 0.364,
+        "recall": 0.426,
+        "f1_score": 0.391
+      },
+      "confusion_matrix": {
+        "true_positives": 12,
+        "false_positives": 21,
+        "true_negatives": 5156,
+        "false_negatives": 17
+      }
+    }
+  },
+  "per_dpa_results": {
+    "Online 124": {
+      "dpa": "Online 124",
+      "segments_evaluated": 114,
+      "requirements_evaluated": [
+        "10",
+        "11",
+        "12",
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29"
+      ],
+      "ground_truth": {
+        "is_complete": false,
+        "requirements": {
+          "27": true,
+          "12": true,
+          "10": true,
+          "19": false,
+          "15": true,
+          "22": true,
+          "23": true,
+          "13": false,
+          "21": false,
+          "18": false,
+          "25": true,
+          "20": false,
+          "17": true,
+          "29": false,
+          "16": true,
+          "28": true,
+          "26": false,
+          "24": true,
+          "11": true
+        },
+        "missing_requirements": [
+          "13",
+          "18",
+          "19",
+          "20",
+          "21",
+          "26",
+          "29"
+        ]
+      },
+      "prediction": {
+        "is_complete": false,
+        "requirements": {
+          "27": false,
+          "12": true,
+          "10": false,
+          "19": false,
+          "15": true,
+          "22": false,
+          "23": false,
+          "13": false,
+          "21": true,
+          "18": true,
+          "25": true,
+          "20": false,
+          "17": true,
+          "29": false,
+          "16": true,
+          "28": true,
+          "26": false,
+          "24": true,
+          "11": true
+        },
+        "missing_requirements": [
+          "10",
+          "13",
+          "19",
+          "20",
+          "22",
+          "23",
+          "26",
+          "27",
+          "29"
+        ]
+      },
+      "agreement": true,
+      "requirements_metrics": {
+        "overall": {
+          "accuracy": 0.684,
+          "precision": 0.8,
+          "recall": 0.667,
+          "f1_score": 0.727
+        },
+        "confusion_matrix": {
+          "true_positives": 8,
+          "false_positives": 2,
+          "true_negatives": 5,
+          "false_negatives": 4
+        }
+      },
+      "segment_metrics": {
+        "overall": {
+          "accuracy": 0.99,
+          "precision": 0.353,
+          "recall": 0.353,
+          "f1_score": 0.353
+        },
+        "by_requirement": {
+          "27": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 113,
+              "false_negatives": 1
+            }
+          },
+          "12": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1_score": 0.5
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 111,
+              "false_negatives": 1
+            }
+          },
+          "10": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 113,
+              "false_negatives": 1
+            }
+          },
+          "19": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 114,
+              "false_negatives": 0
+            }
+          },
+          "15": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 1.0,
+              "recall": 0.333,
+              "f1_score": 0.5
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 111,
+              "false_negatives": 2
+            }
+          },
+          "22": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 113,
+              "false_negatives": 1
+            }
+          },
+          "23": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 112,
+              "false_negatives": 2
+            }
+          },
+          "13": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 114,
+              "false_negatives": 0
+            }
+          },
+          "21": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 113,
+              "false_negatives": 0
+            }
+          },
+          "18": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 113,
+              "false_negatives": 0
+            }
+          },
+          "25": {
+            "metrics": {
+              "accuracy": 0.939,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 5,
+              "true_negatives": 107,
+              "false_negatives": 2
+            }
+          },
+          "20": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 114,
+              "false_negatives": 0
+            }
+          },
+          "17": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0.333,
+              "recall": 1.0,
+              "f1_score": 0.5
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 2,
+              "true_negatives": 111,
+              "false_negatives": 0
+            }
+          },
+          "29": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 114,
+              "false_negatives": 0
+            }
+          },
+          "16": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 113,
+              "false_negatives": 0
+            }
+          },
+          "28": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 113,
+              "false_negatives": 0
+            }
+          },
+          "26": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 114,
+              "false_negatives": 0
+            }
+          },
+          "24": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 113,
+              "false_negatives": 0
+            }
+          },
+          "11": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 112,
+              "false_negatives": 1
+            }
+          }
+        },
+        "confusion_matrix": {
+          "true_positives": 6,
+          "false_positives": 11,
+          "true_negatives": 2138,
+          "false_negatives": 11
+        }
+      },
+      "requirements_details": {
+        "10": {
+          "requirement_number": "1",
+          "ground_truth": true,
+          "prediction": false,
+          "agreement": false,
+          "satisfied_segments": [],
+          "ground_truth_segments": [
+            "62"
+          ]
+        },
+        "11": {
+          "requirement_number": "2",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "62"
+          ],
+          "ground_truth_segments": [
+            "71"
+          ]
+        },
+        "12": {
+          "requirement_number": "3",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "24",
+            "91"
+          ],
+          "ground_truth_segments": [
+            "24",
+            "31"
+          ]
+        },
+        "13": {
+          "requirement_number": "4",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "15": {
+          "requirement_number": "5",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "32"
+          ],
+          "ground_truth_segments": [
+            "30",
+            "32",
+            "35"
+          ]
+        },
+        "16": {
+          "requirement_number": "6",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "34"
+          ],
+          "ground_truth_segments": [
+            "34"
+          ]
+        },
+        "17": {
+          "requirement_number": "7",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "41",
+            "42",
+            "43"
+          ],
+          "ground_truth_segments": [
+            "41"
+          ]
+        },
+        "18": {
+          "requirement_number": "8",
+          "ground_truth": false,
+          "prediction": true,
+          "agreement": false,
+          "satisfied_segments": [
+            "39"
+          ],
+          "ground_truth_segments": []
+        },
+        "19": {
+          "requirement_number": "9",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "20": {
+          "requirement_number": "10",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "21": {
+          "requirement_number": "11",
+          "ground_truth": false,
+          "prediction": true,
+          "agreement": false,
+          "satisfied_segments": [
+            "39"
+          ],
+          "ground_truth_segments": []
+        },
+        "22": {
+          "requirement_number": "12",
+          "ground_truth": true,
+          "prediction": false,
+          "agreement": false,
+          "satisfied_segments": [],
+          "ground_truth_segments": [
+            "39"
+          ]
+        },
+        "23": {
+          "requirement_number": "13",
+          "ground_truth": true,
+          "prediction": false,
+          "agreement": false,
+          "satisfied_segments": [],
+          "ground_truth_segments": [
+            "92",
+            "93"
+          ]
+        },
+        "24": {
+          "requirement_number": "14",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "27"
+          ],
+          "ground_truth_segments": [
+            "27"
+          ]
+        },
+        "25": {
+          "requirement_number": "15",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "37",
+            "41",
+            "53",
+            "56",
+            "93"
+          ],
+          "ground_truth_segments": [
+            "54",
+            "55"
+          ]
+        },
+        "26": {
+          "requirement_number": "16",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "27": {
+          "requirement_number": "17",
+          "ground_truth": true,
+          "prediction": false,
+          "agreement": false,
+          "satisfied_segments": [],
+          "ground_truth_segments": [
+            "66"
+          ]
+        },
+        "28": {
+          "requirement_number": "18",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "69"
+          ],
+          "ground_truth_segments": [
+            "69"
+          ]
+        },
+        "29": {
+          "requirement_number": "19",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        }
+      }
+    },
+    "Online 132": {
+      "dpa": "Online 132",
+      "segments_evaluated": 160,
+      "requirements_evaluated": [
+        "10",
+        "11",
+        "12",
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29"
+      ],
+      "ground_truth": {
+        "is_complete": false,
+        "requirements": {
+          "18": false,
+          "20": true,
+          "22": false,
+          "23": true,
+          "16": true,
+          "11": false,
+          "29": false,
+          "21": false,
+          "13": false,
+          "26": false,
+          "24": false,
+          "17": true,
+          "27": false,
+          "19": false,
+          "10": true,
+          "15": true,
+          "25": true,
+          "12": true,
+          "28": false
+        },
+        "missing_requirements": [
+          "11",
+          "13",
+          "18",
+          "19",
+          "21",
+          "22",
+          "24",
+          "26",
+          "27",
+          "28",
+          "29"
+        ]
+      },
+      "prediction": {
+        "is_complete": false,
+        "requirements": {
+          "18": true,
+          "20": false,
+          "22": false,
+          "23": true,
+          "16": true,
+          "11": false,
+          "29": true,
+          "21": true,
+          "13": false,
+          "26": true,
+          "24": false,
+          "17": true,
+          "27": false,
+          "19": false,
+          "10": false,
+          "15": true,
+          "25": true,
+          "12": true,
+          "28": false
+        },
+        "missing_requirements": [
+          "10",
+          "11",
+          "13",
+          "19",
+          "20",
+          "22",
+          "24",
+          "27",
+          "28"
+        ]
+      },
+      "agreement": true,
+      "requirements_metrics": {
+        "overall": {
+          "accuracy": 0.684,
+          "precision": 0.6,
+          "recall": 0.75,
+          "f1_score": 0.667
+        },
+        "confusion_matrix": {
+          "true_positives": 6,
+          "false_positives": 4,
+          "true_negatives": 7,
+          "false_negatives": 2
+        }
+      },
+      "segment_metrics": {
+        "overall": {
+          "accuracy": 0.995,
+          "precision": 0.375,
+          "recall": 0.5,
+          "f1_score": 0.429
+        },
+        "by_requirement": {
+          "18": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "20": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 159,
+              "false_negatives": 1
+            }
+          },
+          "22": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "23": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "16": {
+            "metrics": {
+              "accuracy": 0.969,
+              "precision": 0.25,
+              "recall": 0.333,
+              "f1_score": 0.286
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 3,
+              "true_negatives": 154,
+              "false_negatives": 2
+            }
+          },
+          "11": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "29": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "21": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "13": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "26": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "24": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "17": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "27": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "19": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "10": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 159,
+              "false_negatives": 1
+            }
+          },
+          "15": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 159,
+              "false_negatives": 0
+            }
+          },
+          "25": {
+            "metrics": {
+              "accuracy": 0.988,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 158,
+              "false_negatives": 1
+            }
+          },
+          "12": {
+            "metrics": {
+              "accuracy": 0.981,
+              "precision": 0.5,
+              "recall": 0.667,
+              "f1_score": 0.571
+            },
+            "confusion_matrix": {
+              "true_positives": 2,
+              "false_positives": 2,
+              "true_negatives": 155,
+              "false_negatives": 1
+            }
+          },
+          "28": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          }
+        },
+        "confusion_matrix": {
+          "true_positives": 6,
+          "false_positives": 10,
+          "true_negatives": 3018,
+          "false_negatives": 6
+        }
+      },
+      "requirements_details": {
+        "10": {
+          "requirement_number": "1",
+          "ground_truth": true,
+          "prediction": false,
+          "agreement": false,
+          "satisfied_segments": [],
+          "ground_truth_segments": [
+            "90"
+          ]
+        },
+        "11": {
+          "requirement_number": "2",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "12": {
+          "requirement_number": "3",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "116",
+            "41",
+            "60",
+            "65"
+          ],
+          "ground_truth_segments": [
+            "60",
+            "61",
+            "65"
+          ]
+        },
+        "13": {
+          "requirement_number": "4",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "15": {
+          "requirement_number": "5",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "88"
+          ],
+          "ground_truth_segments": [
+            "88"
+          ]
+        },
+        "16": {
+          "requirement_number": "6",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "75",
+            "79",
+            "84",
+            "91"
+          ],
+          "ground_truth_segments": [
+            "52",
+            "85",
+            "91"
+          ]
+        },
+        "17": {
+          "requirement_number": "7",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "69"
+          ],
+          "ground_truth_segments": [
+            "69"
+          ]
+        },
+        "18": {
+          "requirement_number": "8",
+          "ground_truth": false,
+          "prediction": true,
+          "agreement": false,
+          "satisfied_segments": [
+            "84"
+          ],
+          "ground_truth_segments": []
+        },
+        "19": {
+          "requirement_number": "9",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "20": {
+          "requirement_number": "10",
+          "ground_truth": true,
+          "prediction": false,
+          "agreement": false,
+          "satisfied_segments": [],
+          "ground_truth_segments": [
+            "79"
+          ]
+        },
+        "21": {
+          "requirement_number": "11",
+          "ground_truth": false,
+          "prediction": true,
+          "agreement": false,
+          "satisfied_segments": [
+            "79"
+          ],
+          "ground_truth_segments": []
+        },
+        "22": {
+          "requirement_number": "12",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "23": {
+          "requirement_number": "13",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "82"
+          ],
+          "ground_truth_segments": [
+            "82"
+          ]
+        },
+        "24": {
+          "requirement_number": "14",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "25": {
+          "requirement_number": "15",
+          "ground_truth": true,
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "80"
+          ],
+          "ground_truth_segments": [
+            "81"
+          ]
+        },
+        "26": {
+          "requirement_number": "16",
+          "ground_truth": false,
+          "prediction": true,
+          "agreement": false,
+          "satisfied_segments": [
+            "81"
+          ],
+          "ground_truth_segments": []
+        },
+        "27": {
+          "requirement_number": "17",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "28": {
+          "requirement_number": "18",
+          "ground_truth": false,
+          "prediction": false,
+          "agreement": true,
+          "satisfied_segments": [],
+          "ground_truth_segments": []
+        },
+        "29": {
+          "requirement_number": "19",
+          "ground_truth": false,
+          "prediction": true,
+          "agreement": false,
+          "satisfied_segments": [
+            "84"
+          ],
+          "ground_truth_segments": []
+        }
+      }
+    }
+  },
+  "completeness_summary": {
+    "ground_truth_complete": 0,
+    "prediction_complete": 0,
+    "ground_truth_percentage": 0.0,
+    "prediction_percentage": 0.0
+  }
+}

@@ -40,22 +40,71 @@ def map_r_label_to_req_number(r_label: str) -> str:
     Returns:
         The corresponding requirement number
     """
-    # Convert R10-R29 to req 1-20 (subtract 9)
-    # Note: R14 is not present in the dataset
+    # Convert R labels to requirement numbers
     r_number = int(r_label)
     
-    # Adjust for the absence of R14
-    if r_number < 14:
-        # R10-R13 map to 1-4
-        req_number = r_number - 9
-    elif r_number == 14:
+    # Use conversion table to ensure consistency across requirements
+    mapping = {
+        # R10-R29 to correct requirement numbers
+        10: 1,
+        11: 2,
+        12: 3,
+        13: 4,
         # R14 doesn't exist
-        req_number = -1  # Invalid
-    else:
-        # R15-R29 map to 5-19
-        req_number = r_number - 10
+        15: 5,
+        16: 6,
+        17: 7,
+        18: 8,  # Important: 18 maps to 8, not 9
+        19: 9,
+        20: 10,
+        21: 11,
+        22: 12,
+        23: 13,
+        24: 14,
+        25: 15,
+        26: 16,
+        27: 17,
+        28: 18,  # This should be mapped as shown in results
+        29: 19,
+    }
     
-    return str(req_number) if req_number > 0 else r_label
+    # Return the mapped requirement number if it exists, otherwise the original
+    return str(mapping.get(r_number, r_number))
+
+def req_number_to_r_label(req_number: str) -> str:
+    """Inverse mapping from requirement number to R-label.
+    
+    Args:
+        req_number: The requirement number (e.g. '1', '2', etc.)
+        
+    Returns:
+        The corresponding R-label (e.g. '10', '11', etc.)
+    """
+    # Create inverse mapping
+    inverse_mapping = {
+        '1': '10',
+        '2': '11', 
+        '3': '12',
+        '4': '13',
+        '5': '15',
+        '6': '16',
+        '7': '17',
+        '8': '18',
+        '9': '19',
+        '10': '20',
+        '11': '21',
+        '12': '22',
+        '13': '23',
+        '14': '24',
+        '15': '25',
+        '16': '26',
+        '17': '27',
+        '18': '28',
+        '19': '29',
+    }
+    
+    # Return the mapped R-label if it exists, otherwise the original
+    return inverse_mapping.get(str(req_number), str(req_number))
 
 def main():
     parser = argparse.ArgumentParser(description="Evaluate DPA completeness based on Deolingo results")
@@ -71,9 +120,12 @@ def main():
                         help="Comma-separated list of requirement IDs to process, or 'all' (default: all)")
     parser.add_argument("--max_segments", type=int, default=0,
                         help="Maximum number of segments to process (0 means all, default: 0)")
+    parser.add_argument("--debug", action="store_true",
+                        help="Enable debug output")
     args = parser.parse_args()
 
     target_dpa = args.target_dpa
+    debug = args.debug
     
     # Step 1: Load required data
     print(f"Loading DPA segments from: {args.dpa}")
@@ -122,15 +174,24 @@ def main():
         first_line = section.strip().split('\n')[0].strip()
         req_match = re.search(r'Requirement\s+(\d+)', first_line)
         seg_match = re.search(r'Segment\s+(\d+)', first_line)
+        dpa_match = re.search(r'Processing DPA (.+?), Requirement', first_line)
         
-        if not req_match or not seg_match:
+        if not req_match or not seg_match or not dpa_match:
             continue
             
         req_id = req_match.group(1)
         segment_id = seg_match.group(1)
+        dpa_name = dpa_match.group(1).strip()
+        
+        # Only process segments from the target DPA
+        if dpa_name != target_dpa:
+            continue
+        
+        # Get the corresponding R-label for this requirement ID
+        r_label = req_number_to_r_label(req_id)
         
         # Only process segments and requirements that match our filters
-        if (req_id not in req_ids) or (segment_id not in segment_ids):
+        if (r_label not in req_ids) or (segment_id not in segment_ids):
             continue
         
         # Look for the status in the FACTS line
@@ -139,15 +200,45 @@ def main():
         if 'Error processing file' in section:
             status = 'not_mentioned'
         else:
-            # Check for FACTS line with status
+            # First check if there are any facts at all
+            has_facts = False
             for line in section.strip().split('\n'):
                 if line.startswith('FACTS:'):
+                    if line.strip() != 'FACTS:':  # If FACTS line is not empty
+                        has_facts = True
+                        status_match = re.search(r'status\((\w+)\)', line)
+                        if status_match:
+                            status = status_match.group(1)
+                    break
+            
+            # If no facts were found, check the entire output for status
+            if not has_facts:
+                for line in section.strip().split('\n'):
                     status_match = re.search(r'status\((\w+)\)', line)
                     if status_match:
                         status = status_match.group(1)
+                        break
+                
+                # If we still don't have a status, check if there are any obligations or prohibitions
+                has_obligations = False
+                has_prohibitions = False
+                for line in section.strip().split('\n'):
+                    if line.startswith('OBLIGATIONS:'):
+                        if line.strip() != 'OBLIGATIONS:':
+                            has_obligations = True
+                    elif line.startswith('PROHIBITIONS:'):
+                        if line.strip() != 'PROHIBITIONS:':
+                            has_prohibitions = True
+                
+                # If there are no facts, obligations, or prohibitions, it's definitely not_mentioned
+                if not (has_obligations or has_prohibitions):
+                    status = 'not_mentioned'
         
-        # Store the status
-        results[req_id][segment_id] = status
+        # Store the status using the R-label
+        results[r_label][segment_id] = status
+        
+        if debug:
+            print(f"Debug: Req {req_id} -> R{r_label}, Segment {segment_id}, Status: {status}")
     
     # Create a mapping of segments to their ground truth requirements
     # Note: This maps segment IDs to sets of R-labels (e.g. '10', '11', etc.)
@@ -180,16 +271,32 @@ def main():
         is_satisfied = any(status == "satisfied" for status in segments.values())
         if is_satisfied:
             satisfied_reqs.add(req_id)
+            if debug:
+                satisfied_segments = [seg for seg, status in segments.items() if status == "satisfied"]
+                print(f"Debug: R{req_id} is satisfied in segments: {', '.join(satisfied_segments)}")
     
     # Determine completeness based on the filtered requirements
     filtered_required_reqs = req_ids
     
     ground_truth_complete = len(filtered_required_reqs - all_ground_truth_reqs) == 0
+    
+    # First, ensure satisfied_reqs is up-to-date by checking all segments
+    for req_id in filtered_required_reqs:
+        if req_id in results:
+            has_satisfied_segments = any(status == "satisfied" for status in results[req_id].values())
+            if has_satisfied_segments and req_id not in satisfied_reqs:
+                satisfied_reqs.add(req_id)
+                if debug:
+                    satisfied_segs = [seg for seg, status in results[req_id].items() if status == "satisfied"]
+                    print(f"Debug: Adding R{req_id} to satisfied_reqs based on segments: {', '.join(satisfied_segs)}")
+    
+    # Now calculate completeness prediction based on updated satisfied_reqs
     predicted_complete = len(filtered_required_reqs - satisfied_reqs) == 0
     
     # Calculate metrics at the requirement level
     req_tp, req_fp, req_tn, req_fn = 0, 0, 0, 0
     
+    # Now calculate metrics
     for req_id in filtered_required_reqs:
         ground_truth_satisfied = req_id in all_ground_truth_reqs
         predicted_satisfied = req_id in satisfied_reqs
@@ -309,17 +416,25 @@ def main():
         satisfied_segments = []
         if req_id in results:
             satisfied_segments = [seg for seg, status in results[req_id].items() if status == "satisfied"]
+            if debug and satisfied_segments:
+                print(f"Debug: Found satisfied segments for R{req_id}: {', '.join(satisfied_segments)}")
         
         req_number = r_to_req_mapping.get(req_id, req_id)
         
         evaluation["requirements_details"][req_id] = {
             "requirement_number": req_number,  # Mapped requirement number (R10->1, R15->5, etc.)
             "ground_truth": ground_truth_satisfied,
-            "prediction": predicted_satisfied,
+            "prediction": predicted_satisfied,  # Now using the updated satisfied_reqs
             "agreement": ground_truth_satisfied == predicted_satisfied,
             "satisfied_segments": sorted(satisfied_segments),
             "ground_truth_segments": sorted(list(req_to_ground_truth_segments.get(req_id, set())))
         }
+        
+        # Update the satisfied_reqs set based on satisfied segments
+        if len(satisfied_segments) > 0 and req_id not in satisfied_reqs:
+            satisfied_reqs.add(req_id)
+            if debug:
+                print(f"Debug: Adding R{req_id} to satisfied_reqs based on segments")
     
     # Save results
     print(f"\nSaving evaluation results to: {args.output}")

@@ -8,12 +8,12 @@ set -e  # Exit on any error
 # Configuration
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/ground_truth_requirements.txt"
-MODEL_PATH="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"
-OUTPUT_DIR="results/experiment_req"
+MODEL="models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"  # Changed from MODEL_PATH to MODEL for GPT API
+OUTPUT_DIR="results/symbolic_experuments/ai_short_repr"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-REQUIREMENTS_DEONTIC="results/requirements_deontic_experiments.json"
+REQUIREMENTS_DEONTIC="results/requirements_deontic_ai_generated.json"
 TARGET_DPAS=("Online 124" "Online 126")  # Array of DPAs to process
 REQ_IDS="all"  # Focus on all requirements by default
 MAX_SEGMENTS=0  # Process all segments by default
@@ -91,7 +91,7 @@ case ${STEP} in
         echo -e "\n[Step 1] Translating all requirements to deontic logic..."
         python translate_requirements.py \
           --requirements ${REQUIREMENTS_FILE} \
-          --model ${MODEL_PATH} \
+          --model ${MODEL} \
           --output "${REQUIREMENTS_DEONTIC}"
         echo "Step 1 completed. Output saved to: ${REQUIREMENTS_DEONTIC}"
         ;;
@@ -102,7 +102,7 @@ case ${STEP} in
             python generate_lp_files.py \
               --requirements "${REQUIREMENTS_DEONTIC}" \
               --dpa ${DPA_CSV} \
-              --model ${MODEL_PATH} \
+              --model ${MODEL} \
               --output "${OUTPUT_DIR}/lp_files" \
               --target_dpa "${TARGET_DPA}" \
               --max_segments ${MAX_SEGMENTS} \
@@ -229,7 +229,7 @@ case ${STEP} in
         echo -e "\n[Step 1] Translating all requirements to deontic logic..."
         python translate_requirements.py \
           --requirements ${REQUIREMENTS_FILE} \
-          --model ${MODEL_PATH} \
+          --model ${MODEL} \
           --output "${REQUIREMENTS_DEONTIC}"
         
         echo -e "\n[Step 2] Generating LP files for requirement(s) ${REQ_IDS} and ${MAX_SEGMENTS} segments..."
@@ -238,7 +238,7 @@ case ${STEP} in
             python generate_lp_files.py \
               --requirements "${REQUIREMENTS_DEONTIC}" \
               --dpa ${DPA_CSV} \
-              --model ${MODEL_PATH} \
+              --model ${MODEL} \
               --output "${OUTPUT_DIR}/lp_files" \
               --target_dpa "${TARGET_DPA}" \
               --max_segments ${MAX_SEGMENTS} \

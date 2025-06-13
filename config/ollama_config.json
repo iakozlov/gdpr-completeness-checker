@@ -1,0 +1,94 @@
+{
+    "models": {
+        "llama3.3:70b": {
+            "name": "llama3.3:70b",
+            "description": "Meta's Llama 3.3 70B model - state-of-the-art performance",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "llama4:scout": {
+            "name": "llama4:scout",
+            "description": "Meta's Llama 4 Scout - multimodal MoE model with 17B active parameters",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "llama4:maverick": {
+            "name": "llama4:maverick",
+            "description": "Meta's Llama 4 Maverick - 400B parameter MoE model",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "qwen3:32b": {
+            "name": "qwen3:32b",
+            "description": "Qwen3 32B model with tools support",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "deepseek-r1:70b": {
+            "name": "deepseek-r1:70b",
+            "description": "DeepSeek R1 70B reasoning model",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "mixtral:8x7b": {
+            "name": "mixtral:8x7b",
+            "description": "Mixtral 8x7B MoE model with tools support",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "codellama:70b": {
+            "name": "codellama:70b",
+            "description": "Code-specific Llama 70B model",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        },
+        "phi4:14b": {
+            "name": "phi4:14b",
+            "description": "Microsoft's Phi-4 14B parameter model",
+            "parameters": {
+                "temperature": 0.1,
+                "top_p": 0.9,
+                "max_tokens": 4096
+            }
+        }
+    },
+    "default_model": "llama3.3:70b",
+    "requirements_files": {
+        "deontic": {
+            "name": "deontic",
+            "description": "Standard deontic logic representation",
+            "path": "data/requirements/requirements_deontic.json"
+        },
+        "deontic_ai": {
+            "name": "deontic_ai",
+            "description": "AI-generated deontic logic representation",
+            "path": "data/requirements/requirements_deontic_ai_generated.json"
+        },
+        "deontic_experiments": {
+            "name": "deontic_experiments",
+            "description": "Experimental deontic logic representation",
+            "path": "data/requirements/requirements_deontic_experiments.json"
+        }
+    }
+} 

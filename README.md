@@ -27,7 +27,9 @@ The system works through the following pipeline:
 
 - Python 3.8+
 - Deolingo solver
-- Llama-based LLM (recommended: Meta-Llama-3.1-8B-Instruct)
+- Choice of LLM:
+  - Llama-based LLM (recommended: Meta-Llama-3.1-8B-Instruct)
+  - GPT-4o via OpenAI API (alternative implementation)
 
 ### Setup
 
@@ -48,15 +50,28 @@ The system works through the following pipeline:
    pip install -r requirements.txt
    ```
 
-4. Download and place the LLM model in the `models/` directory
+4. Choose your LLM implementation:
+   
+   **Option 1: Local Llama model**
+   - Download and place the LLM model in the `models/` directory
    - Recommended: `models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf`
+   
+   **Option 2: GPT-4o via API**
+   - Set your OpenAI API key as an environment variable:
+     ```
+     export OPENAI_API_KEY=your-api-key-here
+     ```
 
 ## Usage
 
-The system can be run using the main shell script that orchestrates the entire pipeline:
+The system can be run using one of the main shell scripts that orchestrate the entire pipeline:
 
 ```bash
-bash run_dpa_completeness.sh
+# For Llama model implementation
+bash run_dpa_completeness_ollama.sh
+
+# For GPT-4o API implementation
+bash run_dpa_completeness_gpt4o.sh
 ```
 
 This will display a menu allowing you to run individual steps or the entire pipeline.
@@ -71,7 +86,7 @@ The script accepts the following parameters:
 
 Example:
 ```bash
-bash run_dpa_completeness.sh --req_ids 6,8,12 --max_segments 50 --target_dpa "Online 2"
+bash run_dpa_completeness_ollama.sh --req_ids 6,8,12 --max_segments 50 --target_dpa "Online 2"
 ```
 
 ### Pipeline Steps
@@ -79,13 +94,27 @@ bash run_dpa_completeness.sh --req_ids 6,8,12 --max_segments 50 --target_dpa "On
 The system can run any of these steps individually:
 
 1. **Translate requirements to deontic logic**:
+   
+   Using Llama:
    ```
    python translate_requirements.py --requirements data/requirements/ground_truth_requirements.txt --model models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf --output results/requirements_deontic.json
    ```
+   
+   Using GPT-4o:
+   ```
+   python translate_requirements.py --requirements data/requirements/ground_truth_requirements.txt --model gpt-4o --output results/gpt4o_experiment/requirements_deontic.json
+   ```
 
 2. **Generate LP files**:
+   
+   Using Llama:
    ```
    python generate_lp_files.py --requirements results/requirements_deontic.json --dpa data/train_set.csv --model models/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf --output results/lp_files --target_dpa "Online 1" --req_ids 6 --max_segments 30
+   ```
+   
+   Using GPT-4o:
+   ```
+   python generate_lp_files.py --requirements results/gpt4o_experiment/requirements_deontic.json --dpa data/train_set.csv --model gpt-4o --output results/gpt4o_experiment/lp_files --target_dpa "Online 1" --req_ids 6 --max_segments 30
    ```
 
 3. **Run Deolingo solver** (handled by the shell script)
@@ -99,7 +128,7 @@ The system can run any of these steps individually:
 
 - **translate_requirements.py**: Converts GDPR requirements to deontic logic format
 - **generate_lp_files.py**: Extracts facts from DPA segments and creates LP files
-- **run_dpa_completeness.sh**: Master script to orchestrate the entire pipeline
+ - **run_dpa_completeness_ollama.sh**: Master script to orchestrate the entire pipeline using Ollama
 - **evaluate_completeness.py**: Evaluates completeness of DPAs against requirements
 
 ## Configuration
@@ -129,3 +158,24 @@ The system generates several output files:
 - `results/evaluation_results.json`: Final evaluation results with completeness assessment
 
 The evaluation results show which requirements are satisfied, which are missing, and provide segment-level details about requirement satisfaction.
+
+## Comparing Baseline and Symbolic Approaches
+
+After running both the baseline pipeline (`run_baseline_evaluation.sh`) and the symbolic pipeline (`run_dpa_completeness_ollama.sh` with predefined requirements), you can generate a detailed comparison of their predictions using `compare_experiments.py`:
+
+```bash
+python compare_experiments.py \
+  --baseline_dir results/my_experiment/baseline \
+  --deolingo_results results/my_experiment/symbolic/deolingo_results.txt \
+  --lp_root results/my_experiment/symbolic/lp_files \
+  --output results/my_experiment/comparison.json
+```
+
+`compare_experiments.py` expects `aggregated_evaluation_results.json` to be
+present inside `--baseline_dir`. This file is produced during the final
+aggregation step of `run_baseline_evaluation.sh`.
+
+You can also run `run_full_experiment.sh` to execute both pipelines and generate
+the comparison in one step.
+
+The output lists segments where the baseline classified a requirement as satisfied while the symbolic approach did not, and vice versa. For each case the JSON includes the ground truth label, the baseline prediction, the symbolic prediction, and the facts extracted by the LLM for the symbolic method.

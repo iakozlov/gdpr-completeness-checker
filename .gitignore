@@ -1,5 +1,4 @@
 # Ignore data folder
-data/
 
 # Ignore Python cache folders
 __pycache__/
@@ -11,8 +10,6 @@ __pycache__/
 # Ignore models folder
 *.gguf
 
-deolingo/
-
 dpa_env/
 
 results/
@@ -20,3 +17,4 @@ results/
 results_v2/
 
 semantic_results/
+.env
