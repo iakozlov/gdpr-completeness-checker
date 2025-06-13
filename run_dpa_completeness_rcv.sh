@@ -8,11 +8,11 @@ set -e  # Exit on any error
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
 OLLAMA_MODEL="qwen2.5:32b"  # Default Ollama model
-OUTPUT_DIR="results/rcv_approach"
+OUTPUT_DIR="results/rcv_approach/qwen"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-TARGET_DPAS=("Online 124" "Online 126" "Online 54")  # Array of DPAs to process
+TARGET_DPAS=("Online 124" "Online 132" "Online 54")  # Array of DPAs to process
 MAX_SEGMENTS=0  # Process all segments by default
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
 USE_PREDEFINED=true  # Default to using predefined requirements
