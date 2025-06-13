@@ -22,7 +22,7 @@ MAX_SEGMENTS=0
 #  --output_dir "$BASELINE_DIR"
 
 # Run symbolic pipeline (all steps)
-echo "4" | bash run_dpa_completeness_ollama.sh \
+echo "A" | bash run_dpa_completeness_ollama.sh \
   --model "$MODEL" \
   --output_dir "$SYMBOLIC_DIR" \
   --target_dpas "$TARGET_DPAS" \

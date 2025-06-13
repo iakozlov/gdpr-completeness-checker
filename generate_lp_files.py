@@ -53,6 +53,8 @@ def main():
                         help="Enable verbose output for debugging")
     parser.add_argument("--use_ollama", action="store_true",
                         help="Use Ollama for model inference")
+    parser.add_argument("--requirement_prompts", type=str, default="requirement_prompts.json",
+                        help="Path to requirement-specific prompts JSON file")
     args = parser.parse_args()
     
     # Create output directory
@@ -62,6 +64,17 @@ def main():
     print(f"Loading requirements from: {args.requirements}")
     with open(args.requirements, 'r') as f:
         all_requirements = json.load(f)
+    
+    # Load requirement-specific prompts if available
+    requirement_prompts = {}
+    if os.path.exists(args.requirement_prompts):
+        print(f"Loading requirement-specific prompts from: {args.requirement_prompts}")
+        with open(args.requirement_prompts, 'r') as f:
+            requirement_prompts = json.load(f)
+        print(f"Loaded prompts for {len(requirement_prompts)} requirements")
+    else:
+        print(f"Warning: Requirement prompts file not found at {args.requirement_prompts}")
+        print("Using generic system prompt for all requirements")
     
     # Filter requirements by ID if specified
     if args.req_ids.lower() != "all":
@@ -145,7 +158,7 @@ def main():
             lp_file_path = os.path.join(req_dir, f"segment_{segment_id}.lp")
             
             # Extract facts from DPA segment
-            facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, args.use_ollama, args.model)
+            facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, args.use_ollama, args.model, req_id, requirement_prompts)
             
             # Generate LP file content
             lp_content = generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text)
@@ -164,10 +177,8 @@ def extract_predicates(req_info):
     # Return the atoms directly from the requirement info
     return req_info.get("atoms", [])
 
-def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, use_ollama=False, model_name="llama3.3:70b"):
-    """
-    Use LLM to extract facts from a DPA segment based on requirement symbolic representation,
-    considering semantic similarity between requirement context and DPA context.
+def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, llm_model, use_ollama=False, model_name="llama3.3:70b", req_id="", requirement_prompts={}):
+    """Extract facts from a DPA segment using the LLM.
     
     Args:
         segment_text: The text of the DPA segment
@@ -177,80 +188,159 @@ def extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates,
         llm_model: The LLM model to use for extraction
         use_ollama: Whether to use Ollama for inference
         model_name: Name of the model to use
+        req_id: ID of the current requirement
+        requirement_prompts: Dictionary of requirement-specific prompts
     Returns:
         Dictionary mapping predicates to their truth values
     """
-    system_prompt = """You are a meticulous and cautious AI legal analyst specializing in GDPR compliance. Your task is to verify if a DPA clause explicitly and fully satisfies the conditions and obligations described in a GDPR requirement.
+    # Use requirement-specific prompt if available, otherwise use generic prompt
+    if req_id in requirement_prompts and 'system_prompt' in requirement_prompts[req_id]:
+        base_system_prompt = requirement_prompts[req_id]['system_prompt']
+        
+        # If we have examples, add them to the prompt
+        if 'examples' in requirement_prompts[req_id]:
+            system_prompt = base_system_prompt + f"""
 
-INPUT FORMAT:
-1.  **REQUIREMENT:** The full text of the GDPR requirement.
-2.  **SYMBOLIC:** The requirement's formal representation in Answer Set Programming (ASP).
-3.  **PREDICATES:** The list of relevant atomic facts (atoms) from the symbolic rule.
-4.  **CLAUSE:** A single text segment from the DPA.
+REQUIREMENT TO ANALYZE:
+{req_text}
+
+SYMBOLIC REPRESENTATION:
+{req_symbolic}
+
+EXPECTED PREDICATES:
+{'; '.join(req_predicates)}
+
+EXAMPLES:
+"""
+            
+            # Add examples from the structured format
+            for example in requirement_prompts[req_id]['examples']:
+                system_prompt += f"""
+SEGMENT: {example['segment']}
+OUTPUT: {example['expected_output']}
+"""
+        else:
+            # No examples available, just use the base prompt
+            system_prompt = base_system_prompt
+    else:
+        # Fallback to generic system prompt
+        system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
+
+Input always contains:
+1. "REQUIREMENT" – text of the GDPR requirement
+2. "SYMBOLIC" – symbolic representation of the requirement in deontic logic via Answer Set Programming (ASP)
+3. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
+4. "CLAUSE" – one DPA segment
 
 TASK:
-Based on a rigorous analysis, identify which predicates from the provided list are explicitly and unambiguously supported by the text in the CLAUSE. Output only the supported predicate names, separated by a semicolon.
+Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
 
-CRITICAL REASONING FRAMEWORK (Follow these steps):
+INSTRUCTIONS:
+1) Output a predicate from symbolic rule's body only if the CLAUSE explicitly and fully mentions the same concept this predicate mentions in the REQUIREMENT.
+2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
+3) If no predicated are entailed, output exactly NO_FACTS
+4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
+5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
 
-1.  **Direct Evidence Rule:** A predicate can only be confirmed if there is direct, explicit evidence in the CLAUSE. Do not make assumptions or infer meaning beyond what is written. The clause must contain the full semantic weight of the predicate.
-
-2.  **Scope & Conditionality Analysis:**
-    - Does the CLAUSE make a firm, unconditional commitment (e.g., 'The processor shall...')?
-    - Or is the commitment conditional or limited (e.g., '...if requested by the controller', '...where possible', '...may assist')?
-    - If the REQUIREMENT implies an unconditional obligation but the CLAUSE is conditional or limited, the head predicate of the rule is NOT satisfied.
-
-3.  **Action vs. Mechanism Distinction:**
-    - Does the CLAUSE state a commitment to *perform an action* (e.g., 'The processor will notify...')?
-    - Or does it merely describe the *existence of a process or mechanism* (e.g., 'The processor has a process for notification...')?
-    - Describing a mechanism does not satisfy an obligation to perform the action itself. Only confirm the predicate if the action is committed to.
-
-4.  **Functional Equivalence over Keywords:** Do not rely on simple keyword matching. Focus on the legal and functional outcome. For example, a clause stating that changes are 'added to a public list available to the controller' can be functionally equivalent to 'informing' the controller.
-
-OUTPUT INSTRUCTIONS:
--   Output the names of the confirmed predicates, separated by a semicolon (e.g., `role(processor); has_general_written_authorization`).
--   If the CLAUSE explicitly describes an action that violates a predicate, prefix the predicate with a hyphen (e.g., `-ensures_personnel_are_bound_by_confidentiality`).
--   **Golden Rule: If, after following all reasoning steps, you have any doubt, or if no predicates are explicitly and fully supported, you MUST output the exact string `NO_FACTS`. It is better to miss a fact than to wrongly confirm one.**
--   Do NOT add any explanations, notes, or apologies.
-
---- EXAMPLES ---
+Examples:
 Example 1:
-REQUIREMENT: The processor shall ensure that persons authorised to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
-SYMBOLIC: &obligatory{ensures_personnel_are_bound_by_confidentiality} :- role(processor).
-PREDICATES: ensures_personnel_are_bound_by_confidentiality; role(processor)
+REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
+SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
+PREDICATES: ensure_confidentiality_commitment; role(processor)
 CLAUSE: The Processor shall ensure that every employee authorized to process Customer Personal Data is subject to a contractual duty of confidentiality.
-Expected output: ensures_personnel_are_bound_by_confidentiality; role(processor)
+Expected output: ensure_confidentiality_commitment; role(processor)
 
 Example 2:
 REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.
-SYMBOLIC: &forbidden{engages_subprocessor} :- role(processor), not has_prior_specific_authorization, not has_prior_general_authorization.
-PREDICATES: engages_subprocessor; role(processor); has_prior_specific_authorization; has_prior_general_authorization
+SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
 CLAUSE: Where processor authorises any sub-processor as described in Section 6.1
 Expected output: role(processor)
 
 Example 3:
 REQUIREMENT: The processor must encrypt all the data collected from customers.
-SYMBOLIC: &obligatory{implements_encryption} :- role(processor).
-PREDICATES: implements_encryption; role(processor)
+SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
+PREDICATES: encrypt_collected_data; role(processor)
 CLAUSE: The processor will store customer's data in raw format.
-Expected output: -implements_encryption; role(processor)
+Expected output: -encrypt_collected_data; role(processor)
 
 Example 4:
 REQUIREMENT: The processor must notify controller about data breaches.
-SYMBOLIC: &obligatory{notifies_controller_of_data_breach} :- role(processor).
-PREDICATES: notifies_controller_of_data_breach; role(processor)
+SYMBOLIC: &obligatory{notify_controller_data_breaches} :- role(processor)
+PREDICATES: notify_controller_data_breaches; role(processor)
 CLAUSE: Sub-Processor rights
-Expected output: NO_FACTS"""
+Expected output: NO_FACTS
 
-    
+Example 5 (NO_FACTS - Administrative/Definitional text):
+REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
+SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
+PREDICATES: process_on_documented_instructions; role(processor)
+CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
+Expected output: NO_FACTS
+
+Example 6 (NO_FACTS - Definitional text without processor obligations):
+REQUIREMENT: The processor shall implement appropriate technical and organisational measures.
+SYMBOLIC: &obligatory{implement_technical_organisational_measures} :- role(processor).
+PREDICATES: implement_technical_organisational_measures; role(processor)
+CLAUSE: Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.
+Expected output: NO_FACTS
+
+Example 7 (role(processor) identification):
+REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
+SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
+PREDICATES: process_on_documented_instructions; role(processor)
+CLAUSE: processor will process controller Data only in accordance with Documented Instructions.
+Expected output: process_on_documented_instructions; role(processor)
+
+Example 8 (role(processor) with security obligations):
+REQUIREMENT: The processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk.
+SYMBOLIC: &obligatory{implement_security_measures} :- role(processor).
+PREDICATES: implement_security_measures; role(processor)
+CLAUSE: Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of Processing, processor shall implement and maintain appropriate technical and organizational security measures to protect Personal Data.
+Expected output: implement_security_measures; role(processor)
+
+Example 9 (role(processor) with assistance obligations):
+REQUIREMENT: The processor shall assist the controller in ensuring compliance with data protection obligations.
+SYMBOLIC: &obligatory{assist_controller_compliance} :- role(processor).
+PREDICATES: assist_controller_compliance; role(processor)
+CLAUSE: At controller's request and at the controller's reasonable expense, processor shall reasonably support controller in dealing with complaints, requests or orders and fulfilling controller's obligations under Data Protection Law.
+Expected output: assist_controller_compliance; role(processor)
+
+Example 10 (NO_FACTS - General context without specific processor obligations):
+REQUIREMENT: The processor shall delete or return personal data after the end of the provision of services.
+SYMBOLIC: &obligatory{delete_or_return_data} :- role(processor).
+PREDICATES: delete_or_return_data; role(processor)
+CLAUSE: This DPA applies when controller Data is processed by processor.
+Expected output: NO_FACTS
+
+Example 11 (role(processor) with sub-processor obligations):
+REQUIREMENT: The processor shall not engage another processor without prior written authorization.
+SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
+CLAUSE: The data processor shall inform in writing the data controller of any intended changes concerning the addition or replacement of sub-processors at least four weeks in advance.
+Expected output: role(processor)
+
+Example 12 (NO_FACTS - Controller obligations, not processor):
+REQUIREMENT: The processor shall implement data protection by design and by default.
+SYMBOLIC: &obligatory{implement_data_protection_by_design} :- role(processor).
+PREDICATES: implement_data_protection_by_design; role(processor)
+CLAUSE: The controller shall implement appropriate technical and organisational measures to ensure and demonstrate compliance.
+Expected output: NO_FACTS
+
+Example 13 (role(processor) with breach notification):
+REQUIREMENT: The processor shall notify the controller of a personal data breach without undue delay.
+SYMBOLIC: &obligatory{notify_breach_without_delay} :- role(processor).
+PREDICATES: notify_breach_without_delay; role(processor)
+CLAUSE: processor shall promptly notify controller of any noncompliance with this DPA and any Security Incidents affecting Personal Data.
+Expected output: notify_breach_without_delay; role(processor)"""
+
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
     if use_ollama:
         response = llm_model.generate(user_prompt, model_name=model_name, system_prompt=system_prompt)
     else:
-        # For non-Ollama models, combine system and user prompts
-        combined_prompt = f"{system_prompt}\n\n{user_prompt}"
-        response = llm_model.generate(combined_prompt)
+        # For non-Ollama models (LlamaModel), use the correct method
+        response = llm_model.generate_symbolic_representation(user_prompt, system_prompt)
     
     # Filter out <think> sections from reasoning models like qwen3
     response = filter_think_sections(response)
@@ -265,6 +355,14 @@ Expected output: NO_FACTS"""
             facts[pred[1:]] = False
         else:
             facts[pred] = True
+    
+    # CRITICAL CHECK: If role(processor) is not among the extracted facts, 
+    # treat this segment as NO_FACTS since GDPR requirements are about processor obligations.
+    # This ensures we only consider segments that establish processor roles/obligations.
+    # Segments that are purely definitional, administrative, or about other parties
+    # should result in NO_FACTS (empty dictionary).
+    if "role(processor)" not in facts:
+        return {}
     
     return facts
 
@@ -333,7 +431,7 @@ def generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text
             if value:
                 lp_content += f"{pred}.\n"
             else:
-                lp_content += f"-{pred}.\n"
+                lp_content += f"not {pred}.\n"
     else:
         lp_content += "% No semantically relevant facts found in this segment\n"
     
