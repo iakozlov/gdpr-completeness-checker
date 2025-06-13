@@ -1,0 +1,165 @@
+{
+    "1": {
+      "text": "The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.",
+      "symbolic": "&obligatory{-engages_subprocessor} :- role(processor), not has_prior_specific_authorization, not has_prior_general_authorization.",
+      "atoms": [
+        "role(processor)",
+        "engages_subprocessor",
+        "has_prior_specific_authorization",
+        "has_prior_general_authorization"
+      ]
+    },
+    "2": {
+      "text": "In case of general written authorization, the processor shall inform the controller of any intended changes concerning the addition or replacement of sub-processors.",
+      "symbolic": "&obligatory{informs_controller_of_subprocessor_changes} :- role(processor), has_general_written_authorization.",
+      "atoms": [
+        "role(processor)",
+        "has_general_written_authorization",
+        "informs_controller_of_subprocessor_changes"
+      ]
+    },
+    "3": {
+      "text": "The processor shall process personal data only on documented instructions from the controller.",
+      "symbolic": "&obligatory{processes_data_only_on_documented_instruction} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "processes_data_only_on_documented_instruction"
+      ]
+    },
+    "4": {
+      "text": "If the processor is required by Union or Member-State law to process personal data without instructions and such law does not prohibit informing the controller on grounds of public interest, the processor shall inform the controller of that legal requirement before processing.",
+      "symbolic": "&obligatory{informs_controller_of_legal_requirement} :- role(processor), is_processing_required_by_law, is_not_prohibited_from_informing.",
+      "atoms": [
+        "role(processor)",
+        "is_processing_required_by_law",
+        "is_not_prohibited_from_informing",
+        "informs_controller_of_legal_requirement"
+      ]
+    },
+    "5": {
+      "text": "The processor shall ensure that persons authorised to process personal data are bound by confidentiality.",
+      "symbolic": "&obligatory{ensures_persons_are_bound_by_confidentiality} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "ensures_personnel_are_bound_by_confidentiality"
+      ]
+    },
+    "6": {
+      "text": "The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.",
+      "symbolic": "&obligatory{implements_gdpr_article32_security_measures} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "implements_article32_security_measures"
+      ]
+    },
+    "7": {
+      "text": "The processor shall assist the controller in fulfilling its obligation to respond to requests for exercising the data-subject’s rights.",
+      "symbolic": "&obligatory{assists_controller_with_data_subject_requests} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "assists_controller_with_data_subject_requests"
+      ]
+    },
+    "8": {
+      "text": "The processor shall assist the controller in ensuring the security of processing.",
+      "symbolic": "&obligatory{assists_controller_in_ensuring_security} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "assists_controller_in_ensuring_security"
+      ]
+    },
+    "9": {
+      "text": "The processor shall assist the controller in notifying a personal-data breach to the supervisory authority.",
+      "symbolic": "&obligatory{assists_controller_in_notifying_authority_of_breach} :- role(processor), personal_data_breach_occurred.",
+      "atoms": [
+        "role(processor)",
+        "personal_data_breach_occurred",
+        "assists_controller_in_notifying_authority_of_breach"
+      ]
+    },
+    "10": {
+      "text": "The processor shall assist the controller in communicating a personal-data breach to the data subject.",
+      "symbolic": "&obligatory{assists_controller_in_communicating_breach_to_subject} :- role(processor), personal_data_breach_occurred.",
+      "atoms": [
+        "role(processor)",
+        "personal_data_breach_occurred",
+        "assists_controller_in_communicating_breach_to_subject"
+      ]
+    },
+    "11": {
+      "text": "The processor shall assist the controller in ensuring compliance with data-protection impact-assessment obligations.",
+      "symbolic": "&obligatory{assists_controller_with_dpia_obligations} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "assists_controller_with_dpia_obligations"
+      ]
+    },
+    "12": {
+      "text": "The processor shall assist the controller in consulting the supervisory authorities prior to processing where the processing would result in a high risk in the absence of measures taken by the controller to mitigate the risk.",
+      "symbolic": "&obligatory{assists_controller_with_prior_consultation} :- role(processor), processing_involves_high_risk.",
+      "atoms": [
+        "role(processor)",
+        "processing_involves_high_risk",
+        "assists_controller_with_prior_consultation"
+      ]
+    },
+    "13": {
+      "text": "The processor shall return or delete all personal data to the controller after the end of the provision of services relating to processing.",
+      "symbolic": "&obligatory{returns_or_deletes_all_personal_data} :- role(processor), service_provision_has_ended.",
+      "atoms": [
+        "role(processor)",
+        "service_provision_has_ended",
+        "returns_or_deletes_all_personal_data"
+      ]
+    },
+    "14": {
+      "text": "The processor shall immediately inform the controller if an instruction infringes the GDPR or other data-protection provisions.",
+      "symbolic": "&obligatory{informs_controller_of_infringing_instruction} :- role(processor), controller_instruction_infringes_gdpr.",
+      "atoms": [
+        "role(processor)",
+        "controller_instruction_infringes_gdpr",
+        "informs_controller_of_infringing_instruction"
+      ]
+    },
+    "15": {
+      "text": "The processor shall make available to the controller the information necessary to demonstrate compliance with Article 28 obligations.",
+      "symbolic": "&obligatory{makes_available_info_to_demonstrate_compliance} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "makes_available_info_to_demonstrate_compliance"
+      ]
+    },
+    "16": {
+      "text": "The processor shall allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",
+      "symbolic": "&obligatory{allows_and_contributes_to_audits} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "allows_and_contributes_to_audits"
+      ]
+    },
+    "17": {
+      "text": "The processor shall impose the same obligations on engaged sub-processors by way of contract or other legal act under Union or Member-State law.",
+      "symbolic": "&obligatory{imposes_same_obligations_on_subprocessor} :- role(processor), subprocessor_is_engaged.",
+      "atoms": [
+        "role(processor)",
+        "subprocessor_is_engaged",
+        "imposes_same_obligations_on_subprocessor"
+      ]
+    },
+    "18": {
+      "text": "The processor shall remain fully liable to the controller for the performance of sub-processor obligations.",
+      "symbolic": "&obligatory{remains_liable_for_subprocessor_performance} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "remains_liable_for_subprocessor_performance"
+      ]
+    },
+    "19": {
+      "text": "When assessing the level of security, the processor shall take into account the risk of accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to personal data transmitted, stored or processed.",
+      "symbolic": "&obligatory{accounts_for_specific_risks_in_security_assessment} :- role(processor).",
+      "atoms": [
+        "role(processor)",
+        "accounts_for_specific_risks_in_security_assessment"
+      ]
+    }
+  }
