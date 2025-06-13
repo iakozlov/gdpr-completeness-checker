@@ -18,7 +18,7 @@ TARGET_DPAS=("Online 124" "Online 132")  # Array of DPAs to process
 REQ_IDS="all"  # Focus on all requirements by default
 MAX_SEGMENTS=0  # Process all segments by default
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
-USE_PREDEFINED=true  # Default to using predefined requirements
+USE_PREDEFINED=false  # Default to using predefined requirements
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do

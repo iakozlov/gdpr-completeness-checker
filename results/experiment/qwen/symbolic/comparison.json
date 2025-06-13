@@ -1,5 +1,1176 @@
 {
-  "total_pairs": 0,
-  "baseline_satisfied_symbolic_not": [],
+  "total_pairs": 130,
+  "baseline_satisfied_symbolic_not": [
+    {
+      "dpa": "Online 124",
+      "segment_id": "108",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "113",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "31",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "62",
+      "requirement": "10",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "63",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "71",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "113",
+      "requirement": "11",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "62",
+      "requirement": "11",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "71",
+      "requirement": "11",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "24",
+      "requirement": "12",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "25",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "31",
+      "requirement": "12",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "36",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "54",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "30",
+      "requirement": "15",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "32",
+      "requirement": "15",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "34",
+      "requirement": "16",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "41",
+      "requirement": "17",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "42",
+      "requirement": "17",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "43",
+      "requirement": "17",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "34",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "35",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "37",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "39",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "42",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "50",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "45",
+      "requirement": "19",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "50",
+      "requirement": "19",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "50",
+      "requirement": "20",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "39",
+      "requirement": "21",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "42",
+      "requirement": "21",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "39",
+      "requirement": "22",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "92",
+      "requirement": "23",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "93",
+      "requirement": "23",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "27",
+      "requirement": "24",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "37",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "53",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "56",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "68",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "65",
+      "requirement": "27",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "66",
+      "requirement": "27",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "69",
+      "requirement": "28",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "34",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 124",
+      "segment_id": "50",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "90",
+      "requirement": "10",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "92",
+      "requirement": "11",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "41",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "60",
+      "requirement": "12",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "65",
+      "requirement": "12",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "66",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "88",
+      "requirement": "15",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "75",
+      "requirement": "16",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "76",
+      "requirement": "16",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "77",
+      "requirement": "16",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "91",
+      "requirement": "16",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "69",
+      "requirement": "17",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "71",
+      "requirement": "17",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "159",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "75",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "76",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "77",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "79",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "81",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "83",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "84",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "79",
+      "requirement": "19",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "79",
+      "requirement": "20",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "83",
+      "requirement": "20",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "79",
+      "requirement": "21",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "84",
+      "requirement": "21",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "116",
+      "requirement": "23",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "82",
+      "requirement": "23",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "80",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "81",
+      "requirement": "25",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "84",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "81",
+      "requirement": "26",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "52",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "75",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "76",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 132",
+      "segment_id": "84",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "42",
+      "requirement": "10",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "90",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "92",
+      "requirement": "10",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "38",
+      "requirement": "12",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "77",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "82",
+      "requirement": "12",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "40",
+      "requirement": "15",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "85",
+      "requirement": "15",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "41",
+      "requirement": "16",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "65",
+      "requirement": "16",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "87",
+      "requirement": "16",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "88",
+      "requirement": "16",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "45",
+      "requirement": "17",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "96",
+      "requirement": "17",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "105",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "41",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "49",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "55",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "65",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "87",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "88",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "99",
+      "requirement": "18",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "48",
+      "requirement": "19",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "49",
+      "requirement": "19",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "48",
+      "requirement": "20",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "49",
+      "requirement": "20",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "52",
+      "requirement": "21",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "99",
+      "requirement": "21",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "99",
+      "requirement": "22",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "101",
+      "requirement": "23",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "103",
+      "requirement": "23",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "57",
+      "requirement": "23",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "58",
+      "requirement": "23",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "105",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "106",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "55",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "56",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "80",
+      "requirement": "25",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "105",
+      "requirement": "26",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "106",
+      "requirement": "26",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "55",
+      "requirement": "26",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "56",
+      "requirement": "26",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "43",
+      "requirement": "27",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "91",
+      "requirement": "27",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "44",
+      "requirement": "28",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "91",
+      "requirement": "28",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "94",
+      "requirement": "28",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "65",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "87",
+      "requirement": "29",
+      "ground_truth": false,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    },
+    {
+      "dpa": "Online 54",
+      "segment_id": "88",
+      "requirement": "29",
+      "ground_truth": true,
+      "baseline_prediction": "satisfied",
+      "symbolic_prediction": "not_satisfied",
+      "symbolic_facts": []
+    }
+  ],
   "symbolic_satisfied_baseline_not": []
 }

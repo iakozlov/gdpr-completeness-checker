@@ -7,13 +7,13 @@ BASELINE_DIR="results/experiment/baseline"
 SYMBOLIC_DIR="results/experiment/symbolic"
 MODEL="gemma3:27b"
 DPA_FILE="data/test_set.csv"
-TARGET_DPAS="Online 124,Online 132"
+TARGET_DPAS="Online 124,Online 132,Online 54"
 REQ_IDS="all"
 MAX_SEGMENTS=0
 
 # Run baseline pipeline
 bash run_baseline_evaluation.sh \
-  --step all \
+  --step 4 \
   --ollama_model "$MODEL" \
   --dpa_file "$DPA_FILE" \
   --target_dpas "$TARGET_DPAS" \
@@ -22,7 +22,7 @@ bash run_baseline_evaluation.sh \
   --output_dir "$BASELINE_DIR"
 
 # Run symbolic pipeline (all steps)
-echo "A" | bash run_dpa_completeness_ollama.sh \
+echo "4" | bash run_dpa_completeness_ollama.sh \
   --model "$MODEL" \
   --output_dir "$SYMBOLIC_DIR" \
   --target_dpas "$TARGET_DPAS" \
