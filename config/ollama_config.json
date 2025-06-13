@@ -89,6 +89,11 @@
             "name": "deontic_experiments",
             "description": "Experimental deontic logic representation",
             "path": "data/requirements/requirements_deontic_experiments.json"
+        },
+        "deontic_google": {
+            "name": "deontic_google",
+            "description": "Experimental deontic logic representation",
+            "path": "data/requirements/requirements_deontic_google.json"
         }
     }
 } 

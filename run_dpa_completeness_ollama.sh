@@ -12,7 +12,7 @@ OUTPUT_DIR="results/gemma3_27b/llm_created_repr"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
-REQUIREMENTS_DEONTIC="${OUTPUT_DIR}/requirements_deontic_generated.json"
+REQUIREMENTS_DEONTIC="${OUTPUT_DIR}/requirements_deontic_ai_generated.json"
 REQUIREMENTS_DEONTIC="results/requirements_deontic.json"
 TARGET_DPAS=("Online 124" "Online 132")  # Array of DPAs to process
 REQ_IDS="all"  # Focus on all requirements by default
@@ -107,6 +107,9 @@ set_requirements_file() {
                 ;;
             "deontic_experiments")
                 REQUIREMENTS_FILE="data/requirements/requirements_deontic_experiments.json"
+                ;;
+            "deontic_google")
+                REQUIREMENTS_FILE="data/requirements/requirements_deonic_google.json"
                 ;;
             *)
                 log "ERROR: Unknown requirements representation: $REQUIREMENTS_REPRESENTATION"

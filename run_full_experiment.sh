@@ -12,14 +12,14 @@ REQ_IDS="all"
 MAX_SEGMENTS=0
 
 # Run baseline pipeline
-bash run_baseline_evaluation.sh \
-  --step 4 \
-  --ollama_model "$MODEL" \
-  --dpa_file "$DPA_FILE" \
-  --target_dpas "$TARGET_DPAS" \
-  --req_ids "$REQ_IDS" \
-  --max_segments "$MAX_SEGMENTS" \
-  --output_dir "$BASELINE_DIR"
+#bash run_baseline_evaluation.sh \
+#  --step 4 \
+#  --ollama_model "$MODEL" \
+#  --dpa_file "$DPA_FILE" \
+#  --target_dpas "$TARGET_DPAS" \
+#  --req_ids "$REQ_IDS" \
+#  --max_segments "$MAX_SEGMENTS" \
+#  --output_dir "$BASELINE_DIR"
 
 # Run symbolic pipeline (all steps)
 echo "4" | bash run_dpa_completeness_ollama.sh \
