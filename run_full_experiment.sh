@@ -3,9 +3,9 @@
 
 set -e
 
-BASELINE_DIR="results/experiment/baseline"
-SYMBOLIC_DIR="results/experiment/symbolic"
-MODEL="gemma3:27b"
+BASELINE_DIR="results/experiment/qwen/baseline"
+SYMBOLIC_DIR="results/experiment/qwen/symbolic"
+MODEL="qwen2.5:32b"
 DPA_FILE="data/test_set.csv"
 TARGET_DPAS="Online 124,Online 132,Online 54"
 REQ_IDS="all"

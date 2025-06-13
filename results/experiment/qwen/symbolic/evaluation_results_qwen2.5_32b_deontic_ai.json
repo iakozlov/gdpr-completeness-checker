@@ -30,30 +30,30 @@
   "aggregated_metrics": {
     "requirements": {
       "overall": {
-        "accuracy": 0.702,
-        "precision": 0.684,
-        "recall": 0.803,
-        "f1_score": 0.738
+        "accuracy": 0.719,
+        "precision": 0.69,
+        "recall": 0.831,
+        "f1_score": 0.753
       },
       "confusion_matrix": {
-        "true_positives": 24,
+        "true_positives": 25,
         "false_positives": 11,
         "true_negatives": 16,
-        "false_negatives": 6
+        "false_negatives": 5
       }
     },
     "segments": {
       "overall": {
         "accuracy": 0.991,
-        "precision": 0.315,
-        "recall": 0.555,
-        "f1_score": 0.399
+        "precision": 0.314,
+        "recall": 0.608,
+        "f1_score": 0.411
       },
       "confusion_matrix": {
-        "true_positives": 22,
-        "false_positives": 46,
-        "true_negatives": 7173,
-        "false_negatives": 17
+        "true_positives": 24,
+        "false_positives": 50,
+        "true_negatives": 7169,
+        "false_negatives": 15
       }
     }
   },
@@ -85,25 +85,25 @@
       "ground_truth": {
         "is_complete": false,
         "requirements": {
-          "15": true,
-          "26": false,
           "24": true,
-          "28": true,
-          "23": true,
-          "21": false,
-          "11": true,
-          "19": false,
-          "13": false,
-          "22": true,
-          "12": true,
-          "17": true,
+          "26": false,
+          "15": true,
           "18": false,
           "29": false,
+          "10": true,
+          "17": true,
+          "11": true,
+          "12": true,
+          "22": true,
+          "28": true,
+          "23": true,
+          "27": true,
+          "16": true,
+          "19": false,
           "20": false,
           "25": true,
-          "10": true,
-          "27": true,
-          "16": true
+          "13": false,
+          "21": false
         },
         "missing_requirements": [
           "13",
@@ -118,28 +118,27 @@
       "prediction": {
         "is_complete": false,
         "requirements": {
-          "15": true,
-          "26": false,
           "24": true,
-          "28": true,
-          "23": true,
-          "21": true,
-          "11": true,
-          "19": true,
-          "13": false,
-          "22": false,
-          "12": true,
-          "17": true,
+          "26": false,
+          "15": true,
           "18": true,
           "29": false,
+          "10": true,
+          "17": true,
+          "11": true,
+          "12": true,
+          "22": false,
+          "28": true,
+          "23": true,
+          "27": true,
+          "16": true,
+          "19": true,
           "20": false,
           "25": true,
-          "10": false,
-          "27": true,
-          "16": true
+          "13": false,
+          "21": true
         },
         "missing_requirements": [
-          "10",
           "13",
           "20",
           "22",
@@ -150,37 +149,37 @@
       "agreement": true,
       "requirements_metrics": {
         "overall": {
-          "accuracy": 0.737,
-          "precision": 0.769,
-          "recall": 0.833,
-          "f1_score": 0.8
+          "accuracy": 0.789,
+          "precision": 0.786,
+          "recall": 0.917,
+          "f1_score": 0.846
         },
         "confusion_matrix": {
-          "true_positives": 10,
+          "true_positives": 11,
           "false_positives": 3,
           "true_negatives": 4,
-          "false_negatives": 2
+          "false_negatives": 1
         }
       },
       "segment_metrics": {
         "overall": {
-          "accuracy": 0.99,
-          "precision": 0.407,
-          "recall": 0.647,
-          "f1_score": 0.5
+          "accuracy": 0.989,
+          "precision": 0.4,
+          "recall": 0.706,
+          "f1_score": 0.511
         },
         "by_requirement": {
-          "15": {
+          "24": {
             "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.75,
+              "accuracy": 1.0,
+              "precision": 1.0,
               "recall": 1.0,
-              "f1_score": 0.857
+              "f1_score": 1.0
             },
             "confusion_matrix": {
-              "true_positives": 3,
-              "false_positives": 1,
-              "true_negatives": 110,
+              "true_positives": 1,
+              "false_positives": 0,
+              "true_negatives": 113,
               "false_negatives": 0
             }
           },
@@ -198,18 +197,116 @@
               "false_negatives": 0
             }
           },
-          "24": {
+          "15": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1_score": 0.857
+            },
+            "confusion_matrix": {
+              "true_positives": 3,
+              "false_positives": 1,
+              "true_negatives": 110,
+              "false_negatives": 0
+            }
+          },
+          "18": {
+            "metrics": {
+              "accuracy": 0.965,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 4,
+              "true_negatives": 110,
+              "false_negatives": 0
+            }
+          },
+          "29": {
             "metrics": {
               "accuracy": 1.0,
-              "precision": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 114,
+              "false_negatives": 0
+            }
+          },
+          "10": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.5,
               "recall": 1.0,
-              "f1_score": 1.0
+              "f1_score": 0.667
             },
             "confusion_matrix": {
               "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 112,
+              "false_negatives": 0
+            }
+          },
+          "17": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0.333,
+              "recall": 1.0,
+              "f1_score": 0.5
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 2,
+              "true_negatives": 111,
+              "false_negatives": 0
+            }
+          },
+          "11": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
+              "true_negatives": 112,
+              "false_negatives": 1
+            }
+          },
+          "12": {
+            "metrics": {
+              "accuracy": 0.982,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 2,
+              "false_positives": 2,
+              "true_negatives": 110,
+              "false_negatives": 0
+            }
+          },
+          "22": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
               "false_positives": 0,
               "true_negatives": 113,
-              "false_negatives": 0
+              "false_negatives": 1
             }
           },
           "28": {
@@ -240,32 +337,32 @@
               "false_negatives": 1
             }
           },
-          "21": {
+          "27": {
             "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.0,
-              "recall": 0,
-              "f1_score": 0
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1_score": 1.0
             },
             "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 1,
+              "true_positives": 1,
+              "false_positives": 0,
               "true_negatives": 113,
               "false_negatives": 0
             }
           },
-          "11": {
+          "16": {
             "metrics": {
-              "accuracy": 0.982,
-              "precision": 0.0,
-              "recall": 0.0,
-              "f1_score": 0
+              "accuracy": 0.991,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
             },
             "confusion_matrix": {
-              "true_positives": 0,
+              "true_positives": 1,
               "false_positives": 1,
               "true_negatives": 112,
-              "false_negatives": 1
+              "false_negatives": 0
             }
           },
           "19": {
@@ -279,90 +376,6 @@
               "true_positives": 0,
               "false_positives": 1,
               "true_negatives": 113,
-              "false_negatives": 0
-            }
-          },
-          "13": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 114,
-              "false_negatives": 0
-            }
-          },
-          "22": {
-            "metrics": {
-              "accuracy": 0.991,
-              "precision": 0,
-              "recall": 0.0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 113,
-              "false_negatives": 1
-            }
-          },
-          "12": {
-            "metrics": {
-              "accuracy": 0.982,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
-            },
-            "confusion_matrix": {
-              "true_positives": 2,
-              "false_positives": 2,
-              "true_negatives": 110,
-              "false_negatives": 0
-            }
-          },
-          "17": {
-            "metrics": {
-              "accuracy": 0.982,
-              "precision": 0.333,
-              "recall": 1.0,
-              "f1_score": 0.5
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 2,
-              "true_negatives": 111,
-              "false_negatives": 0
-            }
-          },
-          "18": {
-            "metrics": {
-              "accuracy": 0.974,
-              "precision": 0.0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 3,
-              "true_negatives": 111,
-              "false_negatives": 0
-            }
-          },
-          "29": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 114,
               "false_negatives": 0
             }
           },
@@ -394,63 +407,52 @@
               "false_negatives": 2
             }
           },
-          "10": {
+          "13": {
             "metrics": {
-              "accuracy": 0.991,
+              "accuracy": 1.0,
               "precision": 0,
-              "recall": 0.0,
+              "recall": 0,
               "f1_score": 0
             },
             "confusion_matrix": {
               "true_positives": 0,
               "false_positives": 0,
-              "true_negatives": 113,
-              "false_negatives": 1
-            }
-          },
-          "27": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1_score": 1.0
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 0,
-              "true_negatives": 113,
+              "true_negatives": 114,
               "false_negatives": 0
             }
           },
-          "16": {
+          "21": {
             "metrics": {
               "accuracy": 0.991,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
             },
             "confusion_matrix": {
-              "true_positives": 1,
+              "true_positives": 0,
               "false_positives": 1,
-              "true_negatives": 112,
+              "true_negatives": 113,
               "false_negatives": 0
             }
           }
         },
         "confusion_matrix": {
-          "true_positives": 11,
-          "false_positives": 16,
-          "true_negatives": 2133,
-          "false_negatives": 6
+          "true_positives": 12,
+          "false_positives": 18,
+          "true_negatives": 2131,
+          "false_negatives": 5
         }
       },
       "requirements_details": {
         "10": {
           "requirement_number": "1",
           "ground_truth": true,
-          "prediction": false,
-          "agreement": false,
-          "satisfied_segments": [],
+          "prediction": true,
+          "agreement": true,
+          "satisfied_segments": [
+            "62",
+            "71"
+          ],
           "ground_truth_segments": [
             "62"
           ]
@@ -541,6 +543,7 @@
           "prediction": true,
           "agreement": false,
           "satisfied_segments": [
+            "34",
             "37",
             "39",
             "42"
@@ -695,25 +698,25 @@
       "ground_truth": {
         "is_complete": false,
         "requirements": {
-          "25": true,
-          "13": false,
-          "18": false,
+          "12": true,
+          "29": false,
+          "26": false,
+          "11": false,
+          "16": true,
+          "10": true,
+          "27": false,
           "21": false,
           "15": true,
-          "12": true,
-          "10": true,
-          "16": true,
           "20": true,
-          "11": false,
-          "17": true,
+          "25": true,
+          "13": false,
           "23": true,
-          "28": false,
-          "29": false,
           "19": false,
+          "17": true,
+          "18": false,
+          "24": false,
           "22": false,
-          "26": false,
-          "27": false,
-          "24": false
+          "28": false
         },
         "missing_requirements": [
           "11",
@@ -732,25 +735,25 @@
       "prediction": {
         "is_complete": false,
         "requirements": {
-          "25": true,
-          "13": false,
-          "18": true,
+          "12": true,
+          "29": false,
+          "26": true,
+          "11": false,
+          "16": true,
+          "10": false,
+          "27": false,
           "21": true,
           "15": true,
-          "12": true,
-          "10": false,
-          "16": true,
           "20": true,
-          "11": false,
-          "17": true,
+          "25": true,
+          "13": false,
           "23": true,
-          "28": false,
-          "29": false,
           "19": false,
+          "17": true,
+          "18": true,
+          "24": false,
           "22": false,
-          "26": true,
-          "27": false,
-          "24": false
+          "28": false
         },
         "missing_requirements": [
           "10",
@@ -782,26 +785,26 @@
       "segment_metrics": {
         "overall": {
           "accuracy": 0.993,
-          "precision": 0.278,
+          "precision": 0.263,
           "recall": 0.417,
-          "f1_score": 0.333
+          "f1_score": 0.323
         },
         "by_requirement": {
-          "25": {
+          "12": {
             "metrics": {
-              "accuracy": 0.994,
+              "accuracy": 0.981,
               "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
+              "recall": 0.333,
+              "f1_score": 0.4
             },
             "confusion_matrix": {
               "true_positives": 1,
               "false_positives": 1,
-              "true_negatives": 158,
-              "false_negatives": 0
+              "true_negatives": 156,
+              "false_negatives": 2
             }
           },
-          "13": {
+          "29": {
             "metrics": {
               "accuracy": 1.0,
               "precision": 0,
@@ -815,17 +818,73 @@
               "false_negatives": 0
             }
           },
-          "18": {
+          "26": {
             "metrics": {
-              "accuracy": 0.975,
+              "accuracy": 0.988,
               "precision": 0.0,
               "recall": 0,
               "f1_score": 0
             },
             "confusion_matrix": {
               "true_positives": 0,
-              "false_positives": 4,
+              "false_positives": 2,
+              "true_negatives": 158,
+              "false_negatives": 0
+            }
+          },
+          "11": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "16": {
+            "metrics": {
+              "accuracy": 0.975,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 1,
               "true_negatives": 156,
+              "false_negatives": 3
+            }
+          },
+          "10": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0,
+              "recall": 0.0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 159,
+              "false_negatives": 1
+            }
+          },
+          "27": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
               "false_negatives": 0
             }
           },
@@ -857,48 +916,6 @@
               "false_negatives": 0
             }
           },
-          "12": {
-            "metrics": {
-              "accuracy": 0.981,
-              "precision": 0.5,
-              "recall": 0.333,
-              "f1_score": 0.4
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 1,
-              "true_negatives": 156,
-              "false_negatives": 2
-            }
-          },
-          "10": {
-            "metrics": {
-              "accuracy": 0.994,
-              "precision": 0,
-              "recall": 0.0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 159,
-              "false_negatives": 1
-            }
-          },
-          "16": {
-            "metrics": {
-              "accuracy": 0.975,
-              "precision": 0.0,
-              "recall": 0.0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 1,
-              "true_negatives": 156,
-              "false_negatives": 3
-            }
-          },
           "20": {
             "metrics": {
               "accuracy": 0.988,
@@ -913,7 +930,21 @@
               "false_negatives": 1
             }
           },
-          "11": {
+          "25": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 158,
+              "false_negatives": 0
+            }
+          },
+          "13": {
             "metrics": {
               "accuracy": 1.0,
               "precision": 0,
@@ -924,20 +955,6 @@
               "true_positives": 0,
               "false_positives": 0,
               "true_negatives": 160,
-              "false_negatives": 0
-            }
-          },
-          "17": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1_score": 1.0
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 0,
-              "true_negatives": 159,
               "false_negatives": 0
             }
           },
@@ -955,35 +972,49 @@
               "false_negatives": 0
             }
           },
-          "28": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 160,
-              "false_negatives": 0
-            }
-          },
-          "29": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 160,
-              "false_negatives": 0
-            }
-          },
           "19": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 160,
+              "false_negatives": 0
+            }
+          },
+          "17": {
+            "metrics": {
+              "accuracy": 0.994,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 158,
+              "false_negatives": 0
+            }
+          },
+          "18": {
+            "metrics": {
+              "accuracy": 0.975,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 4,
+              "true_negatives": 156,
+              "false_negatives": 0
+            }
+          },
+          "24": {
             "metrics": {
               "accuracy": 1.0,
               "precision": 0,
@@ -1011,35 +1042,7 @@
               "false_negatives": 0
             }
           },
-          "26": {
-            "metrics": {
-              "accuracy": 0.988,
-              "precision": 0.0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 2,
-              "true_negatives": 158,
-              "false_negatives": 0
-            }
-          },
-          "27": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 160,
-              "false_negatives": 0
-            }
-          },
-          "24": {
+          "28": {
             "metrics": {
               "accuracy": 1.0,
               "precision": 0,
@@ -1056,8 +1059,8 @@
         },
         "confusion_matrix": {
           "true_positives": 5,
-          "false_positives": 13,
-          "true_negatives": 3015,
+          "false_positives": 14,
+          "true_negatives": 3014,
           "false_negatives": 7
         }
       },
@@ -1135,6 +1138,7 @@
           "prediction": true,
           "agreement": true,
           "satisfied_segments": [
+            "159",
             "69"
           ],
           "ground_truth_segments": [
@@ -1291,25 +1295,25 @@
       "ground_truth": {
         "is_complete": false,
         "requirements": {
-          "25": false,
-          "21": false,
-          "26": true,
-          "18": false,
           "27": true,
-          "16": true,
-          "24": false,
-          "22": true,
-          "12": true,
-          "23": true,
-          "17": true,
-          "15": false,
-          "19": false,
-          "28": true,
+          "21": false,
           "20": false,
+          "22": true,
+          "15": false,
           "11": false,
-          "13": false,
+          "26": true,
+          "19": false,
+          "16": true,
+          "10": true,
+          "12": true,
+          "18": false,
           "29": true,
-          "10": true
+          "23": true,
+          "13": false,
+          "24": false,
+          "25": false,
+          "28": true,
+          "17": true
         },
         "missing_requirements": [
           "11",
@@ -1326,25 +1330,25 @@
       "prediction": {
         "is_complete": false,
         "requirements": {
-          "25": true,
-          "21": true,
-          "26": true,
-          "18": true,
           "27": true,
-          "16": true,
-          "24": false,
-          "22": false,
-          "12": true,
-          "23": true,
-          "17": true,
-          "15": true,
-          "19": true,
-          "28": true,
+          "21": true,
           "20": false,
+          "22": false,
+          "15": true,
           "11": false,
-          "13": false,
+          "26": true,
+          "19": true,
+          "16": true,
+          "10": false,
+          "12": true,
+          "18": true,
           "29": false,
-          "10": false
+          "23": true,
+          "13": false,
+          "24": false,
+          "25": true,
+          "28": true,
+          "17": true
         },
         "missing_requirements": [
           "10",
@@ -1374,21 +1378,21 @@
       "segment_metrics": {
         "overall": {
           "accuracy": 0.99,
-          "precision": 0.261,
-          "recall": 0.6,
-          "f1_score": 0.364
+          "precision": 0.28,
+          "recall": 0.7,
+          "f1_score": 0.4
         },
         "by_requirement": {
-          "25": {
+          "27": {
             "metrics": {
-              "accuracy": 0.981,
-              "precision": 0.0,
-              "recall": 0,
-              "f1_score": 0
+              "accuracy": 0.991,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
             },
             "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 2,
+              "true_positives": 1,
+              "false_positives": 1,
               "true_negatives": 106,
               "false_negatives": 0
             }
@@ -1407,63 +1411,7 @@
               "false_negatives": 0
             }
           },
-          "26": {
-            "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 1,
-              "true_negatives": 106,
-              "false_negatives": 0
-            }
-          },
-          "18": {
-            "metrics": {
-              "accuracy": 0.963,
-              "precision": 0.0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 4,
-              "true_negatives": 104,
-              "false_negatives": 0
-            }
-          },
-          "27": {
-            "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 1,
-              "true_negatives": 106,
-              "false_negatives": 0
-            }
-          },
-          "16": {
-            "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 1,
-              "true_negatives": 106,
-              "false_negatives": 0
-            }
-          },
-          "24": {
+          "20": {
             "metrics": {
               "accuracy": 1.0,
               "precision": 0,
@@ -1491,48 +1439,6 @@
               "false_negatives": 1
             }
           },
-          "12": {
-            "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 1,
-              "true_negatives": 106,
-              "false_negatives": 0
-            }
-          },
-          "23": {
-            "metrics": {
-              "accuracy": 0.981,
-              "precision": 0.0,
-              "recall": 0.0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 1,
-              "true_negatives": 106,
-              "false_negatives": 1
-            }
-          },
-          "17": {
-            "metrics": {
-              "accuracy": 0.991,
-              "precision": 0.5,
-              "recall": 1.0,
-              "f1_score": 0.667
-            },
-            "confusion_matrix": {
-              "true_positives": 1,
-              "false_positives": 1,
-              "true_negatives": 106,
-              "false_negatives": 0
-            }
-          },
           "15": {
             "metrics": {
               "accuracy": 0.981,
@@ -1543,6 +1449,34 @@
             "confusion_matrix": {
               "true_positives": 0,
               "false_positives": 2,
+              "true_negatives": 106,
+              "false_negatives": 0
+            }
+          },
+          "11": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 108,
+              "false_negatives": 0
+            }
+          },
+          "26": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
               "true_negatives": 106,
               "false_negatives": 0
             }
@@ -1561,7 +1495,7 @@
               "false_negatives": 0
             }
           },
-          "28": {
+          "16": {
             "metrics": {
               "accuracy": 0.991,
               "precision": 0.5,
@@ -1575,45 +1509,45 @@
               "false_negatives": 0
             }
           },
-          "20": {
+          "10": {
             "metrics": {
-              "accuracy": 1.0,
+              "accuracy": 0.991,
               "precision": 0,
-              "recall": 0,
+              "recall": 0.0,
               "f1_score": 0
             },
             "confusion_matrix": {
               "true_positives": 0,
               "false_positives": 0,
-              "true_negatives": 108,
+              "true_negatives": 107,
+              "false_negatives": 1
+            }
+          },
+          "12": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 106,
               "false_negatives": 0
             }
           },
-          "11": {
+          "18": {
             "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
+              "accuracy": 0.963,
+              "precision": 0.0,
               "recall": 0,
               "f1_score": 0
             },
             "confusion_matrix": {
               "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 108,
-              "false_negatives": 0
-            }
-          },
-          "13": {
-            "metrics": {
-              "accuracy": 1.0,
-              "precision": 0,
-              "recall": 0,
-              "f1_score": 0
-            },
-            "confusion_matrix": {
-              "true_positives": 0,
-              "false_positives": 0,
-              "true_negatives": 108,
+              "false_positives": 4,
+              "true_negatives": 104,
               "false_negatives": 0
             }
           },
@@ -1631,26 +1565,96 @@
               "false_negatives": 1
             }
           },
-          "10": {
+          "23": {
             "metrics": {
-              "accuracy": 0.991,
+              "accuracy": 0.981,
+              "precision": 0.333,
+              "recall": 1.0,
+              "f1_score": 0.5
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 2,
+              "true_negatives": 105,
+              "false_negatives": 0
+            }
+          },
+          "13": {
+            "metrics": {
+              "accuracy": 1.0,
               "precision": 0,
-              "recall": 0.0,
+              "recall": 0,
               "f1_score": 0
             },
             "confusion_matrix": {
               "true_positives": 0,
               "false_positives": 0,
-              "true_negatives": 107,
-              "false_negatives": 1
+              "true_negatives": 108,
+              "false_negatives": 0
+            }
+          },
+          "24": {
+            "metrics": {
+              "accuracy": 1.0,
+              "precision": 0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "true_negatives": 108,
+              "false_negatives": 0
+            }
+          },
+          "25": {
+            "metrics": {
+              "accuracy": 0.981,
+              "precision": 0.0,
+              "recall": 0,
+              "f1_score": 0
+            },
+            "confusion_matrix": {
+              "true_positives": 0,
+              "false_positives": 2,
+              "true_negatives": 106,
+              "false_negatives": 0
+            }
+          },
+          "28": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 106,
+              "false_negatives": 0
+            }
+          },
+          "17": {
+            "metrics": {
+              "accuracy": 0.991,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1_score": 0.667
+            },
+            "confusion_matrix": {
+              "true_positives": 1,
+              "false_positives": 1,
+              "true_negatives": 106,
+              "false_negatives": 0
             }
           }
         },
         "confusion_matrix": {
-          "true_positives": 6,
-          "false_positives": 17,
-          "true_negatives": 2025,
-          "false_negatives": 4
+          "true_positives": 7,
+          "false_positives": 18,
+          "true_negatives": 2024,
+          "false_negatives": 3
         }
       },
       "requirements_details": {
@@ -1787,6 +1791,8 @@
           "prediction": true,
           "agreement": true,
           "satisfied_segments": [
+            "101",
+            "57",
             "58"
           ],
           "ground_truth_segments": [

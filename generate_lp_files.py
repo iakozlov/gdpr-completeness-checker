@@ -318,7 +318,7 @@ def generate_lp_file(req_symbolic, facts, req_predicates, req_text, segment_text
             if value:
                 lp_content += f"{pred}.\n"
             else:
-                lp_content += f"not {pred}.\n"
+                lp_content += f"-{pred}.\n"
     else:
         lp_content += "% No semantically relevant facts found in this segment\n"
     
