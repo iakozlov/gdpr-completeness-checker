@@ -110,24 +110,25 @@ set_requirements_file() {
     log "Using requirements file: $REQUIREMENTS_FILE"
 }
 
-# Function to run deolingo with error handling (exactly like in original script)
+# Function to run deolingo with error handling (updated for requirement-specific processing)
 run_deolingo() {
     local lp_file=$1
-    local segment_id=$2
-    local dpa_name=$3
+    local req_id=$2
+    local segment_id=$3
+    local dpa_name=$4
     
     # Run deolingo and capture output
     deolingo_output=$(deolingo ${lp_file} 2>&1) || true
     
     # Check if there was an error
     if [[ $deolingo_output == *"ERROR"* || $deolingo_output == *"error"* ]]; then
-        echo "Processing DPA ${dpa_name}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
+        echo "Processing DPA ${dpa_name}, Requirement ${req_id}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
         echo "Error processing file: ${lp_file}" >> ${DEOLINGO_RESULTS}
         echo "Answer: not_mentioned" >> ${DEOLINGO_RESULTS}
         echo "--------------------------------------------------" >> ${DEOLINGO_RESULTS}
         echo "Warning: Error in file ${lp_file}. Skipping and continuing..." >&2
     else
-        echo "Processing DPA ${dpa_name}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
+        echo "Processing DPA ${dpa_name}, Requirement ${req_id}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
         echo "${deolingo_output}" >> ${DEOLINGO_RESULTS}
         echo "--------------------------------------------------" >> ${DEOLINGO_RESULTS}
     fi
@@ -231,13 +232,14 @@ case ${STEP} in
             
             echo "Processing DPA: ${TARGET_DPA}"
             
-            # Process all .lp files for this DPA (RCV approach doesn't use req_* subdirectories)
-            find "${DPA_DIR}" -name "segment_*.lp" | while read lp_file; do
-                # Extract segment ID from the file path
+            # Process all .lp files for this DPA (now using req_* subdirectories like original approach)
+            find "${DPA_DIR}" -path "*/req_*/segment_*.lp" | while read lp_file; do
+                # Extract requirement ID and segment ID from the file path
+                req_id=$(echo $lp_file | sed 's/.*req_\([0-9]*\).*/\1/')
                 segment_id=$(basename $lp_file | sed 's/segment_//' | sed 's/\.lp//')
                 
                 # Run deolingo with error handling
-                run_deolingo "${lp_file}" "${segment_id}" "${TARGET_DPA}"
+                run_deolingo "${lp_file}" "${req_id}" "${segment_id}" "${TARGET_DPA}"
             done
         done
         echo "Step 2 completed. Results saved in: ${DEOLINGO_RESULTS}"
@@ -308,9 +310,10 @@ case ${STEP} in
             DPA_DIR="${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}"
             echo "Processing DPA: ${TARGET_DPA}"
             
-            find "${DPA_DIR}" -name "segment_*.lp" | while read lp_file; do
+            find "${DPA_DIR}" -path "*/req_*/segment_*.lp" | while read lp_file; do
+                req_id=$(echo $lp_file | sed 's/.*req_\([0-9]*\).*/\1/')
                 segment_id=$(basename $lp_file | sed 's/segment_//' | sed 's/\.lp//')
-                run_deolingo "${lp_file}" "${segment_id}" "${TARGET_DPA}"
+                run_deolingo "${lp_file}" "${req_id}" "${segment_id}" "${TARGET_DPA}"
             done
         done
         echo "Step 2 completed. Deolingo results saved."

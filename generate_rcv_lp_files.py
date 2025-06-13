@@ -341,7 +341,7 @@ INSTRUCTIONS:
 
 def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_client: OllamaClient, 
                         model: str, output_dir: str, verbose: bool = False) -> None:
-    """Process all DPA segments using RCV approach and generate LP files."""
+    """Process all DPA segments using RCV approach and generate LP files compatible with existing evaluation."""
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
@@ -357,46 +357,49 @@ def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_clie
         # Step 1: Classification
         classified_id = classify_segment(segment_text, requirements, llm_client, model, verbose)
         
-        if classified_id == "NONE":
-            # Create a single LP file indicating no classification
-            lp_content = f"""% Requirement Text:
-% Administrative or non-relevant segment
+        # Generate LP files for all requirements (to maintain compatibility with evaluation)
+        for req_id, requirement_info in requirements.items():
+            req_text = requirement_info["text"]
+            req_symbolic = requirement_info["symbolic"]
+            req_predicates = requirement_info["atoms"]
+            
+            # Create requirement directory
+            req_dir = os.path.join(output_dir, f"req_{req_id}")
+            os.makedirs(req_dir, exist_ok=True)
+            
+            if req_id == classified_id:
+                # Step 2: Verification for the classified requirement
+                facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, 
+                                             llm_client, model)
+                
+                # Generate LP file content
+                lp_content = generate_lp_file(segment_text, req_text, req_symbolic, facts, req_predicates)
+            else:
+                # For non-classified requirements, generate "not_mentioned" LP file
+                lp_content = f"""% Requirement Text:
+% {req_text}
 %
 % DPA Segment:
 % {segment_text}
 %
 
-% No relevant GDPR requirement found for this segment
+% RCV Classification: This segment was not classified as relevant to this requirement
+% Classified as: {classified_id if classified_id != "NONE" else "Administrative/Non-relevant"}
 status(not_mentioned) :- true.
 
 #show status/1.
 """
-            lp_file_path = os.path.join(output_dir, f"segment_{segment_id}.lp")
-            with open(lp_file_path, 'w') as f:
-                f.write(lp_content)
-        else:
-            # Step 2: Verification for the classified requirement
-            requirement_info = requirements[classified_id]
-            req_text = requirement_info["text"]
-            req_symbolic = requirement_info["symbolic"]
-            req_predicates = requirement_info["atoms"]
-            
-            # Extract facts
-            facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, 
-                                         llm_client, model)
-            
-            # Generate LP file content
-            lp_content = generate_lp_file(segment_text, req_text, req_symbolic, facts, req_predicates)
             
             # Save LP file
-            lp_file_path = os.path.join(output_dir, f"segment_{segment_id}.lp")
+            lp_file_path = os.path.join(req_dir, f"segment_{segment_id}.lp")
             with open(lp_file_path, 'w') as f:
                 f.write(lp_content)
         
         if verbose:
-            print(f"Generated LP file: {lp_file_path}")
+            print(f"Generated LP files for segment {segment_id}")
+            print(f"Classification: {classified_id}")
             if classified_id != "NONE":
-                print(f"Classification: {classified_id}, Facts: {facts}")
+                print(f"Verified requirement {classified_id}")
 
 
 def main():
