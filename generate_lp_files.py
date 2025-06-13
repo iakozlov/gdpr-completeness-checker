@@ -265,32 +265,11 @@ CLAUSE: The processor will store customer's data in raw format.
 Expected output: -encrypt_collected_data; role(processor)
 
 Example 4:
-REQUIREMENT: The processor must notify controller about data breaches.
-SYMBOLIC: &obligatory{notify_controller_data_breaches} :- role(processor)
-PREDICATES: notify_controller_data_breaches; role(processor)
-CLAUSE: Sub-Processor rights
-Expected output: NO_FACTS
-
-Example 5:
 REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
 SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
 PREDICATES: process_on_documented_instructions; role(processor)
 CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
-Expected output: NO_FACTS
-
-Example 6:
-REQUIREMENT: The processor shall implement appropriate technical and organisational measures.
-SYMBOLIC: &obligatory{implement_technical_organisational_measures} :- role(processor).
-PREDICATES: implement_technical_organisational_measures; role(processor)
-CLAUSE: Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.
-Expected output: NO_FACTS
-
-Example 7:
-REQUIREMENT: The processor shall notify the controller of a personal data breach without undue delay.
-SYMBOLIC: &obligatory{notify_breach_without_delay} :- role(processor).
-PREDICATES: notify_breach_without_delay; role(processor)
-CLAUSE: processor will not materially decrease the overall security of the Services during a subscription term.
-Expected output: role(processor)"""
+Expected output: NO_FACTS"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
