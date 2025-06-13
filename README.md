@@ -171,6 +171,10 @@ python compare_experiments.py \
   --output results/my_experiment/comparison.json
 ```
 
+`compare_experiments.py` expects `aggregated_evaluation_results.json` to be
+present inside `--baseline_dir`. This file is produced during the final
+aggregation step of `run_baseline_evaluation.sh`.
+
 You can also run `run_full_experiment.sh` to execute both pipelines and generate
 the comparison in one step.
 
