@@ -271,68 +271,26 @@ PREDICATES: notify_controller_data_breaches; role(processor)
 CLAUSE: Sub-Processor rights
 Expected output: NO_FACTS
 
-Example 5 (NO_FACTS - Administrative/Definitional text):
+Example 5:
 REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
 SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
 PREDICATES: process_on_documented_instructions; role(processor)
 CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
 Expected output: NO_FACTS
 
-Example 6 (NO_FACTS - Definitional text without processor obligations):
+Example 6:
 REQUIREMENT: The processor shall implement appropriate technical and organisational measures.
 SYMBOLIC: &obligatory{implement_technical_organisational_measures} :- role(processor).
 PREDICATES: implement_technical_organisational_measures; role(processor)
 CLAUSE: Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA.
 Expected output: NO_FACTS
 
-Example 7 (role(processor) identification):
-REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
-SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
-PREDICATES: process_on_documented_instructions; role(processor)
-CLAUSE: processor will process controller Data only in accordance with Documented Instructions.
-Expected output: process_on_documented_instructions; role(processor)
-
-Example 8 (role(processor) with security obligations):
-REQUIREMENT: The processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk.
-SYMBOLIC: &obligatory{implement_security_measures} :- role(processor).
-PREDICATES: implement_security_measures; role(processor)
-CLAUSE: Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of Processing, processor shall implement and maintain appropriate technical and organizational security measures to protect Personal Data.
-Expected output: implement_security_measures; role(processor)
-
-Example 9 (role(processor) with assistance obligations):
-REQUIREMENT: The processor shall assist the controller in ensuring compliance with data protection obligations.
-SYMBOLIC: &obligatory{assist_controller_compliance} :- role(processor).
-PREDICATES: assist_controller_compliance; role(processor)
-CLAUSE: At controller's request and at the controller's reasonable expense, processor shall reasonably support controller in dealing with complaints, requests or orders and fulfilling controller's obligations under Data Protection Law.
-Expected output: assist_controller_compliance; role(processor)
-
-Example 10 (NO_FACTS - General context without specific processor obligations):
-REQUIREMENT: The processor shall delete or return personal data after the end of the provision of services.
-SYMBOLIC: &obligatory{delete_or_return_data} :- role(processor).
-PREDICATES: delete_or_return_data; role(processor)
-CLAUSE: This DPA applies when controller Data is processed by processor.
-Expected output: NO_FACTS
-
-Example 11 (role(processor) with sub-processor obligations):
-REQUIREMENT: The processor shall not engage another processor without prior written authorization.
-SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
-PREDICATES: engage_sub_processor; role(processor); authorization(controller)
-CLAUSE: The data processor shall inform in writing the data controller of any intended changes concerning the addition or replacement of sub-processors at least four weeks in advance.
-Expected output: role(processor)
-
-Example 12 (NO_FACTS - Controller obligations, not processor):
-REQUIREMENT: The processor shall implement data protection by design and by default.
-SYMBOLIC: &obligatory{implement_data_protection_by_design} :- role(processor).
-PREDICATES: implement_data_protection_by_design; role(processor)
-CLAUSE: The controller shall implement appropriate technical and organisational measures to ensure and demonstrate compliance.
-Expected output: NO_FACTS
-
-Example 13 (role(processor) with breach notification):
+Example 7:
 REQUIREMENT: The processor shall notify the controller of a personal data breach without undue delay.
 SYMBOLIC: &obligatory{notify_breach_without_delay} :- role(processor).
 PREDICATES: notify_breach_without_delay; role(processor)
-CLAUSE: processor shall promptly notify controller of any noncompliance with this DPA and any Security Incidents affecting Personal Data.
-Expected output: notify_breach_without_delay; role(processor)"""
+CLAUSE: processor will not materially decrease the overall security of the Services during a subscription term.
+Expected output: role(processor)"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
