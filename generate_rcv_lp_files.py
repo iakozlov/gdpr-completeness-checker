@@ -153,7 +153,37 @@ Focus on:
 Ignore:
 - Administrative text (definitions, contact info, etc.)
 - General business terms unrelated to data protection
-- Purely commercial clauses"""
+- Purely commercial clauses
+
+Examples from real DPA segments:
+
+Example 1:
+SEGMENT: "processor will process controller Data only in accordance with Documented Instructions."
+OUTPUT: 3
+
+Example 2:
+SEGMENT: "processor imposes appropriate contractual obligations upon its personnel, including relevant obligations regarding confidentiality, data protection and data security."
+OUTPUT: 5
+
+Example 3:
+SEGMENT: "processor will enter into a written agreement with the sub-processor and, to the extent that the sub-processor is performing the same data processing services that are being provided by processor under this DPA, processor will impose on the sub- processor the same contractual obligations that processor has under this DPA"
+OUTPUT: 17
+
+Example 4:
+SEGMENT: "processor will delete controller Data when requested by controller by using the Service controls provided for this purpose by processor."
+OUTPUT: 13
+
+Example 5:
+SEGMENT: "The processor shall not subcontract any of its processing operations performed on behalf of the controller under the Clauses without the prior written consent of the controller."
+OUTPUT: 1
+
+Example 6:
+SEGMENT: "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings."
+OUTPUT: NONE
+
+Example 7:
+SEGMENT: "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA."
+OUTPUT: NONE"""
 
     user_prompt = create_classification_prompt(segment_text, requirements)
     
@@ -292,13 +322,14 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
 
 def extract_facts_from_dpa(segment_text: str, req_text: str, req_symbolic: str, req_predicates: List[str], 
                            llm_client: OllamaClient, model: str) -> Dict:
-    """Extract facts from a DPA segment using the LLM, matching existing format."""
+    """Extract facts from a DPA segment using the LLM, with examples from existing approach."""
     system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
 Input always contains:
 1. "REQUIREMENT" – text of the GDPR requirement
-2. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
-3. "CLAUSE" – one DPA segment
+2. "SYMBOLIC" – symbolic representation of the requirement in deontic logic via Answer Set Programming (ASP)
+3. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
+4. "CLAUSE" – one DPA segment
 
 TASK:
 Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
@@ -308,9 +339,38 @@ INSTRUCTIONS:
 2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
 3) If no predicated are entailed, output exactly NO_FACTS
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
-5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else."""
+5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
 
-    user_prompt = f""" REQUIREMENT: {req_text} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
+Examples:
+Example 1:
+REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
+SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
+PREDICATES: ensure_confidentiality_commitment; role(processor)
+CLAUSE: The Processor shall ensure that every employee authorized to process Customer Personal Data is subject to a contractual duty of confidentiality.
+Expected output: ensure_confidentiality_commitment; role(processor)
+
+Example 2:
+REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.
+SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
+CLAUSE: Where processor authorises any sub-processor as described in Section 6.1
+Expected output: role(processor)
+
+Example 3:
+REQUIREMENT: The processor must encrypt all the data collected from customers.
+SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
+PREDICATES: encrypt_collected_data; role(processor)
+CLAUSE: The processor will store customer's data in raw format.
+Expected output: -encrypt_collected_data; role(processor)
+
+Example 4:
+REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
+SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
+PREDICATES: process_on_documented_instructions; role(processor)
+CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
+Expected output: NO_FACTS"""
+
+    user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
     try:
         response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
