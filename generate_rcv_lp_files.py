@@ -127,39 +127,41 @@ Response:"""
     return prompt
 
 
-def create_verification_prompt(segment_text: str, requirement_text: str, atoms: List[str]) -> str:
-    """Create verification prompt matching the existing format."""
-    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
-Input always contains:
-1. "REQUIREMENT" – text of the GDPR requirement
-2. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
-3. "CLAUSE" – one DPA segment
-
-TASK:
-Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
-
-INSTRUCTIONS:
-1) Output a predicate from symbolic rule's body only if the CLAUSE explicitly and fully mentions the same concept this predicate mentions in the REQUIREMENT.
-2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
-3) If no predicated are entailed, output exactly NO_FACTS
-4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
-5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else."""
-
-    user_prompt = f""" REQUIREMENT: {requirement_text} PREDICATES: {'; '.join(atoms)} CLAUSE: {segment_text}"""
-    
-    return system_prompt + user_prompt
 
 
 def classify_segment(segment_text: str, requirements: Dict, llm_client: OllamaClient, model: str, verbose: bool = False) -> str:
     """Classify which requirement (if any) a segment is relevant to."""
-    prompt = create_classification_prompt(segment_text, requirements)
+    system_prompt = """You are a legal expert specializing in GDPR compliance analysis. Your task is to classify DPA segments according to which GDPR requirement they are most relevant to.
+
+You will be given:
+1. A DPA segment (text from a Data Processing Agreement)
+2. A list of GDPR requirements with their IDs and descriptions
+
+Your task:
+- Determine which single GDPR requirement (if any) the DPA segment is most relevant to
+- Output ONLY the requirement ID (e.g., "3", "7", "15") 
+- If the segment is not relevant to any requirement, output "NONE"
+- Do not provide explanations or multiple IDs
+
+Focus on:
+- Processor obligations and responsibilities
+- Data protection measures and safeguards
+- Legal compliance requirements
+- Contractual obligations between controller and processor
+
+Ignore:
+- Administrative text (definitions, contact info, etc.)
+- General business terms unrelated to data protection
+- Purely commercial clauses"""
+
+    user_prompt = create_classification_prompt(segment_text, requirements)
     
     if verbose:
-        print(f"Classification prompt:\n{prompt}\n")
+        print(f"Classification prompt:\n{user_prompt}\n")
     
     try:
-        response = llm_client.generate(model, prompt, temperature=0.0)
+        response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
         classified_id = response.strip()
         
         if verbose:
@@ -180,34 +182,7 @@ def classify_segment(segment_text: str, requirements: Dict, llm_client: OllamaCl
         return "NONE"
 
 
-def verify_segment(segment_text: str, requirement_text: str, atoms: List[str], llm_client: OllamaClient, model: str, verbose: bool = False) -> List[str]:
-    """Extract symbolic facts from segment for verification."""
-    prompt = create_verification_prompt(segment_text, requirement_text, atoms)
-    
-    if verbose:
-        print(f"Verification prompt:\n{prompt}\n")
-    
-    try:
-        response = llm_client.generate(model, prompt, temperature=0.0)
-        facts_str = response.strip()
-        
-        if verbose:
-            print(f"Verification response: {facts_str}")
-        
-        if facts_str == "NO_FACTS":
-            return []
-        else:
-            # Parse semicolon-separated facts
-            facts = [fact.strip() for fact in facts_str.split(';') if fact.strip()]
-            # Validate facts are in atoms list
-            valid_facts = [fact for fact in facts if fact in atoms]
-            if verbose and len(valid_facts) != len(facts):
-                print(f"Warning: Some facts were not in atoms list. Valid: {valid_facts}")
-            return valid_facts
-            
-    except Exception as e:
-        print(f"Error in verification: {e}")
-        return []
+
 
 
 def extract_body_atoms(symbolic_rule):
@@ -310,10 +285,27 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
 def extract_facts_from_dpa(segment_text: str, req_text: str, req_symbolic: str, req_predicates: List[str], 
                            llm_client: OllamaClient, model: str) -> Dict:
     """Extract facts from a DPA segment using the LLM, matching existing format."""
-    prompt = create_verification_prompt(segment_text, req_text, req_predicates)
+    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
+
+Input always contains:
+1. "REQUIREMENT" – text of the GDPR requirement
+2. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
+3. "CLAUSE" – one DPA segment
+
+TASK:
+Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
+
+INSTRUCTIONS:
+1) Output a predicate from symbolic rule's body only if the CLAUSE explicitly and fully mentions the same concept this predicate mentions in the REQUIREMENT.
+2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
+3) If no predicated are entailed, output exactly NO_FACTS
+4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
+5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else."""
+
+    user_prompt = f""" REQUIREMENT: {req_text} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
     try:
-        response = llm_client.generate(model, prompt, temperature=0.0)
+        response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
         response = response.strip()
         
         # Parse the response
