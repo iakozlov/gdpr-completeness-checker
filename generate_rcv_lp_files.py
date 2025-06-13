@@ -232,6 +232,12 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
         for atom in body_atoms:
             lp_content += f"#external {atom}.\n"
         lp_content += "\n"
+        
+        # Add choice rules to ensure all external atoms are either true or false
+        lp_content += "% Choice rules for external atoms to avoid ASP warnings\n"
+        for atom in body_atoms:
+            lp_content += f"1 {{{atom}; -{atom}}} 1.\n"
+        lp_content += "\n"
     
     # Add the requirement's symbolic representation (normative layer)
     lp_content += "% 1. Normative layer\n"
@@ -247,6 +253,8 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
                 lp_content += f"-{pred}.\n"
     else:
         lp_content += "% No semantically relevant facts found in this segment\n"
+    
+
     
     lp_content += "\n"
     

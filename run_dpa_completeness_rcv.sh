@@ -165,7 +165,6 @@ set_requirements_file
 MODEL_SAFE_NAME=$(echo "${OLLAMA_MODEL}" | tr ':' '_' | tr '/' '_')
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${MODEL_SAFE_NAME}_rcv.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${MODEL_SAFE_NAME}_rcv.json"
-PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics_${MODEL_SAFE_NAME}_rcv.json"
 
 echo "========== DPA Completeness Checker - RCV Approach =========="
 echo "Using Ollama Model: ${OLLAMA_MODEL}"
@@ -180,12 +179,11 @@ echo "========================================================"
 echo "Available steps:"
 echo "1. Generate RCV LP files for specified segments for all DPAs"
 echo "2. Run Deolingo solver for all DPAs"
-echo "3. Evaluate DPA completeness (aggregated results)"
-echo "4. Calculate paragraph-level metrics (aggregated results)"
+echo "3. Evaluate DPA completeness (Requirement & Segment-level metrics)"
 echo "A. Run all steps sequentially"
 echo "Q. Quit"
 
-read -p "Enter step to run (1-4, A for all, Q to quit): " STEP
+read -p "Enter step to run (1-3, A for all, Q to quit): " STEP
 
 case ${STEP} in
     1)
@@ -277,44 +275,7 @@ case ${STEP} in
         
         echo "Step 3 completed. Aggregated evaluation results saved to: ${EVALUATION_OUTPUT}"
         ;;
-    4)
-        echo -e "\n[Step 4] Calculating paragraph-level metrics (aggregated results)..."
-        if [ ! -f "${DEOLINGO_RESULTS}" ]; then
-            echo "Error: Deolingo results file not found. Run Step 2 first."
-            exit 1
-        fi
-        if [ ! -f "${EVALUATION_OUTPUT}" ]; then
-            echo "Error: Evaluation results file not found. Run Step 3 first."
-            exit 1
-        fi
-        
-        # Process each DPA and then aggregate results
-        TEMP_OUTPUTS=""
-        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
-            TEMP_OUTPUT="${OUTPUT_DIR}/paragraph_${TARGET_DPA//' '/_}.json"
-            if [ -z "$TEMP_OUTPUTS" ]; then
-                TEMP_OUTPUTS="${TEMP_OUTPUT}"
-            else
-                TEMP_OUTPUTS="${TEMP_OUTPUTS},${TEMP_OUTPUT}"
-            fi
-            
-            echo "Processing DPA: ${TARGET_DPA}"
-            python3 paragraph_metrics.py \
-              --results ${DEOLINGO_RESULTS} \
-              --dpa ${DPA_CSV} \
-              --evaluation ${EVALUATION_OUTPUT} \
-              --output ${TEMP_OUTPUT} \
-              --target_dpa "${TARGET_DPA}" \
-              --max_segments "${MAX_SEGMENTS}"
-        done
-        
-        # Aggregate results
-        python3 aggregate_paragraph_metrics.py \
-          --input_files "${TEMP_OUTPUTS}" \
-          --output ${PARAGRAPH_OUTPUT}
-        
-        echo "Step 4 completed. Paragraph metrics saved to: ${PARAGRAPH_OUTPUT}"
-        ;;
+
     A|a)
         echo -e "\nRunning all steps sequentially..."
         
@@ -376,38 +337,12 @@ case ${STEP} in
         python3 aggregate_evaluations.py \
           --input_files "${TEMP_OUTPUTS}" \
           --output ${EVALUATION_OUTPUT}
-        echo "Step 3 completed. Evaluation results saved."
-        
-        # Step 4
-        echo -e "\n[Step 4] Calculating paragraph-level metrics..."
-        TEMP_OUTPUTS=""
-        for TARGET_DPA in "${TARGET_DPAS[@]}"; do
-            TEMP_OUTPUT="${OUTPUT_DIR}/paragraph_${TARGET_DPA//' '/_}.json"
-            if [ -z "$TEMP_OUTPUTS" ]; then
-                TEMP_OUTPUTS="${TEMP_OUTPUT}"
-            else
-                TEMP_OUTPUTS="${TEMP_OUTPUTS},${TEMP_OUTPUT}"
-            fi
-            
-            python3 paragraph_metrics.py \
-              --results ${DEOLINGO_RESULTS} \
-              --dpa ${DPA_CSV} \
-              --evaluation ${EVALUATION_OUTPUT} \
-              --output ${TEMP_OUTPUT} \
-              --target_dpa "${TARGET_DPA}" \
-              --max_segments "${MAX_SEGMENTS}"
-        done
-        
-        python3 aggregate_paragraph_metrics.py \
-          --input_files "${TEMP_OUTPUTS}" \
-          --output ${PARAGRAPH_OUTPUT}
         
         echo -e "\n========================================================"
         echo "All steps completed successfully!"
         echo "Final results:"
         echo "  - Deolingo results: ${DEOLINGO_RESULTS}"
         echo "  - Evaluation results: ${EVALUATION_OUTPUT}"
-        echo "  - Paragraph metrics: ${PARAGRAPH_OUTPUT}"
         echo "========================================================"
         ;;
     Q|q)
@@ -416,7 +351,7 @@ case ${STEP} in
         ;;
     *)
         echo "Invalid option: ${STEP}"
-        echo "Please choose 1-4, A for all, or Q to quit"
+        echo "Please choose 1-3, A for all, or Q to quit"
         exit 1
         ;;
 esac
