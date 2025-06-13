@@ -3,7 +3,7 @@ import os
 import json
 import re
 import argparse
-from typing import Dict, Tuple, List
+from typing import Dict, Tuple, List, Set
 
 # Mapping between internal requirement numbers and R labels used in evaluation
 REQ_NUM_TO_R = {
@@ -14,8 +14,29 @@ REQ_NUM_TO_R = {
 R_TO_REQ_NUM = {v: str(k) for k, v in REQ_NUM_TO_R.items()}
 
 
-def load_baseline_results(baseline_dir: str) -> List[Dict]:
-    """Load all baseline result files under a directory."""
+def load_baseline_results(baseline_dir: str) -> Tuple[Set[Tuple[str, str, str]], Set[Tuple[str, str, str]]]:
+    """Load baseline predictions and ground truth from aggregated results.
+
+    Returns two sets of keys (dpa, requirement_label, segment_id): one for
+    baseline predictions marked as satisfied and one for ground truth satisfied
+    segments.
+    """
+
+    agg_file = os.path.join(baseline_dir, "aggregated_evaluation_results.json")
+    if os.path.exists(agg_file):
+        with open(agg_file, "r") as f:
+            data = json.load(f)
+        preds: Set[Tuple[str, str, str]] = set()
+        truths: Set[Tuple[str, str, str]] = set()
+        for dpa, dpa_data in data.get("per_dpa_results", {}).items():
+            for r_label, details in dpa_data.get("requirements_details", {}).items():
+                for seg in details.get("satisfied_segments", []):
+                    preds.add((dpa, r_label, str(seg)))
+                for seg in details.get("ground_truth_segments", []):
+                    truths.add((dpa, r_label, str(seg)))
+        return preds, truths
+
+    # Fallback to legacy baseline_results files if aggregated file not found
     results = []
     for root, _, files in os.walk(baseline_dir):
         for name in files:
@@ -26,7 +47,18 @@ def load_baseline_results(baseline_dir: str) -> List[Dict]:
                         results.extend(data)
                     except Exception:
                         continue
-    return results
+    preds: Set[Tuple[str, str, str]] = set()
+    truths: Set[Tuple[str, str, str]] = set()
+    for entry in results:
+        dpa = entry.get("dpa")
+        req_num = entry.get("requirement_id")
+        seg_id = str(entry.get("segment_id"))
+        r_label = REQ_NUM_TO_R.get(int(req_num), str(req_num))
+        if entry.get("predicted") == "satisfied":
+            preds.add((dpa, r_label, seg_id))
+        if entry.get("ground_truth") == "satisfied":
+            truths.add((dpa, r_label, seg_id))
+    return preds, truths
 
 
 def parse_deolingo_results(file_path: str) -> Dict[Tuple[str, str, str], str]:
@@ -82,26 +114,31 @@ def extract_facts(lp_file: str) -> List[str]:
     return facts
 
 
-def build_comparisons(baseline_data: List[Dict], symbolic_results: Dict[Tuple[str, str, str], str], lp_root: str) -> Dict:
+def build_comparisons(baseline_preds: Set[Tuple[str, str, str]],
+                      ground_truth: Set[Tuple[str, str, str]],
+                      symbolic_results: Dict[Tuple[str, str, str], str],
+                      lp_root: str) -> Dict:
+    """Build comparison records between baseline and symbolic approaches."""
+
     comparisons_yes_no = []
     comparisons_no_yes = []
     total_pairs = 0
 
-    for entry in baseline_data:
-        dpa = entry.get("dpa")
-        req_num = entry.get("requirement_id")
-        seg_id = str(entry.get("segment_id"))
-        baseline_pred = entry.get("predicted")
-        ground = entry.get("ground_truth")
-        r_label = REQ_NUM_TO_R.get(int(req_num), str(req_num))
+    symbolic_satisfied_keys = {k for k, v in symbolic_results.items() if v == "satisfied"}
+    all_keys = baseline_preds.union(symbolic_satisfied_keys)
 
-        key = (dpa, r_label, seg_id)
-        sym_pred = symbolic_results.get(key)
-        if sym_pred is None:
-            continue
-        total_pairs += 1
+    for key in sorted(all_keys):
+        dpa, r_label, seg_id = key
+        baseline_pred = "satisfied" if key in baseline_preds else "not_satisfied"
+        sym_pred = symbolic_results.get(key, "not_satisfied")
+        ground = key in ground_truth
 
-        lp_file = os.path.join(lp_root, f"dpa_{dpa.replace(' ', '_')}", f"req_{R_TO_REQ_NUM.get(r_label, r_label)}", f"segment_{seg_id}.lp")
+        lp_file = os.path.join(
+            lp_root,
+            f"dpa_{dpa.replace(' ', '_')}",
+            f"req_{R_TO_REQ_NUM.get(r_label, r_label)}",
+            f"segment_{seg_id}.lp",
+        )
         facts = extract_facts(lp_file)
 
         record = {
@@ -114,6 +151,7 @@ def build_comparisons(baseline_data: List[Dict], symbolic_results: Dict[Tuple[st
             "symbolic_facts": facts,
         }
 
+        total_pairs += 1
         if baseline_pred == "satisfied" and sym_pred != "satisfied":
             comparisons_yes_no.append(record)
         elif baseline_pred != "satisfied" and sym_pred == "satisfied":
@@ -134,10 +172,10 @@ def main():
     parser.add_argument("--output", required=True, help="Output JSON file for comparison")
     args = parser.parse_args()
 
-    baseline_data = load_baseline_results(args.baseline_dir)
+    baseline_preds, ground_truth = load_baseline_results(args.baseline_dir)
     symbolic_results = parse_deolingo_results(args.deolingo_results)
 
-    comparison = build_comparisons(baseline_data, symbolic_results, args.lp_root)
+    comparison = build_comparisons(baseline_preds, ground_truth, symbolic_results, args.lp_root)
 
     with open(args.output, "w") as f:
         json.dump(comparison, f, indent=2)
