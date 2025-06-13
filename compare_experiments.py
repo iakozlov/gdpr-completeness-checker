@@ -47,6 +47,11 @@ def load_baseline_results(baseline_dir: str) -> Tuple[Set[Tuple[str, str, str]],
                         results.extend(data)
                     except Exception:
                         continue
+    if not results:
+        raise FileNotFoundError(
+            f"No aggregated_evaluation_results.json or baseline_results*.json files found in {baseline_dir}"
+        )
+
     preds: Set[Tuple[str, str, str]] = set()
     truths: Set[Tuple[str, str, str]] = set()
     for entry in results:
