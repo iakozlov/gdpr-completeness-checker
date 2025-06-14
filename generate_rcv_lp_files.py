@@ -153,37 +153,7 @@ Focus on:
 Ignore:
 - Administrative text (definitions, contact info, etc.)
 - General business terms unrelated to data protection
-- Purely commercial clauses
-
-Examples from real DPA segments:
-
-Example 1:
-SEGMENT: "processor will process controller Data only in accordance with Documented Instructions."
-OUTPUT: 3
-
-Example 2:
-SEGMENT: "processor imposes appropriate contractual obligations upon its personnel, including relevant obligations regarding confidentiality, data protection and data security."
-OUTPUT: 5
-
-Example 3:
-SEGMENT: "processor will enter into a written agreement with the sub-processor and, to the extent that the sub-processor is performing the same data processing services that are being provided by processor under this DPA, processor will impose on the sub- processor the same contractual obligations that processor has under this DPA"
-OUTPUT: 17
-
-Example 4:
-SEGMENT: "processor will delete controller Data when requested by controller by using the Service controls provided for this purpose by processor."
-OUTPUT: 13
-
-Example 5:
-SEGMENT: "The processor shall not subcontract any of its processing operations performed on behalf of the controller under the Clauses without the prior written consent of the controller."
-OUTPUT: 1
-
-Example 6:
-SEGMENT: "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings."
-OUTPUT: NONE
-
-Example 7:
-SEGMENT: "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA."
-OUTPUT: NONE"""
+- Purely commercial clauses"""
 
     user_prompt = create_classification_prompt(segment_text, requirements)
     
