@@ -127,7 +127,23 @@ Response:"""
     return prompt
 
 
-
+def filter_think_sections(text):
+    """
+    Remove <think> sections from model responses.
+    
+    Args:
+        text (str): The raw model response
+        
+    Returns:
+        str: The filtered text with <think> sections removed
+    """
+    # Use regex to remove everything between <think> and </think> tags (case insensitive, multiline)
+    filtered = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE)
+    
+    # Clean up any extra whitespace that might be left
+    filtered = re.sub(r'\n\s*\n', '\n', filtered.strip())
+    
+    return filtered
 
 
 def classify_segment(segment_text: str, requirements: Dict, llm_client: OllamaClient, model: str, verbose: bool = False) -> str:
@@ -192,6 +208,8 @@ OUTPUT: NONE"""
     
     try:
         response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
+        # Filter out thinking sections
+        response = filter_think_sections(response)
         classified_id = response.strip()
         
         if verbose:
@@ -210,9 +228,6 @@ OUTPUT: NONE"""
     except Exception as e:
         print(f"Error in classification: {e}")
         return "NONE"
-
-
-
 
 
 def extract_body_atoms(symbolic_rule):
@@ -322,21 +337,18 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
 
 def extract_facts_from_dpa(segment_text: str, req_text: str, req_symbolic: str, req_predicates: List[str], 
                            llm_client: OllamaClient, model: str) -> Dict:
-    """Extract facts from a DPA segment using the LLM, with examples from existing approach."""
-    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
+    """Extract facts from a DPA segment using the LLM."""
+    system_prompt = """You are a legal expert specializing in GDPR compliance analysis. Your task is to extract facts from DPA segments that are relevant to specific GDPR requirements.
 
-Input always contains:
-1. "REQUIREMENT" – text of the GDPR requirement
-2. "SYMBOLIC" – symbolic representation of the requirement in deontic logic via Answer Set Programming (ASP)
-3. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
-4. "CLAUSE" – one DPA segment
+You will be given:
+1. A GDPR requirement text
+2. Its symbolic representation
+3. A list of predicates to look for
+4. A DPA segment text
 
-TASK:
-Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
-
-INSTRUCTIONS:
-1) Output a predicate from symbolic rule's body only if the CLAUSE explicitly and fully mentions the same concept this predicate mentions in the REQUIREMENT.
-2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
+Your task:
+1) Analyze if the CLAUSE contains any of the PREDICATES
+2) If yes, output the predicates that are entailed by the CLAUSE, separated by semicolons
 3) If no predicated are entailed, output exactly NO_FACTS
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
 5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else."""
@@ -345,11 +357,14 @@ INSTRUCTIONS:
     
     try:
         response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
+        # Filter out thinking sections
+        response = filter_think_sections(response)
         response = response.strip()
         
-        # Parse the response
         if response == "NO_FACTS":
             return {}
+            
+        # Parse the response into a dictionary of facts
         facts = {}
         for pred in response.split(';'):
             pred = pred.strip()
@@ -357,12 +372,7 @@ INSTRUCTIONS:
                 facts[pred[1:]] = False
             else:
                 facts[pred] = True
-        
-        # CRITICAL CHECK: If role(processor) is not among the extracted facts, 
-        # treat this segment as NO_FACTS since GDPR requirements are about processor obligations.
-        if "role(processor)" not in facts:
-            return {}
-        
+                
         return facts
         
     except Exception as e:
