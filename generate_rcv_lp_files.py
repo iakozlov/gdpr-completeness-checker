@@ -338,20 +338,52 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
 def extract_facts_from_dpa(segment_text: str, req_text: str, req_symbolic: str, req_predicates: List[str], 
                            llm_client: OllamaClient, model: str) -> Dict:
     """Extract facts from a DPA segment using the LLM."""
-    system_prompt = """You are a legal expert specializing in GDPR compliance analysis. Your task is to extract facts from DPA segments that are relevant to specific GDPR requirements.
+    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
-You will be given:
-1. A GDPR requirement text
-2. Its symbolic representation
-3. A list of predicates to look for
-4. A DPA segment text
+Input always contains:
+1. "REQUIREMENT" – text of the GDPR requirement
+2. "SYMBOLIC" – symbolic representation of the requirement in deontic logic via Answer Set Programming (ASP)
+3. "PREDICATES" – ASP atoms from the requirement (semicolon-separated)
+4. "CLAUSE" – one DPA segment
 
-Your task:
-1) Analyze if the CLAUSE contains any of the PREDICATES
-2) If yes, output the predicates that are entailed by the CLAUSE, separated by semicolons
+TASK:
+Decide which (if any) predicates are explicitly fully mentioned in the CLAUSE and output them separated by semicolon
+
+INSTRUCTIONS:
+1) Output a predicate from symbolic rule's body only if the CLAUSE explicitly and fully mentions the same concept this predicate mentions in the REQUIREMENT.
+2) Output a predicate from symbolic rule's head only if the CLAUSE describes a rule for a processor and this rule is semantically the same as the REQUIREMENT
 3) If no predicated are entailed, output exactly NO_FACTS
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
-5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else."""
+5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
+
+Examples:
+Example 1:
+REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
+SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
+PREDICATES: ensure_confidentiality_commitment; role(processor)
+CLAUSE: The Processor shall ensure that every employee authorized to process Customer Personal Data is subject to a contractual duty of confidentiality.
+Expected output: ensure_confidentiality_commitment; role(processor)
+
+Example 2:
+REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.
+SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
+CLAUSE: Where processor authorises any sub-processor as described in Section 6.1
+Expected output: role(processor)
+
+Example 3:
+REQUIREMENT: The processor must encrypt all the data collected from customers.
+SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
+PREDICATES: encrypt_collected_data; role(processor)
+CLAUSE: The processor will store customer's data in raw format.
+Expected output: -encrypt_collected_data; role(processor)
+
+Example 4:
+REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
+SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
+PREDICATES: process_on_documented_instructions; role(processor)
+CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
+Expected output: NO_FACTS."""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
