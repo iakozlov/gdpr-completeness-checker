@@ -96,37 +96,6 @@ def load_dpa_segments(file_path: str, target_dpa: str, max_segments: int = 0) ->
     return df_filtered
 
 
-def create_classification_prompt(segment_text: str, requirements: Dict) -> str:
-    """Create prompt for LLM classification step."""
-    req_list = []
-    for req_id, req_info in requirements.items():
-        req_list.append(f"{req_id}: {req_info['text']}")
-    
-    prompt = f"""You are analyzing a DPA (Data Processing Agreement) segment to determine which single GDPR requirement it is most relevant to.
-
-DPA Segment:
-{segment_text}
-
-Available GDPR Requirements:
-{chr(10).join(req_list)}
-
-Instructions:
-1. Read the DPA segment carefully
-2. Determine if it is relevant to any of the GDPR requirements listed above
-3. If it is relevant, identify the SINGLE most relevant requirement ID (e.g., "3")
-4. If it is NOT relevant to any requirement (e.g., it's a heading, boilerplate, or administrative text), return "NONE"
-
-Important:
-- Return ONLY the requirement ID (e.g., "3") or "NONE"
-- Do not include any explanation or additional text
-- Choose only ONE requirement ID, even if multiple might apply
-- If unsure, return "NONE"
-
-Response:"""
-    
-    return prompt
-
-
 def filter_think_sections(text):
     """
     Remove <think> sections from model responses.
@@ -148,17 +117,28 @@ def filter_think_sections(text):
 
 def classify_segment(segment_text: str, requirements: Dict, llm_client: OllamaClient, model: str, verbose: bool = False) -> str:
     """Classify which requirement (if any) a segment is relevant to."""
-    system_prompt = """You are a legal expert specializing in GDPR compliance analysis. Your task is to classify DPA segments according to which GDPR requirement they are most relevant to.
+    # Build requirements list for system prompt
+    req_list = []
+    for req_id, req_info in requirements.items():
+        req_list.append(f"{req_id}: {req_info['text']}")
+    
+    system_prompt = f"""You are a legal expert specializing in GDPR compliance analysis. Your task is to classify DPA segments according to which GDPR requirement they are most relevant to.
 
-You will be given:
-1. A DPA segment (text from a Data Processing Agreement)
-2. A list of GDPR requirements with their IDs and descriptions
+You will be given a DPA segment (text from a Data Processing Agreement) and you need to determine which single GDPR requirement it is most relevant to.
+
+Available GDPR Requirements:
+{chr(10).join(req_list)}
 
 Your task:
-- Determine which single GDPR requirement (if any) the DPA segment is most relevant to
-- Output ONLY the requirement ID (e.g., "3", "7", "15") 
-- If the segment is not relevant to any requirement, output "NONE"
-- Do not provide explanations or multiple IDs
+- Determine if the segment is relevant to any of the GDPR requirements listed above
+- If it is relevant, identify the SINGLE most relevant requirement ID (e.g., "3")
+- If it is NOT relevant to any requirement (e.g., it's a heading, boilerplate, or administrative text), return "NONE"
+
+Important:
+- Return ONLY the requirement ID (e.g., "3") or "NONE"
+- Do not include any explanation or additional text
+- Choose only ONE requirement ID, even if multiple might apply
+- If unsure, return "NONE"
 
 Focus on:
 - Processor obligations and responsibilities
@@ -201,7 +181,7 @@ Example 7:
 SEGMENT: "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA."
 OUTPUT: NONE"""
 
-    user_prompt = create_classification_prompt(segment_text, requirements)
+    user_prompt = segment_text
     
     if verbose:
         print(f"Classification prompt:\n{user_prompt}\n")
