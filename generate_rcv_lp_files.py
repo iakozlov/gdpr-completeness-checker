@@ -15,9 +15,12 @@ import json
 import argparse
 import pandas as pd
 import re
-from typing import Dict, List, Optional
+import numpy as np
+from typing import Dict, List, Optional, Tuple
 from tqdm import tqdm
 from ollama_client import OllamaClient
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def parse_arguments():
@@ -53,7 +56,19 @@ def parse_arguments():
         "--model",
         type=str,
         default="llama3.3:70b",
-        help="Ollama model to use (default: llama3.3:70b)"
+        help="Ollama model to use for verification step (default: llama3.3:70b)"
+    )
+    parser.add_argument(
+        "--embedding_model",
+        type=str,
+        default="all-MiniLM-L6-v2",
+        help="Sentence transformer model for embeddings (default: all-MiniLM-L6-v2)"
+    )
+    parser.add_argument(
+        "--similarity_threshold",
+        type=float,
+        default=0.95,
+        help="Cosine similarity threshold for classification (default: 0.95, optimized from training data analysis for maximum precision)"
     )
     parser.add_argument(
         "--max_segments",
@@ -115,99 +130,80 @@ def filter_think_sections(text):
     return filtered
 
 
-def classify_segment(segment_text: str, requirements: Dict, llm_client: OllamaClient, model: str, verbose: bool = False) -> str:
-    """Classify which requirement (if any) a segment is relevant to."""
-    # Build requirements list for system prompt
-    req_list = []
-    for req_id, req_info in requirements.items():
-        req_list.append(f"{req_id}: {req_info['text']}")
+class EmbeddingClassifier:
+    """Embedding-based classifier for DPA segments."""
     
-    system_prompt = f"""You are a legal expert specializing in GDPR compliance analysis. Your task is to classify DPA segments according to which GDPR requirement they are most relevant to.
-
-You will be given a DPA segment (text from a Data Processing Agreement) and you need to determine which single GDPR requirement it is most relevant to.
-
-Available GDPR Requirements:
-{chr(10).join(req_list)}
-
-Your task:
-- Determine if the segment is relevant to any of the GDPR requirements listed above
-- If it is relevant, identify the SINGLE most relevant requirement ID (e.g., "3")
-- If it is NOT relevant to any requirement (e.g., it's a heading, boilerplate, or administrative text), return "NONE"
-
-Important:
-- Return ONLY the requirement ID (e.g., "3") or "NONE"
-- Do not include any explanation or additional text
-- Choose only ONE requirement ID, even if multiple might apply
-- If unsure, return "NONE"
-
-Focus on:
-- Processor obligations and responsibilities
-- Data protection measures and safeguards
-- Legal compliance requirements
-- Contractual obligations between controller and processor
-
-Ignore:
-- Administrative text (definitions, contact info, etc.)
-- General business terms unrelated to data protection
-- Purely commercial clauses
-
-Examples from real DPA segments:
-
-Example 1:
-SEGMENT: "processor will process controller Data only in accordance with Documented Instructions."
-OUTPUT: 3
-
-Example 2:
-SEGMENT: "processor imposes appropriate contractual obligations upon its personnel, including relevant obligations regarding confidentiality, data protection and data security."
-OUTPUT: 5
-
-Example 3:
-SEGMENT: "processor will enter into a written agreement with the sub-processor and, to the extent that the sub-processor is performing the same data processing services that are being provided by processor under this DPA, processor will impose on the sub- processor the same contractual obligations that processor has under this DPA"
-OUTPUT: 17
-
-Example 4:
-SEGMENT: "processor will delete controller Data when requested by controller by using the Service controls provided for this purpose by processor."
-OUTPUT: 13
-
-Example 5:
-SEGMENT: "The processor shall not subcontract any of its processing operations performed on behalf of the controller under the Clauses without the prior written consent of the controller."
-OUTPUT: 1
-
-Example 6:
-SEGMENT: "This Data Processing Addendum (DPA) supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings."
-OUTPUT: NONE
-
-Example 7:
-SEGMENT: "Unless otherwise defined in this DPA or in the Agreement, all capitalised terms used in this DPA will have the meanings given to them in Section 17 of this DPA."
-OUTPUT: NONE"""
-
-    user_prompt = segment_text
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+        """Initialize the embedding classifier."""
+        print(f"Loading embedding model: {model_name}")
+        self.model = SentenceTransformer(model_name)
+        self.requirement_embeddings = None
+        self.requirement_ids = None
+        
+    def prepare_requirements(self, requirements: Dict) -> None:
+        """Prepare requirement embeddings for classification."""
+        print("Computing requirement embeddings...")
+        
+        # Extract requirement texts and IDs
+        req_texts = []
+        req_ids = []
+        
+        for req_id, req_info in requirements.items():
+            req_texts.append(req_info['text'])
+            req_ids.append(req_id)
+        
+        # Compute embeddings
+        self.requirement_embeddings = self.model.encode(req_texts)
+        self.requirement_ids = req_ids
+        
+        print(f"Prepared embeddings for {len(req_ids)} requirements")
     
-    if verbose:
-        print(f"Classification prompt:\n{user_prompt}\n")
-    
-    try:
-        response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
-        # Filter out thinking sections
-        response = filter_think_sections(response)
-        classified_id = response.strip()
+    def classify_segment(self, segment_text: str, threshold: float = 0.95, verbose: bool = False) -> Tuple[str, float]:
+        """
+        Classify which requirement (if any) a segment is relevant to using embedding similarity.
+        
+        Args:
+            segment_text: The DPA segment text
+            threshold: Cosine similarity threshold for classification
+            verbose: Enable verbose output
+            
+        Returns:
+            Tuple of (requirement_id or "NONE", max_similarity_score)
+        """
+        if self.requirement_embeddings is None:
+            raise ValueError("Requirements not prepared. Call prepare_requirements() first.")
+        
+        # Compute segment embedding
+        segment_embedding = self.model.encode([segment_text])
+        
+        # Compute similarities
+        similarities = cosine_similarity(segment_embedding, self.requirement_embeddings)[0]
+        
+        # Find best match
+        max_idx = np.argmax(similarities)
+        max_similarity = similarities[max_idx]
         
         if verbose:
-            print(f"Classification response: {classified_id}")
-        
-        # Validate response
-        if classified_id == "NONE":
-            return "NONE"
-        elif classified_id in requirements:
-            return classified_id
-        else:
-            if verbose:
-                print(f"Warning: Invalid classification response '{classified_id}', returning 'NONE'")
-            return "NONE"
+            print(f"Segment: {segment_text[:100]}...")
+            print(f"Best match: Req {self.requirement_ids[max_idx]} (similarity: {max_similarity:.3f})")
             
-    except Exception as e:
-        print(f"Error in classification: {e}")
-        return "NONE"
+            # Show top 3 matches
+            top_indices = np.argsort(similarities)[::-1][:3]
+            print("Top 3 matches:")
+            for i, idx in enumerate(top_indices):
+                print(f"  {i+1}. Req {self.requirement_ids[idx]}: {similarities[idx]:.3f}")
+        
+        # Apply threshold
+        if max_similarity >= threshold:
+            return self.requirement_ids[max_idx], max_similarity
+        else:
+            return "NONE", max_similarity
+
+
+def classify_segment(segment_text: str, requirements: Dict, classifier: EmbeddingClassifier, threshold: float = 0.95, verbose: bool = False) -> str:
+    """Classify which requirement (if any) a segment is relevant to using embeddings."""
+    classified_id, similarity_score = classifier.classify_segment(segment_text, threshold, verbose)
+    return classified_id
 
 
 def extract_body_atoms(symbolic_rule):
@@ -242,11 +238,12 @@ def extract_body_atoms(symbolic_rule):
     return atoms
 
 
-def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts: Dict, req_predicates: List[str]) -> str:
-    """Generate LP file content matching the existing format."""
+def generate_lp_file_with_classification(segment_text: str, req_text: str, req_symbolic: str, facts: Dict, req_predicates: List[str], req_id: str, similarity_score: float) -> str:
+    """Generate LP file content with embedding classification information."""
     # Start with the requirement's symbolic representation
     lp_content = f"% Requirement Text:\n% {req_text}\n%\n"
     lp_content += f"% DPA Segment:\n% {segment_text}\n%\n"
+    lp_content += f"% Embedding Classification: {req_id} (similarity: {similarity_score:.3f})\n%\n"
     
     # Extract body atoms from the symbolic rule
     body_atoms = extract_body_atoms(req_symbolic)
@@ -258,10 +255,10 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
             lp_content += f"#external {atom}.\n"
         lp_content += "\n"
         
-        # Add choice rules to ensure all external atoms are either true or false
-        lp_content += "% Choice rules for external atoms to avoid ASP warnings\n"
+        # Set external atoms based on extracted facts
+        lp_content += "% Set external atoms based on extracted facts\n"
         for atom in body_atoms:
-            lp_content += f"1 {{{atom}; -{atom}}} 1.\n"
+            lp_content += f"{atom} :- not -{atom}.\n"
         lp_content += "\n"
     
     # Add the requirement's symbolic representation (normative layer)
@@ -272,14 +269,14 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
     lp_content += "% 2. Facts extracted from DPA segment\n"
     if facts:
         for pred, value in facts.items():
-            if value:
-                lp_content += f"{pred}.\n"
-            else:
-                lp_content += f"-{pred}.\n"
+            # Only add valid predicate names (no raw response text)
+            if pred and isinstance(pred, str) and pred.replace('_', '').replace('-', '').isalnum():
+                if value:
+                    lp_content += f"{pred}.\n"
+                else:
+                    lp_content += f"-{pred}.\n"
     else:
         lp_content += "% No semantically relevant facts found in this segment\n"
-    
-
     
     lp_content += "\n"
     
@@ -308,7 +305,80 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
     else:
         # Fallback for unknown deontic operators
         lp_content += "% Warning: Unknown deontic operator in symbolic rule\n"
-        lp_content += "status(not_mentioned) :- true.\n"
+        lp_content += "status(not_mentioned).\n"
+    
+    lp_content += "\n#show status/1.\n"
+    
+    return lp_content
+
+
+def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts: Dict, req_predicates: List[str]) -> str:
+    """Generate LP file content matching the existing format."""
+    # Start with the requirement's symbolic representation
+    lp_content = f"% Requirement Text:\n% {req_text}\n%\n"
+    lp_content += f"% DPA Segment:\n% {segment_text}\n%\n"
+    
+    # Extract body atoms from the symbolic rule
+    body_atoms = extract_body_atoms(req_symbolic)
+    
+    # Add external declarations only for body atoms
+    if body_atoms:
+        lp_content += "% External declarations for rule body predicates\n"
+        for atom in body_atoms:
+            lp_content += f"#external {atom}.\n"
+        lp_content += "\n"
+        
+        # Set external atoms based on extracted facts
+        lp_content += "% Set external atoms based on extracted facts\n"
+        for atom in body_atoms:
+            lp_content += f"{atom} :- not -{atom}.\n"
+        lp_content += "\n"
+    
+    # Add the requirement's symbolic representation (normative layer)
+    lp_content += "% 1. Normative layer\n"
+    lp_content += f"{req_symbolic}\n\n"
+    
+    # Add facts
+    lp_content += "% 2. Facts extracted from DPA segment\n"
+    if facts:
+        for pred, value in facts.items():
+            # Only add valid predicate names (no raw response text)
+            if pred and isinstance(pred, str) and pred.replace('_', '').replace('-', '').isalnum():
+                if value:
+                    lp_content += f"{pred}.\n"
+                else:
+                    lp_content += f"-{pred}.\n"
+    else:
+        lp_content += "% No semantically relevant facts found in this segment\n"
+    
+    lp_content += "\n"
+    
+    # Add status mapping - determine the deontic operator from the symbolic rule
+    lp_content += "% 3. Map Deolingo's internal status atoms to our labels\n"
+    
+    # Extract the deontic operator and predicate from the symbolic rule
+    if "&obligatory{" in req_symbolic:
+        # Extract predicate from &obligatory{predicate}
+        predicate = req_symbolic.split("&obligatory{")[1].split("}")[0]
+        lp_content += f"status(satisfied)     :- &fulfilled_obligation{{{predicate}}}.\n"
+        lp_content += f"status(violated)      :- &violated_obligation{{{predicate}}}.\n"
+        lp_content += f"status(not_mentioned) :- &undetermined_obligation{{{predicate}}}.\n"
+    elif "&forbidden{" in req_symbolic:
+        # Extract predicate from &forbidden{predicate}
+        predicate = req_symbolic.split("&forbidden{")[1].split("}")[0]
+        lp_content += f"status(satisfied)     :- &fulfilled_prohibition{{{predicate}}}.\n"
+        lp_content += f"status(violated)      :- &violated_prohibition{{{predicate}}}.\n"
+        lp_content += f"status(not_mentioned) :- &undetermined_prohibition{{{predicate}}}.\n"
+    elif "&permitted{" in req_symbolic:
+        # Extract predicate from &permitted{predicate}
+        predicate = req_symbolic.split("&permitted{")[1].split("}")[0]
+        lp_content += f"status(satisfied)     :- &fulfilled_permission{{{predicate}}}.\n"
+        lp_content += f"status(violated)      :- &violated_permission{{{predicate}}}.\n"
+        lp_content += f"status(not_mentioned) :- &undetermined_permission{{{predicate}}}.\n"
+    else:
+        # Fallback for unknown deontic operators
+        lp_content += "% Warning: Unknown deontic operator in symbolic rule\n"
+        lp_content += "status(not_mentioned).\n"
     
     lp_content += "\n#show status/1.\n"
     
@@ -373,17 +443,19 @@ Expected output: NO_FACTS."""
         response = filter_think_sections(response)
         response = response.strip()
         
-        if response == "NO_FACTS":
+        # Handle various forms of "no facts" response
+        if response == "NO_FACTS" or response.upper() == "NO_FACTS" or response == "" or "NO_FACTS" in response.upper():
             return {}
             
         # Parse the response into a dictionary of facts
         facts = {}
         for pred in response.split(';'):
             pred = pred.strip()
-            if pred.startswith('-'):
-                facts[pred[1:]] = False
-            else:
-                facts[pred] = True
+            if pred and pred != "NO_FACTS":  # Skip empty strings and NO_FACTS
+                if pred.startswith('-'):
+                    facts[pred[1:]] = False
+                else:
+                    facts[pred] = True
                 
         return facts
         
@@ -393,11 +465,34 @@ Expected output: NO_FACTS."""
 
 
 def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_client: OllamaClient, 
-                        model: str, output_dir: str, verbose: bool = False) -> None:
-    """Process all DPA segments using RCV approach and generate LP files compatible with existing evaluation."""
+                        model: str, output_dir: str, embedding_model: str = "all-MiniLM-L6-v2", 
+                        similarity_threshold: float = 0.95, verbose: bool = False) -> None:
+    """Process all DPA segments using RCV approach with embedding-based classification and generate LP files compatible with existing evaluation."""
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
+    
+    # Initialize and prepare embedding classifier
+    classifier = EmbeddingClassifier(embedding_model)
+    classifier.prepare_requirements(requirements)
+    
+    print(f"Using embedding model: {embedding_model}")
+    print(f"Using similarity threshold: {similarity_threshold}")
+    
+    # Create inverse mapping from requirement IDs to R-labels for directory naming
+    # This matches the expected evaluation format
+    req_id_to_r_label = {}
+    for req_id, req_info in requirements.items():
+        # The JSON file uses numeric string IDs ("1", "2", "3", etc.)
+        # Map these to the expected R-label format (1->R10, 2->R11, etc.)
+        try:
+            req_num = int(req_id)
+            # Map requirement numbers to R-labels (1->R10, 2->R11, 3->R12, etc.)
+            r_label = req_num + 9  # 1 -> R10, 2 -> R11, etc.
+            req_id_to_r_label[req_id] = str(r_label)
+        except ValueError:
+            # If it's not a numeric ID, use as-is
+            req_id_to_r_label[req_id] = req_id
     
     # Process each segment
     for idx, row in tqdm(segments_df.iterrows(), total=len(segments_df), desc="Processing segments"):
@@ -407,8 +502,8 @@ def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_clie
         if verbose:
             print(f"\nProcessing segment {segment_id}: {segment_text[:100]}...")
         
-        # Step 1: Classification
-        classified_id = classify_segment(segment_text, requirements, llm_client, model, verbose)
+        # Step 1: Classification using embeddings
+        classified_id = classify_segment(segment_text, requirements, classifier, similarity_threshold, verbose)
         
         # Generate LP files for all requirements (to maintain compatibility with evaluation)
         for req_id, requirement_info in requirements.items():
@@ -416,8 +511,9 @@ def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_clie
             req_symbolic = requirement_info["symbolic"]
             req_predicates = requirement_info["atoms"]
             
-            # Create requirement directory
-            req_dir = os.path.join(output_dir, f"req_{req_id}")
+            # Use R-label format for directory naming to match evaluation expectations
+            r_label = req_id_to_r_label[req_id]
+            req_dir = os.path.join(output_dir, f"req_{r_label}")
             os.makedirs(req_dir, exist_ok=True)
             
             if req_id == classified_id:
@@ -425,8 +521,11 @@ def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_clie
                 facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, 
                                              llm_client, model)
                 
+                # Get similarity score for the classified requirement
+                similarity_score = classifier.classify_segment(segment_text, similarity_threshold, False)[1]
+                
                 # Generate LP file content
-                lp_content = generate_lp_file(segment_text, req_text, req_symbolic, facts, req_predicates)
+                lp_content = generate_lp_file_with_classification(segment_text, req_text, req_symbolic, facts, req_predicates, req_id, similarity_score)
             else:
                 # For non-classified requirements, generate "not_mentioned" LP file
                 lp_content = f"""% Requirement Text:
@@ -435,10 +534,11 @@ def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_clie
 % DPA Segment:
 % {segment_text}
 %
-
 % RCV Classification: This segment was not classified as relevant to this requirement
 % Classified as: {classified_id if classified_id != "NONE" else "Administrative/Non-relevant"}
-status(not_mentioned) :- true.
+
+% Direct status assignment for non-classified segments
+status(not_mentioned).
 
 #show status/1.
 """
@@ -461,7 +561,9 @@ def main():
     
     print("========== RCV LP File Generator ==========")
     print(f"Target DPA: {args.target_dpa}")
-    print(f"Model: {args.model}")
+    print(f"Verification Model (LLM): {args.model}")
+    print(f"Classification Model (Embedding): {args.embedding_model}")
+    print(f"Similarity Threshold: {args.similarity_threshold}")
     print(f"Output Directory: {args.output}")
     print("==========================================")
     
@@ -484,10 +586,10 @@ def main():
     print(f"Loaded {len(segments_df)} segments for DPA: {args.target_dpa}")
     
     # Process segments and generate LP files
-    print("Processing segments with RCV approach...")
+    print("Processing segments with RCV approach (embedding-based classification)...")
     process_dpa_segments(
         segments_df, requirements, llm_client, args.model, 
-        args.output, args.verbose
+        args.output, args.embedding_model, args.similarity_threshold, args.verbose
     )
     
     print(f"\nLP file generation completed!")

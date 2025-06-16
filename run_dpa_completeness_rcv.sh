@@ -7,8 +7,10 @@ set -e  # Exit on any error
 # Configuration
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
-OLLAMA_MODEL="qwen3:32b"  # Default Ollama model
-OUTPUT_DIR="results/rcv_approach/qwen3"
+OLLAMA_MODEL="qwen2.5:32b"  # Default Ollama model for verification step
+EMBEDDING_MODEL="all-MiniLM-L6-v2"  # Default embedding model for classification step  
+SIMILARITY_THRESHOLD=0.5  # Default similarity threshold (optimized from training data)
+OUTPUT_DIR="results/rcv_approach/embeddings/qwen2-5"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"
@@ -17,11 +19,26 @@ MAX_SEGMENTS=0  # Process all segments by default
 REQUIREMENTS_REPRESENTATION="deontic_ai"  # Default representation
 USE_PREDEFINED=true  # Default to using predefined requirements
 
+# Default step (empty means interactive)
+STEP=""
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
+        --step)
+            STEP="$2"
+            shift 2
+            ;;
         --model)
             OLLAMA_MODEL="$2"
+            shift 2
+            ;;
+        --embedding_model)
+            EMBEDDING_MODEL="$2"
+            shift 2
+            ;;
+        --similarity_threshold)
+            SIMILARITY_THRESHOLD="$2"
             shift 2
             ;;
         --requirements)
@@ -44,8 +61,48 @@ while [[ $# -gt 0 ]]; do
             DEBUG=true
             shift
             ;;
+        --help|-h)
+            echo "DPA Completeness Checker - RCV Approach (Embedding-Based)"
+            echo ""
+            echo "Usage: $0 [STEP] [OPTIONS]"
+            echo ""
+            echo "Steps:"
+            echo "  --step 1                      Generate RCV LP files"
+            echo "  --step 2                      Run Deolingo solver" 
+            echo "  --step 3                      Evaluate completeness"
+            echo "  --step A                      Run all steps sequentially"
+            echo "  (no --step)                   Interactive mode"
+            echo ""
+            echo "Options:"
+            echo "  --model MODEL                 Ollama model for verification step (default: qwen3:32b)"
+            echo "  --embedding_model MODEL       Sentence transformer model for classification (default: all-MiniLM-L6-v2)" 
+            echo "  --similarity_threshold FLOAT  Cosine similarity threshold for classification (default: 0.95)"
+            echo "  --requirements REPR           Requirements representation (deontic, deontic_ai, deontic_experiments)"
+            echo "  --max_segments N              Maximum segments to process (0 means all)"
+            echo "  --target_dpas DPA1,DPA2       Comma-separated list of DPAs to process"
+            echo "  --output_dir DIR              Output directory for results"
+            echo "  --debug                       Enable debug mode"
+            echo "  --help, -h                    Show this help message"
+            echo ""
+            echo "Embedding Model Options:"
+            echo "  - all-MiniLM-L6-v2            Fast, general-purpose (default)"
+            echo "  - all-mpnet-base-v2           Better quality, slower"
+            echo "  - sentence-transformers/all-roberta-large-v1  High quality, slower"
+            echo ""
+            echo "Similarity Threshold Guidelines:"
+            echo "  - 0.95: High precision, low recall (~0.3% classification rate)"
+            echo "  - 0.70-0.80: Balanced precision/recall (~4-17% classification rate)"
+            echo "  - 0.30-0.40: High recall, low precision (~78-91% classification rate)"
+            exit 0
+            ;;
+        1|2|3|A|a)
+            # Allow step as first positional argument (backward compatibility)
+            STEP="$1"
+            shift
+            ;;
         *)
             echo "Unknown parameter: $1"
+            echo "Use --help for usage information"
             exit 1
             ;;
     esac
@@ -110,6 +167,33 @@ set_requirements_file() {
     log "Using requirements file: $REQUIREMENTS_FILE"
 }
 
+# Function to map requirement numbers to R-labels for evaluation compatibility
+map_req_to_r_label() {
+    local req_num=$1
+    case ${req_num} in
+        1) echo "10" ;;
+        2) echo "11" ;;
+        3) echo "12" ;;
+        4) echo "13" ;;
+        5) echo "15" ;;
+        6) echo "16" ;;
+        7) echo "17" ;;
+        8) echo "18" ;;
+        9) echo "19" ;;
+        10) echo "20" ;;
+        11) echo "21" ;;
+        12) echo "22" ;;
+        13) echo "23" ;;
+        14) echo "24" ;;
+        15) echo "25" ;;
+        16) echo "26" ;;
+        17) echo "27" ;;
+        18) echo "28" ;;
+        19) echo "29" ;;
+        *) echo "${req_num}" ;;
+    esac
+}
+
 # Function to run deolingo with error handling (updated for requirement-specific processing)
 run_deolingo() {
     local lp_file=$1
@@ -117,18 +201,21 @@ run_deolingo() {
     local segment_id=$3
     local dpa_name=$4
     
+    # Map requirement number to R-label for evaluation compatibility
+    local r_label=$(map_req_to_r_label ${req_id})
+    
     # Run deolingo and capture output
     deolingo_output=$(deolingo ${lp_file} 2>&1) || true
     
     # Check if there was an error
     if [[ $deolingo_output == *"ERROR"* || $deolingo_output == *"error"* ]]; then
-        echo "Processing DPA ${dpa_name}, Requirement ${req_id}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
+        echo "Processing DPA ${dpa_name}, Requirement ${r_label}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
         echo "Error processing file: ${lp_file}" >> ${DEOLINGO_RESULTS}
         echo "Answer: not_mentioned" >> ${DEOLINGO_RESULTS}
         echo "--------------------------------------------------" >> ${DEOLINGO_RESULTS}
         echo "Warning: Error in file ${lp_file}. Skipping and continuing..." >&2
     else
-        echo "Processing DPA ${dpa_name}, Requirement ${req_id}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
+        echo "Processing DPA ${dpa_name}, Requirement ${r_label}, Segment ${segment_id}..." >> ${DEOLINGO_RESULTS}
         echo "${deolingo_output}" >> ${DEOLINGO_RESULTS}
         echo "--------------------------------------------------" >> ${DEOLINGO_RESULTS}
     fi
@@ -167,8 +254,10 @@ MODEL_SAFE_NAME=$(echo "${OLLAMA_MODEL}" | tr ':' '_' | tr '/' '_')
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results_${MODEL_SAFE_NAME}_rcv.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results_${MODEL_SAFE_NAME}_rcv.json"
 
-echo "========== DPA Completeness Checker - RCV Approach =========="
-echo "Using Ollama Model: ${OLLAMA_MODEL}"
+echo "========== DPA Completeness Checker - RCV Approach (Embedding-Based) =========="
+echo "Verification Model (LLM): ${OLLAMA_MODEL}"
+echo "Classification Model (Embedding): ${EMBEDDING_MODEL}"
+echo "Similarity Threshold: ${SIMILARITY_THRESHOLD}"
 echo "Requirements Representation: ${REQUIREMENTS_REPRESENTATION}"
 echo "Requirements Source: ${REQUIREMENTS_FILE}"
 echo "Evaluating DPAs: ${TARGET_DPAS[*]}"
@@ -176,15 +265,17 @@ echo "Using ${MAX_SEGMENTS} segments (0 means all)"
 echo "Output Directory: ${OUTPUT_DIR}"
 echo "========================================================"
 
-# Show menu of available steps
-echo "Available steps:"
-echo "1. Generate RCV LP files for specified segments for all DPAs"
-echo "2. Run Deolingo solver for all DPAs"
-echo "3. Evaluate DPA completeness (Requirement & Segment-level metrics)"
-echo "A. Run all steps sequentially"
-echo "Q. Quit"
+# Show menu of available steps (only if STEP not provided via command line)
+if [[ -z "$STEP" ]]; then
+    echo "Available steps:"
+    echo "1. Generate RCV LP files (embedding-based classification + LLM verification)"
+    echo "2. Run Deolingo solver for all DPAs"
+    echo "3. Evaluate DPA completeness (Requirement & Segment-level metrics)"
+    echo "A. Run all steps sequentially"
+    echo "Q. Quit"
 
-read -p "Enter step to run (1-3, A for all, Q to quit): " STEP
+    read -p "Enter step to run (1-3, A for all, Q to quit): " STEP
+fi
 
 case ${STEP} in
     1)
@@ -196,7 +287,7 @@ case ${STEP} in
             exit 1
         fi
         
-        # Check Ollama server and model availability
+        # Check Ollama server and model availability (for verification step)
         check_ollama
         ensure_model "$OLLAMA_MODEL"
         
@@ -206,6 +297,8 @@ case ${STEP} in
               --requirements "${REQUIREMENTS_FILE}" \
               --dpa_segments ${DPA_CSV} \
               --model ${OLLAMA_MODEL} \
+              --embedding_model ${EMBEDDING_MODEL} \
+              --similarity_threshold ${SIMILARITY_THRESHOLD} \
               --output "${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}" \
               --target_dpa "${TARGET_DPA}" \
               --max_segments ${MAX_SEGMENTS} \
@@ -284,7 +377,7 @@ case ${STEP} in
         # Step 1
         echo -e "\n[Step 1] Generating RCV LP files for ${MAX_SEGMENTS} segments..."
         
-        # Check Ollama server and model availability
+        # Check Ollama server and model availability (for verification step)
         check_ollama
         ensure_model "$OLLAMA_MODEL"
         
@@ -294,6 +387,8 @@ case ${STEP} in
               --requirements "${REQUIREMENTS_FILE}" \
               --dpa_segments ${DPA_CSV} \
               --model ${OLLAMA_MODEL} \
+              --embedding_model ${EMBEDDING_MODEL} \
+              --similarity_threshold ${SIMILARITY_THRESHOLD} \
               --output "${OUTPUT_DIR}/lp_files_${TARGET_DPA//' '/_}" \
               --target_dpa "${TARGET_DPA}" \
               --max_segments ${MAX_SEGMENTS} \
