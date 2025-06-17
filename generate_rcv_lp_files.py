@@ -398,7 +398,7 @@ Expected output: NO_FACTS."""
         facts = {}
         for pred in response.split(';'):
             pred = pred.strip()
-            if pred and pred != "NO_FACTS": 
+            if pred and pred != "NO_FACTS" and pred != "NO_FACTS.": 
                 if pred.startswith('-'):
                     facts[pred[1:]] = False
                 else:
