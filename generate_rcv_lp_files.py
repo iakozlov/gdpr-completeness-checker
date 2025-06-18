@@ -117,6 +117,7 @@ def filter_think_sections(text):
 
 def classify_segment(segment_text: str, requirements: Dict, llm_client: OllamaClient, model: str, verbose: bool = False) -> str:
     """Classify which requirement (if any) a segment is relevant to."""
+    
     # Build requirements list for system prompt
     req_list = []
     for req_id, req_info in requirements.items():
@@ -130,14 +131,31 @@ AVAILABLE GDPR REQUIREMENTS:
 TASK:
 Classify the given DPA segment to determine which single GDPR requirement it is most relevant to. Return ONLY the requirement ID (e.g., "3") or "NONE" if not relevant to any requirement.
 
+CRITICAL: Before classifying, ask yourself:
+1. Does this segment contain a SPECIFIC, ACTIONABLE processor obligation?
+2. Is this a concrete requirement that can be enforced?
+3. Or is this just describing, defining, or providing general context?
+
+If the answer to #3 is YES, return "NONE".
+
 CLASSIFICATION RULES:
 - Focus ONLY on specific, actionable processor obligations and responsibilities
 - Identify concrete data protection measures and safeguards with clear processor actions
 - Look for explicit contractual obligations between controller and processor
-- If the segment is dministrative text, definitions, general business terms, legal framework references, return "NONE"
-- If the segment is about headers, titles, appendices, section numbers, table of contents, return "NONE"
-- If the segment is a general GDPR/directive references without specific processor obligations, return "NONE"
-- If the segment is aboutn background information, introductory text, or context-setting statements, return "NONE"
+- Return "NONE" for: Administrative text, definitions, general business terms, legal framework references
+- Return "NONE" for: Headers, titles, appendices, section numbers, table of contents
+- Return "NONE" for: General GDPR/directive references without specific processor obligations
+- Return "NONE" for: Background information, introductory text, or context-setting statements
+- Return "NONE" for: General compliance statements (e.g., "shall comply with applicable laws")
+- Return "NONE" for: Descriptive statements about processing scope or categories
+- Return "NONE" for: Administrative requirements like maintaining registers or documentation
+- Return "NONE" for: Procedural statements about updating agreements or appendices
+- Return "NONE" for: Statements that only describe what the processor does, not what it must do
+- Return "NONE" for: Single words or short phrases (< 10 words)
+- Return "NONE" for: Segments starting with "Article", "Section", "Appendix"
+- Return "NONE" for: Segments that only reference laws/regulations without processor actions
+- Return "NONE" for: Definitions or explanatory text without obligations
+- If the segment lacks a specific, enforceable obligation, return "NONE"
 - Choose only ONE requirement ID for segments with clear, specific processor obligations
 
 ADDITIONAL EXCLUSION CRITERIA:
@@ -227,6 +245,24 @@ Input: "Irrespective of the general use and reference to GDPR in this processor 
 Output: NONE
 
 Input: "The processor shall comply with applicable data protection laws"
+Output: NONE
+
+Input: "The processor Agreement shall ensure that the processor complies with the applicable data protection and privacy legislation"
+Output: NONE
+
+Input: "In connection with the processor's delivery of the Main Services to the Controller, the processor will process certain categories and types of the Controller's personal data on behalf of the Controller."
+Output: NONE
+
+Input: "The processor shall have and maintain a register of processing activities in accordance with GDPR, article 32 (2)."
+Output: NONE
+
+Input: "The parties shall update sub-appendix A whenever changes occur that necessitates an update."
+Output: NONE
+
+Input: "The categories and types of Personal Data processed by the processor on behalf of the Controller are listed in sub-appendix A."
+Output: NONE
+
+Input: "The processor only performs processing activities that are necessary and relevant to perform the Main Services."
 Output: NONE"""
 
     user_prompt = segment_text
@@ -378,9 +414,9 @@ INSTRUCTIONS:
 
 ADDITIONAL VALIDATION RULES:
 6) Only extract facts if the CLAUSE contains SPECIFIC, ACTIONABLE processor obligations
-7) Ignore general compliance statements without concrete actions
-8) Require explicit mention of processor role AND specific action/obligation
-9) If the clause is administrative/definitional, output NO_FACTS regardless of keyword matches
+7) Return NO_FACTS for: General compliance statements without concrete actions
+8) Return NO_FACTS for: Administrative/definitional clauses regardless of keyword matches
+9) Return NO_FACTS for: Segments that only mention "processor" without describing specific obligations
 10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
 
 Examples:
@@ -431,7 +467,7 @@ REQUIREMENT: The processor shall allow for and contribute to audits, including i
 SYMBOLIC: &obligatory{allow_contribute_audits} :- role(processor).
 PREDICATES: allow_contribute_audits; role(processor)
 CLAUSE: The processor shall comply with applicable data protection laws
-Expected output: NO_FACTS"""
+Expected output: role(processor)"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
