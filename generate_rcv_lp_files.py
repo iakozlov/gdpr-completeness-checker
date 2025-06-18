@@ -144,6 +144,21 @@ CLASSIFICATION RULES:
 - Look for explicit contractual obligations between controller and processor
 - IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
 - IMPORTANT: Recognize indirect obligations (processor actions that assist controller obligations)
+- IMPORTANT: Recognize restriction patterns as obligations (e.g., "only use approved X" = "don't use unapproved X")
+- IMPORTANT: Recognize implicit processor context (obligations stated without explicitly mentioning "processor")
+
+ENHANCED PATTERN RECOGNITION:
+- Sub-processor restrictions (e.g., "only use listed sub-processors", "approved vendors only") → Requirement 1
+- Processing limitations (e.g., "only process for specified purposes", "follow documented instructions") → Requirement 3  
+- Security restrictions (e.g., "must encrypt", "access controls required") → Requirement 6
+- Notification requirements (e.g., "notify of breaches", "inform controller") → Requirements 9/10
+- Audit obligations (e.g., "allow inspections", "provide compliance info") → Requirements 15/16
+- Data handling restrictions (e.g., "delete after termination", "return data") → Requirement 13
+
+IMPLICIT PROCESSOR CONTEXT:
+- Obligations in DPA context are typically processor obligations even without explicit "processor" mention
+- Contractual restrictions and limitations typically apply to the processor
+- "Shall", "must", "required to" indicate obligations even without explicit role mention
 
 Return "NONE" for:
 - Administrative headers, titles, appendices, section numbers, table of contents  
@@ -160,6 +175,7 @@ CONSIDER CAREFULLY (don't automatically exclude):
 - Security incident reporting (may relate to breach notification - req 9 or 10)
 - Register/documentation maintenance (may relate to compliance demonstration - req 15)
 - Agreement updates (may relate to sub-processor changes - req 2)
+- Restrictions and limitations (may be indirect obligations)
 
 If the segment contains a specific, enforceable processor obligation, choose the most relevant requirement ID.
 
@@ -174,10 +190,19 @@ EXAMPLES:
 Input: "The processor shall not subcontract any of its processing operations performed on behalf of the controller under the Clauses without the prior written consent of the controller."
 Output: 1
 
+Input: "To only use the sub-processors listed in Schedule 2 of this Agreement."
+Output: 1
+
+Input: "Only approved sub-processors may be engaged for data processing activities."
+Output: 1
+
 Input: "processor shall notify controller with at least ten (10) days' prior notice before authorizing any new Sub-Processors to access controller's Personal Data;"
 Output: 2
 
 Input: "processor will process controller Data only in accordance with Documented Instructions."
+Output: 3
+
+Input: "Data may only be processed for the purposes specified in Appendix A."
 Output: 3
 
 Input: "In such cases, the processor shall inform the controller of the legal requirement before processing, unless that law prohibits such information on important grounds of public interest."
@@ -186,7 +211,13 @@ Output: 4
 Input: "processor imposes appropriate contractual obligations upon its personnel, including relevant obligations regarding confidentiality, data protection and data security."
 Output: 5
 
+Input: "Access to personal data must be restricted to authorized personnel only."
+Output: 5
+
 Input: "Guests and visitors to processor buildings must register their names at reception and must be accompanied by authorized processor personnel."
+Output: 6
+
+Input: "All data must be encrypted in transit and at rest."
 Output: 6
 
 Input: "In the event any such request is made directly to processor, processor shall notify controller in writing of such request promptly upon receipt thereof."
@@ -216,13 +247,22 @@ Output: 12
 Input: "processor will delete controller Data when requested by controller by using the Service controls provided for this purpose by processor."
 Output: 13
 
+Input: "All personal data must be returned or securely deleted upon termination of this agreement."
+Output: 13
+
 Input: "processor shall inform controller if, in the opinion of processor, an instruction infringes Applicable Data Protection Law."
 Output: 14
 
 Input: "processor will make available to controller all information necessary to demonstrate compliance with the obligations of Data Processors laid down in Article 28 of GDPR."
 Output: 15
 
+Input: "Documentation must be maintained to demonstrate compliance with data protection obligations."
+Output: 15
+
 Input: "Processor shall grant Controller access to all information required in order to verify that the obligations set out in the DPA are complied with."
+Output: 16
+
+Input: "Audits and inspections must be permitted to verify compliance."
 Output: 16
 
 Input: "Processor will ensure that Sub-processors are bound by written agreements that require them to provide at least the level of data protection required of Processor by these GDPR Terms."
@@ -231,7 +271,7 @@ Output: 17
 Input: "processor shall remain fully liable to controller for the performance of the Sub-Processor's obligations."
 Output: 18
 
-Input: "processor has implemented and will maintain appropriate technical and organizational security measures for the Processing of Personal Data."
+Input: "Security risk assessments must consider the likelihood and severity of potential data breaches."
 Output: 19
 
 Input: "This DPA applies when controller Data is processed by processor."
@@ -428,8 +468,11 @@ ADDITIONAL VALIDATION RULES:
 7) Return NO_FACTS for: General compliance statements without concrete actions (e.g., "comply with applicable laws")
 8) Return NO_FACTS for: Administrative headers, titles, appendices, definitions without obligations
 9) Return NO_FACTS for: Segments that only mention "processor" without describing specific obligations
-10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
+10) For role(processor): Extract if the segment describes processor obligations, even if not explicitly mentioning "processor"
 11) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
+12) IMPORTANT: Recognize implicit processor context in DPA segments (obligations are typically processor obligations)
+13) IMPORTANT: Recognize alternative authorization patterns (e.g., "Schedule 2", "approved list", "authorized vendors")
+14) IMPORTANT: Recognize restriction patterns as evidence of underlying obligations
 
 Examples:
 Example 1:
@@ -486,7 +529,28 @@ REQUIREMENT: The processor shall assist the controller in communicating a person
 SYMBOLIC: &obligatory{assist_controller_communicate_data_breach_data_subject} :- role(processor).
 PREDICATES: assist_controller_communicate_data_breach_data_subject; role(processor)
 CLAUSE: Notify all Customers of any information security breach or incident that may compromise the Personal Data without undue delay after becoming aware of any such incident.
-Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)"""
+Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)
+
+Example 9 (Sub-processor Restriction with Implicit Authorization):
+REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.
+SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
+PREDICATES: engage_sub_processor; role(processor); authorization(controller)
+CLAUSE: To only use the sub-processors listed in Schedule 2 of this Agreement.
+Expected output: role(processor); authorization(controller)
+
+Example 10 (Processing Restriction with Implicit Processor Role):
+REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
+SYMBOLIC: &obligatory{process_data_on_documented_instructions} :- role(processor).
+PREDICATES: process_data_on_documented_instructions; role(processor)
+CLAUSE: Data may only be processed for the purposes specified in Appendix A.
+Expected output: process_data_on_documented_instructions; role(processor)
+
+Example 11 (Security Restriction with Implicit Processor Role):
+REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.
+SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
+PREDICATES: ensure_security_of_processing; role(processor)
+CLAUSE: All data must be encrypted in transit and at rest.
+Expected output: ensure_security_of_processing; role(processor)"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
