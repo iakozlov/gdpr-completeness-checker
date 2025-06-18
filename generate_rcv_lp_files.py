@@ -139,30 +139,35 @@ CRITICAL: Before classifying, ask yourself:
 If the answer to #3 is YES, return "NONE".
 
 CLASSIFICATION RULES:
-- Focus ONLY on specific, actionable processor obligations and responsibilities
+- Focus on specific, actionable processor obligations and responsibilities
 - Identify concrete data protection measures and safeguards with clear processor actions
 - Look for explicit contractual obligations between controller and processor
-- Return "NONE" for: Administrative text, definitions, general business terms, legal framework references
-- Return "NONE" for: Headers, titles, appendices, section numbers, table of contents
-- Return "NONE" for: General GDPR/directive references without specific processor obligations
-- Return "NONE" for: Background information, introductory text, or context-setting statements
-- Return "NONE" for: General compliance statements (e.g., "shall comply with applicable laws")
-- Return "NONE" for: Descriptive statements about processing scope or categories
-- Return "NONE" for: Administrative requirements like maintaining registers or documentation
-- Return "NONE" for: Procedural statements about updating agreements or appendices
-- Return "NONE" for: Statements that only describe what the processor does, not what it must do
-- Return "NONE" for: Single words or short phrases (< 10 words)
-- Return "NONE" for: Segments starting with "Article", "Section", "Appendix"
-- Return "NONE" for: Segments that only reference laws/regulations without processor actions
-- Return "NONE" for: Definitions or explanatory text without obligations
-- If the segment lacks a specific, enforceable obligation, return "NONE"
-- Choose only ONE requirement ID for segments with clear, specific processor obligations
+- IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
+- IMPORTANT: Recognize indirect obligations (processor actions that assist controller obligations)
+
+Return "NONE" for:
+- Administrative headers, titles, appendices, section numbers, table of contents  
+- Definitions or explanatory text without actionable obligations
+- General GDPR/directive references without specific processor actions
+- Background information, introductory text, or pure context-setting statements
+- General compliance statements like "shall comply with applicable laws" (without specifics)
+- Descriptive statements about processing scope or categories (without obligations)
+- Single words or short phrases (< 10 words)
+- Segments starting with "Article", "Section", "Appendix"
+
+CONSIDER CAREFULLY (don't automatically exclude):
+- Notification requirements (may relate to breach communication - req 10)
+- Security incident reporting (may relate to breach notification - req 9 or 10)
+- Register/documentation maintenance (may relate to compliance demonstration - req 15)
+- Agreement updates (may relate to sub-processor changes - req 2)
+
+If the segment contains a specific, enforceable processor obligation, choose the most relevant requirement ID.
 
 ADDITIONAL EXCLUSION CRITERIA:
 - Single words or short phrases (< 10 words): Return "NONE"
 - Segments starting with "Article", "Section", "Appendix": Return "NONE"  
-- Segments that only reference laws/regulations without processor actions: Return "NONE"
-- Definitions or explanatory text without obligations: Return "NONE"
+- Pure legal references without processor actions: Return "NONE"
+- Pure definitions without actionable obligations: Return "NONE"
 
 EXAMPLES:
 
@@ -194,6 +199,12 @@ Input: "Prior consultation with the Supervisory Authority;"
 Output: 9
 
 Input: "If the Controller has an obligation to notify or report in the event of a security incident, the Processor is obliged to support the Controller at the Controllers expense."
+Output: 10
+
+Input: "Notify all Customers of any information security breach or incident that may compromise the Personal Data without undue delay after becoming aware of any such incident."
+Output: 10
+
+Input: "The processor shall assist the controller in communicating personal data breaches to affected individuals."
 Output: 10
 
 Input: "Processor shall assist Controller with any notifications to data subjects and/or authorities if requested by Controller."
@@ -414,10 +425,11 @@ INSTRUCTIONS:
 
 ADDITIONAL VALIDATION RULES:
 6) Only extract facts if the CLAUSE contains SPECIFIC, ACTIONABLE processor obligations
-7) Return NO_FACTS for: General compliance statements without concrete actions
-8) Return NO_FACTS for: Administrative/definitional clauses regardless of keyword matches
+7) Return NO_FACTS for: General compliance statements without concrete actions (e.g., "comply with applicable laws")
+8) Return NO_FACTS for: Administrative headers, titles, appendices, definitions without obligations
 9) Return NO_FACTS for: Segments that only mention "processor" without describing specific obligations
 10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
+11) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
 
 Examples:
 Example 1:
@@ -467,7 +479,14 @@ REQUIREMENT: The processor shall allow for and contribute to audits, including i
 SYMBOLIC: &obligatory{allow_contribute_audits} :- role(processor).
 PREDICATES: allow_contribute_audits; role(processor)
 CLAUSE: The processor shall comply with applicable data protection laws
-Expected output: role(processor)"""
+Expected output: role(processor)
+
+Example 8 (Breach Notification with Alternative Terminology):
+REQUIREMENT: The processor shall assist the controller in communicating a personal data breach to the data subject.
+SYMBOLIC: &obligatory{assist_controller_communicate_data_breach_data_subject} :- role(processor).
+PREDICATES: assist_controller_communicate_data_breach_data_subject; role(processor)
+CLAUSE: Notify all Customers of any information security breach or incident that may compromise the Personal Data without undue delay after becoming aware of any such incident.
+Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
