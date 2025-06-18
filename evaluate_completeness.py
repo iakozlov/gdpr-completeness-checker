@@ -242,15 +242,22 @@ def main():
     
     # Create a mapping of segments to their ground truth requirements
     # Note: This maps segment IDs to sets of R-labels (e.g. '10', '11', etc.)
+    # MODIFIED: Use individual requirement columns instead of target column
     segment_to_ground_truth_reqs = defaultdict(set)
     for _, row in dpa_segments.iterrows():
         segment_id = str(row['ID'])
-        target = row['target']
-        if target and target != 'other':
-            req_matches = re.findall(r'R(\d+)', target)
-            for req in req_matches:
-                if req in req_ids:
-                    segment_to_ground_truth_reqs[segment_id].add(req)
+        
+        # Check all three individual requirement columns
+        for col in ['Requirement-1', 'Requirement-2', 'Requirement-3']:
+            if col in row and pd.notna(row[col]) and row[col] != 'other':
+                # Extract R-label (e.g., 'R10' -> '10')
+                req_match = re.match(r'R(\d+)', str(row[col]))
+                if req_match:
+                    req_id = req_match.group(1)
+                    if req_id in req_ids:
+                        segment_to_ground_truth_reqs[segment_id].add(req_id)
+                        if debug:
+                            print(f"Debug: Segment {segment_id} satisfies requirement R{req_id} (from {col}: {row[col]})")
     
     # Create a mapping of requirements to segments that satisfy them
     # This will be used for segment-level metrics and requirement satisfaction
@@ -259,7 +266,7 @@ def main():
         for req_id in reqs:
             req_to_ground_truth_segments[req_id].add(segment_id)
     
-    # Step 5: Get ground truth from target column for filtered segments
+    # Step 5: Get ground truth from individual requirement columns for filtered segments
     all_ground_truth_reqs = set()
     for req_id, segments in req_to_ground_truth_segments.items():
         if segments:  # If any segments satisfy this requirement

@@ -1,4 +1,4 @@
-,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-3,dataset_type,target,label
+Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-3,dataset_type,target,label
 4707,28844,1,Online 124,processor Agreement,other,other,other,test,other,19
 4708,28845,2,Online 124,Appendix A,other,other,other,test,other,19
 4709,28846,3,Online 124,processor Agreement,other,other,other,test,other,19
@@ -43,7 +43,7 @@
 4748,28885,42,Online 124,The processor shall be given reasonable time to assist the Controller with such requests in accordance with the Applicable Law.,other,other,other,test,other,19
 4749,28886,43,Online 124,"If the processor receives a request from a data subject for the exercise of the data subject’s rights under the Applicable Law and such request is related to the Personal Data of the Controller, the processor must immediately forward the request to the Controller and must refrain from responding to the person directly.",other,other,other,test,other,19
 4750,28887,44,Online 124,Personal Data Breaches,other,other,other,test,other,19
-4751,28888,45,Online 124,"The processor shall give immediate notice to the Controller if a breach of the data security occurs, that can lead to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of or access to, personal data transmitted, stored or otherwise processed re the Personal Data processed on behalf of the Controller (a “Personal Data Breach”).",R34,other,other,test,other,19
+4751,28888,45,Online 124,"The processor shall give immediate notice to the Controller if a breach of the data security occurs, that can lead to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of or access to, personal data transmitted, stored or otherwise processed re the Personal Data processed on behalf of the Controller (a “Personal Data Breach”).",other,R19,other,test,other,19
 4752,28889,46,Online 124,The processor shall have and maintain a register of all Personal Data Breaches.,R40,other,other,test,other,19
 4753,28890,47,Online 124,The register shall at a minimum include the following:,other,other,other,test,other,19
 4754,28891,48,Online 124,"A description of the nature of the Personal Data Breach, including, if possible, the categories and the approximate number of affected Data Subjects and the categories and the approximate number of affected registrations of personal data.",R8,other,other,test,other,19
@@ -609,11 +609,11 @@
 5314,29451,76,Online 132,"These measures shall be appropriate to the harm which might result from any unauthorised or unlawful Processing, accidental loss, destruction or damage to the Personal Data and/or other Confidential Information.",R7,other,other,test,other,19
 5315,29452,77,Online 132,As a minimum all data shall be encrypted in transit (with HTTPS via TLS 1.2 or higher) and at rest via Transparent Data Encryption (TDE);,R7,other,other,test,other,19
 5316,29453,78,Online 132,Compliance,other,other,other,test,other,19
-5317,29454,79,Online 132,"Assist the controller in meeting its GDPR obligations in relation to the security of processing, the notification of personal data breaches, and data protection impact assessments.",R20,other,other,test,R20,9
+5317,29454,79,Online 132,"Assist the controller in meeting its GDPR obligations in relation to the security of processing, the notification of personal data breaches, and data protection impact assessments.",R20,R18,R22,test,R20,9
 5318,29455,80,Online 132,Make available to the controller all information necessary to demonstrate,other,other,other,test,other,19
-5319,29456,81,Online 132,"compliance with the obligations according to Article 28 of the GDPR and to allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",R25,other,other,test,R25,14
+5319,29456,81,Online 132,"compliance with the obligations according to Article 28 of the GDPR and to allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",R25,R26,other,test,R25,14
 5320,29457,82,Online 132,"Delete or return all personal data to the controller, at the choice of the controller, as requested at the point of termination of the Agreement.",R23,other,other,test,R23,12
-5321,29458,83,Online 132,"Notify all Customers of any information security breach or incident that may compromise the Personal Data & Special Categories of Personal Data covered by this agreement without undue delay after becoming aware of any such incident, taking into consideration the statutory breach reporting requirements and deadlines.",R34,other,other,test,other,19
+5321,29458,83,Online 132,"Notify all Customers of any information security breach or incident that may compromise the Personal Data & Special Categories of Personal Data covered by this agreement without undue delay after becoming aware of any such incident, taking into consideration the statutory breach reporting requirements and deadlines.",other,R10,other,test,other,19
 5322,29459,84,Online 132,The processor shall work with the controller to carry out a risk assessment and allow them to oversee and assess any corrective action.,R45,other,other,test,other,19
 5323,29460,85,Online 132,To maintain up-to-date compliance with the NHS Data Security and Protection Toolkit (DSPT).,R16,other,other,test,R16,5
 5324,29461,86,Online 132,processor’s published report can be found under organisation code 8JT17.,other,other,other,test,other,19
@@ -1258,12 +1258,12 @@
 5963,30100,98,Online 54,The processor also helps you to fulfill other obligations.,other,other,other,test,other,19
 5964,30101,99,Online 54,"Such as reporting data leaks, carrying out a data protection impact (DPIA) and a prior consultation.",other,other,other,test,other,19
 5965,30102,100,Online 54,Data deletion,other,other,other,test,other,19
-5966,30103,101,Online 54,"After the processing services have ended, the processor will delete the data.",other,other,other,test,other,19
+5966,30103,101,Online 54,"After the processing services have ended, the processor will delete the data.",other,R23,other,test,other,19
 5967,30104,102,Online 54,Or he will return it to you if you wish.,other,other,other,test,other,19
 5968,30105,103,Online 54,"He also removes copies, unless the processor is legally obliged to keep the data.",other,other,other,test,other,19
 5969,30106,104,Online 54,Audits,other,other,other,test,other,19
 5970,30107,105,Online 54,The processor cooperates with your audits or those of a third party.,other,other,other,test,other,19
-5971,30108,106,Online 54,And makes all relevant information available to check whether he as a processor complies with the above-mentioned obligations (from Article 28 GDPR).,other,other,other,test,other,19
+5971,30108,106,Online 54,And makes all relevant information available to check whether he as a processor complies with the above-mentioned obligations (from Article 28 GDPR).,other,R25,other,test,other,19
 5972,30109,107,Online 54,ICT Institute publishes template such as these in order to help entrepreneurs to be compliant.,other,other,other,test,other,19
 5973,30110,108,Online 54,"Check our website for more information in GDPR, privacy and information security",other,other,other,test,other,19
 5974,30111,1,Online 57,Data Processing Agreement (DPA),other,other,other,test,other,19

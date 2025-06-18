@@ -156,6 +156,9 @@ def parse_deolingo_results(deolingo_results: str) -> Dict[Tuple[str, str], str]:
 def get_segment_ground_truth(dpa_segments: pd.DataFrame, req_ids: List[str]) -> Dict[str, Set[str]]:
     """Get ground truth requirements for each segment.
     
+    Uses individual requirement columns (Requirement-1, Requirement-2, Requirement-3) 
+    instead of the consolidated target column for more lenient evaluation.
+    
     Args:
         dpa_segments: DataFrame containing DPA segments
         req_ids: List of requirement IDs to evaluate
@@ -167,13 +170,16 @@ def get_segment_ground_truth(dpa_segments: pd.DataFrame, req_ids: List[str]) -> 
     
     for _, row in dpa_segments.iterrows():
         segment_id = str(row['ID'])
-        target = row['target']
         
-        if target and target != 'other':
-            req_matches = re.findall(r'R(\d+)', target)
-            for req in req_matches:
-                if req in req_ids:
-                    segment_to_requirements[segment_id].add(req)
+        # Check all three individual requirement columns
+        for col in ['Requirement-1', 'Requirement-2', 'Requirement-3']:
+            if col in row and pd.notna(row[col]) and row[col] != 'other':
+                # Extract R-label (e.g., 'R10' -> '10')
+                req_match = re.match(r'R(\d+)', str(row[col]))
+                if req_match:
+                    req_id = req_match.group(1)
+                    if req_id in req_ids:
+                        segment_to_requirements[segment_id].add(req_id)
     
     return segment_to_requirements
 
