@@ -57,8 +57,8 @@ def map_r_label_to_req_number(r_label: str) -> str:
         18: 8,  # Important: 18 maps to 8, not 9
         19: 9,
         20: 10,
-        21: 11,
-        22: 12,
+        21: 12,  # Fixed: R21 maps to requirement 12 (consulting supervisory authorities)
+        22: 11,  # Fixed: R22 maps to requirement 11 (data protection impact assessment)
         23: 13,
         24: 14,
         25: 15,
@@ -92,8 +92,8 @@ def req_number_to_r_label(req_number: str) -> str:
         '8': '18',
         '9': '19',
         '10': '20',
-        '11': '21',
-        '12': '22',
+        '11': '22',  # Fixed: requirement 11 maps to R22 (data protection impact assessment)
+        '12': '21',  # Fixed: requirement 12 maps to R21 (consulting supervisory authorities)
         '13': '23',
         '14': '24',
         '15': '25',

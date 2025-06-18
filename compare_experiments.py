@@ -8,7 +8,7 @@ from typing import Dict, Tuple, List, Set
 # Mapping between internal requirement numbers and R labels used in evaluation
 REQ_NUM_TO_R = {
     1: "10", 2: "11", 3: "12", 4: "13", 5: "15", 6: "16", 7: "17", 8: "18",
-    9: "19", 10: "20", 11: "21", 12: "22", 13: "23", 14: "24", 15: "25",
+    9: "19", 10: "20", 11: "22", 12: "21", 13: "23", 14: "24", 15: "25",
     16: "26", 17: "27", 18: "28", 19: "29"
 }
 R_TO_REQ_NUM = {v: str(k) for k, v in REQ_NUM_TO_R.items()}

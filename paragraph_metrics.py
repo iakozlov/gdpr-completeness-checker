@@ -48,19 +48,14 @@ def map_r_label_to_req_number(r_label: str) -> str:
     Returns:
         The corresponding requirement number
     """
-    # Convert R10-R29 to req 1-20 (excluding R14)
-    r_number = int(r_label)
+    # Use explicit mapping to match other evaluation files
+    mapping = {
+        10: 1, 11: 2, 12: 3, 13: 4, 15: 5, 16: 6, 17: 7, 18: 8, 19: 9,
+        20: 10, 21: 12, 22: 11, 23: 13, 24: 14, 25: 15, 26: 16, 27: 17, 28: 18, 29: 19
+    }
     
-    # Adjust for the absence of R14
-    if r_number < 14:
-        # R10-R13 map to 1-4
-        req_number = r_number - 9
-    elif r_number == 14:
-        # R14 doesn't exist
-        req_number = -1  # Invalid
-    else:
-        # R15-R29 map to 5-19
-        req_number = r_number - 10
+    r_number = int(r_label)
+    req_number = mapping.get(r_number, -1)
     
     return str(req_number) if req_number > 0 else r_label
 
