@@ -131,13 +131,20 @@ TASK:
 Classify the given DPA segment to determine which single GDPR requirement it is most relevant to. Return ONLY the requirement ID (e.g., "3") or "NONE" if not relevant to any requirement.
 
 CLASSIFICATION RULES:
-- Focus on processor obligations and responsibilities
-- Identify data protection measures and safeguards  
-- Look for legal compliance requirements
-- Recognize contractual obligations between controller and processor
-- Ignore administrative text, definitions, general business terms
-- If unsure, return "NONE"
-- Choose only ONE requirement ID, even if multiple might apply
+- Focus ONLY on specific, actionable processor obligations and responsibilities
+- Identify concrete data protection measures and safeguards with clear processor actions
+- Look for explicit contractual obligations between controller and processor
+- If the segment is dministrative text, definitions, general business terms, legal framework references, return "NONE"
+- If the segment is about headers, titles, appendices, section numbers, table of contents, return "NONE"
+- If the segment is a general GDPR/directive references without specific processor obligations, return "NONE"
+- If the segment is aboutn background information, introductory text, or context-setting statements, return "NONE"
+- Choose only ONE requirement ID for segments with clear, specific processor obligations
+
+ADDITIONAL EXCLUSION CRITERIA:
+- Single words or short phrases (< 10 words): Return "NONE"
+- Segments starting with "Article", "Section", "Appendix": Return "NONE"  
+- Segments that only reference laws/regulations without processor actions: Return "NONE"
+- Definitions or explanatory text without obligations: Return "NONE"
 
 EXAMPLES:
 
@@ -205,6 +212,21 @@ Input: "The subject matter of the data processing under this DPA is controller D
 Output: NONE
 
 Input: "Additional instructions outside the scope of the Documented Instructions (if any) require prior written agreement between processor"
+Output: NONE
+
+Input: "processor Agreement"
+Output: NONE
+
+Input: "Appendix A"
+Output: NONE
+
+Input: "The European Parliament and the Council's Directive 95/46/EF of 24 October 1995 on the protection of individuals with regard to the processing of personal data"
+Output: NONE
+
+Input: "Irrespective of the general use and reference to GDPR in this processor Agreement, the parties are not obliged to comply with GDPR before 25 May 2018."
+Output: NONE
+
+Input: "The processor shall comply with applicable data protection laws"
 Output: NONE"""
 
     user_prompt = segment_text
@@ -354,6 +376,13 @@ INSTRUCTIONS:
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
 5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
 
+ADDITIONAL VALIDATION RULES:
+6) Only extract facts if the CLAUSE contains SPECIFIC, ACTIONABLE processor obligations
+7) Ignore general compliance statements without concrete actions
+8) Require explicit mention of processor role AND specific action/obligation
+9) If the clause is administrative/definitional, output NO_FACTS regardless of keyword matches
+10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
+
 Examples:
 Example 1:
 REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
@@ -381,7 +410,28 @@ REQUIREMENT: The processor shall process personal data only on documented instru
 SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
 PREDICATES: process_on_documented_instructions; role(processor)
 CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
-Expected output: NO_FACTS."""
+Expected output: NO_FACTS
+
+Example 5 (Administrative Text):
+REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality.
+SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
+PREDICATES: ensure_confidentiality_commitment; role(processor)
+CLAUSE: processor Agreement
+Expected output: NO_FACTS
+
+Example 6 (Legal Reference):
+REQUIREMENT: The processor shall assist the controller in ensuring compliance with data-protection impact-assessment obligations.
+SYMBOLIC: &obligatory{assist_impact_assessment_compliance} :- role(processor).
+PREDICATES: assist_impact_assessment_compliance; role(processor)
+CLAUSE: in accordance with GDPR article 35
+Expected output: NO_FACTS
+
+Example 7 (General Statement):
+REQUIREMENT: The processor shall allow for and contribute to audits, including inspections.
+SYMBOLIC: &obligatory{allow_contribute_audits} :- role(processor).
+PREDICATES: allow_contribute_audits; role(processor)
+CLAUSE: The processor shall comply with applicable data protection laws
+Expected output: NO_FACTS"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
