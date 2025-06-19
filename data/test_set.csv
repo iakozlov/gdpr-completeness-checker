@@ -23,7 +23,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 4728,28865,22,Online 124,"These personal data are not comprised by this processor Agreement, because the processor is Controller for said personal data, and reference is made to the processor’s data protection and privacy policy available at the processor’s website.",other,other,other,test,other,19
 4729,28866,23,Online 124,Instruction,other,other,other,test,other,19
 4730,28867,24,Online 124,The processor may only act and process the Personal Data in accordance with the documented instruction from the Controller (the ”Instruction”).,R12,other,other,test,R12,2
-4731,28868,25,Online 124,The Instruction at the time of entering into this processor Agreement is that the processor may only process the Personal Data with the purpose of delivering the Main Services as described in the Main Agreement.,other,other,other,test,other,19
+4731,28868,25,Online 124,The Instruction at the time of entering into this processor Agreement is that the processor may only process the Personal Data with the purpose of delivering the Main Services as described in the Main Agreement.,other,R12,other,test,other,19
 4732,28869,26,Online 124,"The Controller guarantees that the Personal Data transferred to the processor is processed by the Controller in accordance with the Applicable Law, including the legislative requirements re lawfulness of processing.",other,other,other,test,other,19
 4733,28870,27,Online 124,The processor shall give notice without undue delay if the processor considers the at the time being Instruction to be in conflict with the Applicable Law.,R24,other,other,test,R24,13
 4734,28871,28,Online 124,The processor’s obligations,other,other,other,test,other,19
@@ -34,14 +34,14 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 4739,28876,33,Online 124,Security,other,other,other,test,other,19
 4740,28877,34,Online 124,"5.2.1 The processor shall implement the appropriate technical and organizational measures as set out in this Agreement and in the Applicable Law, including in accordance with GDPR, article 32.",R16,other,other,test,R16,5
 4741,28878,35,Online 124,The processor shall ensure that access to the Personal Data is restricted to only the employees to whom it is necessary and relevant to process the Personal Data in order for the processor to perform its obligations under the Main Agreement and this processor Agreement.,R15,other,other,test,R15,4
-4742,28879,36,Online 124,The processor shall also ensure that the processor’s employees working processing the Personal Data only processes the Personal Data in accordance with the Instruction.,other,other,other,test,other,19
+4742,28879,36,Online 124,The processor shall also ensure that the processor’s employees working processing the Personal Data only processes the Personal Data in accordance with the Instruction.,other,R12,other,test,other,19
 4743,28880,37,Online 124,5.4.1 The processor shall provide documentation for the processor’s security measures if requested by the Controller in writing.,other,other,other,test,other,19
 4744,28881,38,Online 124,Data protection impact assessments and prior consultation,other,other,other,test,other,19
 4745,28882,39,Online 124,"5.5.1 If the processor’s assistance is necessary and relevant, the processor shall assist the Controller in preparing data protection impact assessments in accordance with GDPR, article 35, along with any prior consultation in accordance with GDPR, article 36.",R22,other,other,test,R22,11
 4746,28883,40,Online 124,Rights of the data subjects,other,other,other,test,other,19
 4747,28884,41,Online 124,"If the Controller receives a request from a data subject for the exercise of the data subject’s rights under the Applicable Law and the correct and legitimate reply to such a request necessitates the processor’s assistance, the processor shall assist the Controller by providing the necessary information and documentation.",R17,other,other,test,R17,6
 4748,28885,42,Online 124,The processor shall be given reasonable time to assist the Controller with such requests in accordance with the Applicable Law.,other,other,other,test,other,19
-4749,28886,43,Online 124,"If the processor receives a request from a data subject for the exercise of the data subject’s rights under the Applicable Law and such request is related to the Personal Data of the Controller, the processor must immediately forward the request to the Controller and must refrain from responding to the person directly.",other,other,other,test,other,19
+4749,28886,43,Online 124,"If the processor receives a request from a data subject for the exercise of the data subject’s rights under the Applicable Law and such request is related to the Personal Data of the Controller, the processor must immediately forward the request to the Controller and must refrain from responding to the person directly.",other,R17,other,test,other,19
 4750,28887,44,Online 124,Personal Data Breaches,other,other,other,test,other,19
 4751,28888,45,Online 124,"The processor shall give immediate notice to the Controller if a breach of the data security occurs, that can lead to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of or access to, personal data transmitted, stored or otherwise processed re the Personal Data processed on behalf of the Controller (a “Personal Data Breach”).",other,R19,other,test,other,19
 4752,28889,46,Online 124,The processor shall have and maintain a register of all Personal Data Breaches.,R40,other,other,test,other,19
@@ -54,7 +54,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 4759,28896,53,Online 124,The processor shall after the Controller’s written request hereof provide documentation substantiating that:,other,other,other,test,other,19
 4760,28897,54,Online 124,the processor complies with its obligations under this processor Agreement and the Instruction; and,R25,other,other,test,R25,14
 4761,28898,55,Online 124,the processor complies with the Applicable Law in respect of the processing of the Controller’s Personal Data.,R25,other,other,test,R25,14
-4762,28899,56,Online 124,The processor’s documentation of compliance shall be provided within reasonable time.,other,other,other,test,other,19
+4762,28899,56,Online 124,The processor’s documentation of compliance shall be provided within reasonable time.,other,R25,other,test,other,19
 4763,28900,57,Online 124,Location of the Personal Data,other,other,other,test,other,19
 4764,28901,58,Online 124,The Personal Data is only processed by the processor at the processor’s address.,other,other,other,test,other,19
 4765,28902,59,Online 124,The processor does not transfer the Personal Data to third countries or international organizations.,R30,other,other,test,other,19
@@ -571,7 +571,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5276,29413,38,Online 132,Services means the Services to be carried out by the processor in order to,other,other,other,test,other,19
 5277,29414,39,Online 132,"provide processor, and any other services that may from time to time be provided by the processor, to the controller.",other,other,other,test,other,19
 5278,29415,40,Online 132,The Agreement,other,other,other,test,other,19
-5279,29416,41,Online 132,This Agreement and its parts constitute written instructions of the controller to the processor to process personal data in the manner described in Schedule 1.,other,other,other,test,other,19
+5279,29416,41,Online 132,This Agreement and its parts constitute written instructions of the controller to the processor to process personal data in the manner described in Schedule 1.,other,R12,other,test,other,19
 5280,29417,42,Online 132,"The controller, the controller, wishes to use processor’s services and processor has agreed to provide these services according to instructions in this Agreement.",other,other,other,test,other,19
 5281,29418,43,Online 132,"processor, the processor, is a software application that consists of a range of products to support healthcare or social care organisations.",other,other,other,test,other,19
 5282,29419,44,Online 132,"processor is used to communicate with and between Patients, healthcare and/or social care professionals involved in the Patient’s care.",other,other,other,test,other,19
@@ -591,7 +591,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5296,29433,58,Online 132,The instructions given by the controller to the processor in respect of the Personal Data/Special Categories of Personal Data disclosed to it by patients of the controller or generated in respect of such patients shall at all times be in accordance with the laws of the United Kingdom.,R6,other,other,test,other,19
 5297,29434,59,Online 132,The controller must ensure that all data fields in processor are correctly filled in and do not contain patient identifiable information where they are not supposed to.,other,other,other,test,other,19
 5298,29435,60,Online 132,"The controller, by entering into this Agreement, instructs the processor to process the Personal Data/Special Categories of Personal Data on its behalf for the purpose of providing the Services, including the purpose of usage data reports in anonymised form.",R12,other,other,test,R12,2
-5299,29436,61,Online 132,"The controller, by entering into this Agreement, instructs the processor to engage in reasonable monitoring of messages to prevent abuse, fraud or harm to patients through technical or user errors.",R12,other,other,test,R12,2
+5299,29436,61,Online 132,"The controller, by entering into this Agreement, instructs the processor to engage in reasonable monitoring of messages to prevent abuse, fraud or harm to patients through technical or user errors.",other,other,other,test,other,19
 5300,29437,62,Online 132,This monitoring shall be proportionate and carried out through a person acting as a clinical lead.,other,other,other,test,other,19
 5301,29438,63,Online 132,Obligations of the processor,other,other,other,test,other,19
 5302,29439,64,Online 132,Data Processing,other,other,other,test,other,19
@@ -610,10 +610,10 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5315,29452,77,Online 132,As a minimum all data shall be encrypted in transit (with HTTPS via TLS 1.2 or higher) and at rest via Transparent Data Encryption (TDE);,R7,other,other,test,other,19
 5316,29453,78,Online 132,Compliance,other,other,other,test,other,19
 5317,29454,79,Online 132,"Assist the controller in meeting its GDPR obligations in relation to the security of processing, the notification of personal data breaches, and data protection impact assessments.",R20,R18,R22,test,R20,9
-5318,29455,80,Online 132,Make available to the controller all information necessary to demonstrate,other,other,other,test,other,19
+5318,29455,80,Online 132,Make available to the controller all information necessary to demonstrate,other,R25,other,test,other,19
 5319,29456,81,Online 132,"compliance with the obligations according to Article 28 of the GDPR and to allow for and contribute to audits, including inspections, conducted by the controller or another auditor mandated by the controller.",R25,R26,other,test,R25,14
 5320,29457,82,Online 132,"Delete or return all personal data to the controller, at the choice of the controller, as requested at the point of termination of the Agreement.",R23,other,other,test,R23,12
-5321,29458,83,Online 132,"Notify all Customers of any information security breach or incident that may compromise the Personal Data & Special Categories of Personal Data covered by this agreement without undue delay after becoming aware of any such incident, taking into consideration the statutory breach reporting requirements and deadlines.",other,R10,other,test,other,19
+5321,29458,83,Online 132,"Notify all Customers of any information security breach or incident that may compromise the Personal Data & Special Categories of Personal Data covered by this agreement without undue delay after becoming aware of any such incident, taking into consideration the statutory breach reporting requirements and deadlines.",other,R20,test,other,19
 5322,29459,84,Online 132,The processor shall work with the controller to carry out a risk assessment and allow them to oversee and assess any corrective action.,R45,other,other,test,other,19
 5323,29460,85,Online 132,To maintain up-to-date compliance with the NHS Data Security and Protection Toolkit (DSPT).,R16,other,other,test,R16,5
 5324,29461,86,Online 132,processor’s published report can be found under organisation code 8JT17.,other,other,other,test,other,19
@@ -1197,7 +1197,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5902,30039,37,Online 54,The processor will in adhere to the following requirements:,other,other,other,test,other,19
 5903,30040,38,Online 54,Processing takes place exclusively on the basis of written instructions from the controller.,R12,other,other,test,R12,2
 5904,30041,39,Online 54,The processor may not use the personal data for its own purposes.,other,other,other,test,other,19
-5905,30042,40,Online 54,People employed by or working for the processor who come into contact with the relevant data have a non-disclosure agreement.,other,other,other,test,other,19
+5905,30042,40,Online 54,People employed by or working for the processor who come into contact with the relevant data have a non-disclosure agreement.,other,R15,other,test,other,19
 5906,30043,41,Online 54,Processor takes appropriate technical and organizational measures so that the processing meets the requirements of the GDPR and the protection of the rights of the data subjects is guaranteed (see last section).,R7,other,other,test,other,19
 5907,30044,42,Online 54,The processor does not engage with any sub-processor(s) without prior written permission from / or agreement with the controller.,R10,other,other,test,R10,0
 5908,30045,43,Online 54,The processor establishes the same obligations for a sub-processor in a sub-processor agreement as in this agreement.,R27,other,other,test,R27,16
@@ -1213,7 +1213,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5918,30055,53,Online 54,The processor will not charge more than reasonable costs for this (max.,other,other,other,test,other,19
 5919,30056,54,Online 54,€ 100 per hour for direct hours only).,other,other,other,test,other,19
 5920,30057,55,Online 54,The processor cooperates with audits by the controller or a third party engaged by the controller.,R26,other,other,test,R26,15
-5921,30058,56,Online 54,The processor makes all relevant information available to check whether the processor complies with the obligations set out in this agreement.,other,other,other,test,other,19
+5921,30058,56,Online 54,The processor makes all relevant information available to check whether the processor complies with the obligations set out in this agreement.,other,R25,other,test,other,19
 5922,30059,57,Online 54,"After the processing services have ended, the processor will delete the data (or return it to the responsible party), unless it is legally obliged to keep it.",R23,other,other,test,R23,12
 5923,30060,58,Online 54,"This will be done as soon as possible, but in any case within four weeks after the end of the processing services.",other,other,other,test,other,19
 5924,30061,59,Online 54,"The processor may not process the data outside organizations / countries that offer at least as many guarantees as the European Union, unless otherwise agreed in writing.",other,other,other,test,other,19
@@ -1239,21 +1239,21 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5944,30081,79,Online 54,General description: ,other,other,other,test,other,19
 5945,30082,80,Online 54,"A description of the subject, the duration, the nature and the purpose of the processing, the type of personal data, the categories of data subjects and your rights and obligations as a controller.",other,other,other,test,other,19
 5946,30083,81,Online 54,Processing instructions,other,other,other,test,other,19
-5947,30084,82,Online 54,"In principle, the processing takes place exclusively on the basis of your written instructions.",other,other,other,test,other,19
+5947,30084,82,Online 54,"In principle, the processing takes place exclusively on the basis of your written instructions.",other,R12,other,test,other,19
 5948,30085,83,Online 54,The processor may not use the personal data for its own purposes.,other,other,other,test,other,19
 5949,30086,84,Online 54,Non-disclosure,other,other,other,test,other,19
-5950,30087,85,Online 54,Persons employed by or working for the processor have a non-disclosure agreement.,other,other,other,test,other,19
+5950,30087,85,Online 54,Persons employed by or working for the processor have a non-disclosure agreement.,other,R15,other,test,other,19
 5951,30088,86,Online 54,Security,other,other,other,test,other,19
 5952,30089,87,Online 54,The processor will take appropriate technical and organizational measures to secure the processing.,R16,other,other,test,R16,5
 5953,30090,88,Online 54,"For example pseudonymization and encryption of personal data, permanent information security, recovery of availability and access to data in the event of incidents, regular security tests.",R29,other,other,test,R29,18
 5954,30091,89,Online 54,Sub-processors,other,other,other,test,other,19
 5955,30092,90,Online 54,The processor will not engage any sub-processor (s) without your prior written consent.,other,other,other,test,other,19
-5956,30093,91,Online 54,The processor imposes the same obligations on a sub-processor in a sub-processor agreement as the processor has towards you.,other,other,other,test,other,19
+5956,30093,91,Online 54,The processor imposes the same obligations on a sub-processor in a sub-processor agreement as the processor has towards you.,other,R27,other,test,other,19
 5957,30094,92,Online 54,"You can also directly agree in the agreement that, and under what conditions, the processor may engage sub-processors.",other,other,other,test,other,19
 5958,30095,93,Online 54,Is the sub-processor not fulfilling its obligations?,other,other,other,test,other,19
-5959,30096,94,Online 54,"Then the processor remains fully liable to you for fulfilling the obligations of the sub-processor (see Article 28, paragraph 4 of the GDPR).",other,other,other,test,other,19
+5959,30096,94,Online 54,"Then the processor remains fully liable to you for fulfilling the obligations of the sub-processor (see Article 28, paragraph 4 of the GDPR).",other,R28,other,test,other,19
 5960,30097,95,Online 54,Privacy rights,other,other,other,test,other,19
-5961,30098,96,Online 54,"The processor helps you to comply with your obligations when data subjects exercise their privacy rights (such as the right to access, correction, erasure and data portability).",other,other,other,test,other,19
+5961,30098,96,Online 54,"The processor helps you to comply with your obligations when data subjects exercise their privacy rights (such as the right to access, correction, erasure and data portability).",other,R17,other,test,other,19
 5962,30099,97,Online 54,Other obligations  ,other,other,other,test,other,19
 5963,30100,98,Online 54,The processor also helps you to fulfill other obligations.,other,other,other,test,other,19
 5964,30101,99,Online 54,"Such as reporting data leaks, carrying out a data protection impact (DPIA) and a prior consultation.",other,other,other,test,other,19
@@ -1262,7 +1262,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5967,30104,102,Online 54,Or he will return it to you if you wish.,other,other,other,test,other,19
 5968,30105,103,Online 54,"He also removes copies, unless the processor is legally obliged to keep the data.",other,other,other,test,other,19
 5969,30106,104,Online 54,Audits,other,other,other,test,other,19
-5970,30107,105,Online 54,The processor cooperates with your audits or those of a third party.,other,other,other,test,other,19
+5970,30107,105,Online 54,The processor cooperates with your audits or those of a third party.,other,R26,other,test,other,19
 5971,30108,106,Online 54,And makes all relevant information available to check whether he as a processor complies with the above-mentioned obligations (from Article 28 GDPR).,other,R25,other,test,other,19
 5972,30109,107,Online 54,ICT Institute publishes template such as these in order to help entrepreneurs to be compliant.,other,other,other,test,other,19
 5973,30110,108,Online 54,"Check our website for more information in GDPR, privacy and information security",other,other,other,test,other,19

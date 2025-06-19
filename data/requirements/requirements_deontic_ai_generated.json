@@ -104,10 +104,9 @@
     },
     "13": {
       "text": "The processor shall return or delete all personal data to the controller after the end of the provision of services relating to processing.",
-      "symbolic": "&obligatory{return_or_delete_personal_data} :- role(processor), end_of_services.",
+      "symbolic": "&obligatory{return_or_delete_personal_data} :- role(processor).",
       "atoms": [
         "role(processor)",
-        "end_of_services",
         "return_or_delete_personal_data"
       ]
     },
