@@ -1,245 +1,79 @@
-# RCV Approach: Requirement Classification and Verification
+# Requirements Completeness Verification (RCV) Approach
 
 ## Overview
 
-The RCV (Requirement Classification and Verification) approach is an improved method for processing DPA (Data Processing Agreement) text segments that addresses the noise problem of checking every segment against every requirement.
+The RCV approach is a hybrid symbolic-neural method for automatically verifying whether Data Processing Agreements (DPAs) satisfy GDPR processor obligations. It combines Large Language Models (LLMs) for natural language understanding with Answer Set Programming (ASP) for formal logical reasoning.
 
-## Key Improvements
+## Core Algorithm
 
-### Traditional Approach Problems
-- **Computational Inefficiency**: Every segment was checked against all 19 GDPR requirements
-- **Noise Amplification**: Many irrelevant segments (headings, boilerplate) generated false positives
-- **Poor Signal-to-Noise Ratio**: Relevant information was buried in irrelevant classifications
+### Phase 1: Requirement Formalization
+1. **Symbolic Representation**: GDPR processor obligations are encoded as deontic logic rules using obligation operators (`&obligatory{}`)
+2. **Predicate Extraction**: Each requirement is decomposed into atomic predicates representing roles, conditions, and actions
+3. **Logic Programming Rules**: Requirements are expressed as ASP rules with triggering conditions and obligated outcomes
 
-### RCV Approach Solutions
-- **Two-Step Process**: First classify relevance, then verify satisfaction
-- **Focused Analysis**: Only perform detailed verification on relevant segments
-- **Reduced Noise**: Administrative text and headings are filtered out as "NONE"
-- **Symbolic Reasoning**: Uses ASP (Answer Set Programming) for formal verification
+### Phase 2: Document Processing
+1. **Segmentation**: DPA documents are divided into coherent segments (paragraphs or logical units)
+2. **Classification**: Each segment is classified against all requirements to determine potential relevance
+3. **Fact Extraction**: For relevant segments, atomic facts are extracted that correspond to requirement predicates
+4. **Validation**: Extracted facts are filtered to ensure only processor-related obligations are considered
 
-## How It Works
+### Phase 3: Logical Verification
+1. **Program Construction**: For each segment-requirement pair:
+   - Combine the symbolic requirement rule
+   - Add extracted facts as ground truth
+   - Include deontic status mapping rules
+2. **ASP Solving**: Execute the combined program using a deontic logic solver
+3. **Status Determination**: Map solver output to requirement satisfaction status:
+   - `SATISFIED`: Obligation is fulfilled (action performed)
+   - `VIOLATED`: Obligation exists but is breached
+   - `NOT_MENTIONED`: No relevant obligation found
 
-### Step 1: Classification
-For each DPA segment, the LLM determines:
-- Which single GDPR requirement (if any) it is most relevant to
-- Returns either a requirement ID (e.g., "3") or "NONE"
+### Phase 4: Completeness Assessment
+1. **Requirement Aggregation**: Determine which requirements are satisfied across all document segments
+2. **Coverage Analysis**: Compare satisfied requirements against the complete set of GDPR obligations
+3. **Gap Identification**: Identify missing or unsatisfied requirements
+4. **Completeness Scoring**: Calculate overall compliance metrics
 
-### Step 2: Verification (Conditional)
-If and only if a requirement was identified:
-- Extract symbolic facts specific to that requirement
-- Use ASP solver to formally verify if the obligation is met
-- Combine facts with logic rules for final determination
-
-## Architecture
+## Data Flow
 
 ```
-DPA Segment → Classification LLM → Requirement ID or "NONE"
-                                          ↓
-                                   [If not "NONE"]
-                                          ↓
-                              Verification LLM → Extract Facts
-                                          ↓
-                              Logic Program Generator
-                                          ↓
-                                 ASP Solver (deolingo)
-                                          ↓
-                                  Final Prediction
+DPA Document → Segments → Classification → Fact Extraction → ASP Programs → Deontic Solver → Status Results → Completeness Analysis
 ```
 
-## Usage
+### Key Transformations
 
-### Prerequisites
+1. **Natural Language → Symbolic Logic**: LLM converts segment text into logical predicates
+2. **Predicates → ASP Facts**: Extracted predicates become ground facts in logic programs
+3. **Deontic Rules → Satisfaction Status**: ASP solver determines obligation fulfillment
+4. **Status Collection → Completeness Verdict**: Aggregate individual results into overall assessment
 
-1. **Install Dependencies**:
-   ```bash
-   pip3 install -r requirements.txt
-   ```
+## Logical Foundation
 
-2. **Install Deolingo ASP Solver**:
-   ```bash
-   pip3 install git+https://github.com/ovidiomanteiga/deolingo.git@main
-   ```
+The approach leverages **deontic logic** principles where:
+- Obligations are triggered by contextual conditions (e.g., processor role)
+- Fulfillment requires actual performance of obligated actions
+- Violations occur when obligations exist but actions are not performed
+- Undetermined states indicate insufficient information
 
-3. **Start Ollama Server**:
-   ```bash
-   ollama serve
-   ```
+### Satisfaction Criteria
 
-4. **Pull Required Model**:
-   ```bash
-   ollama pull llama3.3:70b
-   ```
+An obligation is considered **satisfied** when:
+1. The obligation rule is triggered (conditions met)
+2. The obligated action is actually performed (evidenced in text)
 
-### Basic Usage
+This ensures that segments demonstrating actual compliance behavior are correctly recognized, regardless of explicit termination conditions or contextual triggers.
 
-```bash
-python3 classify_and_verify.py \
-  --requirements data/requirements/requirements_deontic_ai_generated.json \
-  --dpa_segments data/test_set.csv \
-  --target_dpa "Online 124" \
-  --output_dir results/rcv_output \
-  --model llama3.3:70b \
-  --max_segments 10 \
-  --verbose
-```
+## Advantages
 
-### Parameters
+- **Formal Verification**: Uses logical reasoning rather than pattern matching
+- **Interpretability**: Clear mapping from text to logical facts to conclusions
+- **Precision**: Distinguishes between different types of non-compliance
+- **Scalability**: Systematic processing of large document collections
+- **Consistency**: Uniform application of GDPR requirements across documents
 
-- `--requirements`: Path to requirements JSON file
-- `--dpa_segments`: Path to DPA segments CSV file  
-- `--target_dpa`: Name of the DPA to process
-- `--output_dir`: Directory for output files
-- `--model`: Ollama model to use (default: llama3.3:70b)
-- `--max_segments`: Limit number of segments (0 = all)
-- `--verbose`: Enable detailed logging
+## Applications
 
-### Test Run
-
-Use the included test script for a quick demonstration:
-
-```bash
-python3 test_rcv_approach.py
-```
-
-This will process 5 segments from "Online 124" and demonstrate the complete workflow.
-
-## Output Files
-
-### Results CSV
-Contains the main results with columns:
-- `Segment_ID`: Unique identifier for the segment
-- `DPA`: Name of the DPA
-- `Segment_Text`: Original text of the segment
-- `LLM_Classification`: Which requirement ID was classified (or "NONE")
-- `Extracted_Facts`: Symbolic facts extracted from the segment
-- `Final_Prediction`: Final ASP solver prediction
-- `Ground_Truth`: Known correct answer (if available)
-
-### Logic Program Files
-- Generated in `output_dir/lp_files/DPA_NAME/`
-- One `.lp` file per segment
-- Contains the complete logic program used by the ASP solver
-
-## Logic Program Structure
-
-Each generated logic program contains three parts:
-
-### 1. Static Verification Engine
-```prolog
-% Rules for all 19 requirements
-requirement_satisfied(1) :- role(processor), not authorization(controller), engage_sub_processor.
-requirement_satisfied(2) :- role(processor), general_written_authorization, inform_controller_changes.
-% ... (all 19 requirements)
-```
-
-### 2. Dynamic Facts from LLM
-```prolog
-% Classification result
-classified_as(3).
-
-% Extracted facts specific to the classified requirement
-role(processor).
-process_data_on_documented_instructions.
-```
-
-### 3. Final Prediction Logic
-```prolog
-% Determine final answer based on facts and rules
-final_prediction(R) :- requirement_satisfied(R).
-final_prediction(none) :- classified_as(R), R != none, not requirement_satisfied(R).
-final_prediction(none) :- classified_as(none).
-#show final_prediction/1.
-```
-
-## Example Workflow
-
-### Input Segment
-```
-"The processor may only act and process the Personal Data in accordance with the documented instruction from the Controller."
-```
-
-### Step 1: Classification
-- **LLM Analysis**: This segment describes processing instructions
-- **Result**: Classified as requirement "3" (processor shall process data only on documented instructions)
-
-### Step 2: Verification
-- **Available Atoms**: `["role(processor)", "process_data_on_documented_instructions"]`
-- **LLM Extraction**: `role(processor);process_data_on_documented_instructions`
-
-### Step 3: Logic Program Generation
-```prolog
-% Static engine (abbreviated)
-requirement_satisfied(3) :- role(processor), process_data_on_documented_instructions.
-
-% Dynamic facts
-classified_as(3).
-role(processor).
-process_data_on_documented_instructions.
-
-% Final logic
-final_prediction(R) :- requirement_satisfied(R).
-```
-
-### Step 4: ASP Solver Result
-- **Final Prediction**: "3" (requirement is satisfied)
-
-## Comparison with Traditional Approach
-
-| Aspect | Traditional | RCV Approach |
-|--------|------------|--------------|
-| LLM Calls per Segment | 19 (one per requirement) | 1-2 (classification + verification if needed) |
-| Noise Handling | Poor (all segments processed equally) | Good (irrelevant segments filtered out) |
-| Computational Efficiency | Low (O(n×m) where n=segments, m=requirements) | High (O(n) for most segments) |
-| False Positives | High (many irrelevant matches) | Low (focused verification) |
-| Symbolic Reasoning | Per-requirement basis | Unified ASP engine |
-
-## Benefits
-
-1. **Efficiency**: Reduces LLM calls by ~90% for irrelevant segments
-2. **Accuracy**: Focused analysis reduces false positives
-3. **Scalability**: Linear complexity instead of quadratic
-4. **Maintainability**: Single unified logic engine
-5. **Interpretability**: Clear two-step decision process
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Ollama Server Not Running**:
-   ```
-   Error: Ollama server is not running. Please start it first.
-   ```
-   Solution: Run `ollama serve` in a separate terminal
-
-2. **Model Not Available**:
-   ```
-   Error: Model 'llama3.3:70b' not found
-   ```
-   Solution: Run `ollama pull llama3.3:70b`
-
-3. **Deolingo Not Installed**:
-   ```
-   Error: 'deolingo' command not found
-   ```
-   Solution: Install with pip3 as shown in prerequisites
-
-4. **No Segments Found**:
-   ```
-   Error: No segments found for DPA: "YourDPA"
-   ```
-   Solution: Check DPA name matches exactly (case-sensitive)
-
-### Performance Tips
-
-- Use `--max_segments` for testing to limit processing time
-- Enable `--verbose` for debugging classification/verification steps
-- Monitor Ollama server logs for model performance
-- Check ASP solver output in verbose mode for logic errors
-
-## Future Enhancements
-
-- Support for multiple classification models
-- Batch processing for multiple DPAs
-- Integration with evaluation metrics
-- Export to different output formats
-- Real-time processing capabilities 
+- **Compliance Auditing**: Automated verification of DPA completeness
+- **Gap Analysis**: Identification of missing contractual provisions
+- **Quality Assurance**: Systematic review of legal document adequacy
+- **Regulatory Assessment**: Support for GDPR compliance evaluation 
