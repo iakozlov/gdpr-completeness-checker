@@ -7,8 +7,8 @@ set -e  # Exit on any error
 # Configuration
 DPA_CSV="data/test_set.csv"
 REQUIREMENTS_FILE="data/requirements/requirements_deontic_ai_generated.json"
-OLLAMA_MODEL="qwen2.5:32b"  # Default Ollama model
-OUTPUT_DIR="results/pairwise_approach/qwen2.5-32b/ai_gen_req"
+OLLAMA_MODEL="llama3.3:70b"  # Default Ollama model
+OUTPUT_DIR="results/pairwise_approach/llama3-70/ai_gen_req"
 DEOLINGO_RESULTS="${OUTPUT_DIR}/deolingo_results.txt"
 EVALUATION_OUTPUT="${OUTPUT_DIR}/evaluation_results.json"
 PARAGRAPH_OUTPUT="${OUTPUT_DIR}/paragraph_metrics.json"

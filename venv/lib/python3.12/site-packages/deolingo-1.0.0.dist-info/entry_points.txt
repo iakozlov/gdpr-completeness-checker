@@ -1,0 +1,2 @@
+[console_scripts]
+deolingo = deolingo.__main__:main
