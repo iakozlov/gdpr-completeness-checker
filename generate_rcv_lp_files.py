@@ -145,6 +145,21 @@ CLASSIFICATION RULES:
 - IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
 - IMPORTANT: Recognize indirect obligations (processor actions that assist controller obligations)
 
+SPECIAL GUIDANCE FOR REQUIREMENT 6 (Article 32 Security Measures):
+This requirement covers technical and organizational security measures, including:
+- Encryption of personal data (at rest, in transit, or in processing)
+- Pseudonymization techniques
+- Access controls, authentication, authorization systems
+- Physical security measures (building access, visitor management)
+- System security measures (firewalls, intrusion detection, monitoring)
+- Data backup and disaster recovery systems
+- Business continuity planning
+- Security testing, auditing, and assessment processes
+- Staff security training and awareness
+- Incident response procedures
+- Confidentiality, integrity, availability, and resilience of processing systems
+- Any technical or organizational measure designed to protect personal data security
+
 Return "NONE" for:
 - Administrative headers, titles, appendices, section numbers, table of contents  
 - Definitions or explanatory text without actionable obligations
@@ -187,6 +202,18 @@ Input: "processor imposes appropriate contractual obligations upon its personnel
 Output: 5
 
 Input: "Guests and visitors to processor buildings must register their names at reception and must be accompanied by authorized processor personnel."
+Output: 6
+
+Input: "The processor implements multi-factor authentication for all system access."
+Output: 6
+
+Input: "Regular security audits and penetration testing shall be conducted by the processor."
+Output: 6
+
+Input: "All customer data is encrypted both at rest and in transit using industry-standard encryption algorithms."
+Output: 6
+
+Input: "The processor maintains backup systems to ensure data availability and implements disaster recovery procedures."
 Output: 6
 
 Input: "In the event any such request is made directly to processor, processor shall notify controller in writing of such request promptly upon receipt thereof."
@@ -259,12 +286,6 @@ Input: "The processor shall comply with applicable data protection laws"
 Output: NONE
 
 Input: "The processor Agreement shall ensure that the processor complies with the applicable data protection and privacy legislation"
-Output: NONE
-
-Input: "In connection with the processor's delivery of the Main Services to the Controller, the processor will process certain categories and types of the Controller's personal data on behalf of the Controller."
-Output: NONE
-
-Input: "The processor shall have and maintain a register of processing activities in accordance with GDPR, article 32 (2)."
 Output: NONE
 
 Input: "The parties shall update sub-appendix A whenever changes occur that necessitates an update."
@@ -403,7 +424,7 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
 
 
 def extract_facts_from_dpa(segment_text: str, req_text: str, req_symbolic: str, req_predicates: List[str], 
-                           llm_client: OllamaClient, model: str) -> Dict:
+                           llm_client: OllamaClient, model: str, req_id: str = None) -> Dict:
     """Extract facts from a DPA segment using the LLM."""
     system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
@@ -430,6 +451,19 @@ ADDITIONAL VALIDATION RULES:
 9) Return NO_FACTS for: Segments that only mention "processor" without describing specific obligations
 10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
 11) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
+
+SPECIAL GUIDANCE FOR REQUIREMENT 6 (Article 32 Security Measures):
+When analyzing segments for requirement 6, look for specific technical and organizational security measures:
+- Encryption implementations (at rest, in transit, pseudonymization)
+- Access control systems (authentication, authorization, multi-factor authentication)
+- Physical security measures (building access, visitor controls, equipment security)
+- System security (firewalls, monitoring, intrusion detection, antivirus)
+- Data protection measures (backup systems, disaster recovery, business continuity)
+- Security testing and assessment (audits, penetration testing, vulnerability assessments)
+- Security training and awareness programs
+- Security incident response procedures
+- Any measure designed to ensure confidentiality, integrity, availability, and resilience
+Extract 'ensure_security_of_processing' if the segment describes any concrete security measure that protects personal data.
 
 Examples:
 Example 1:
@@ -486,7 +520,14 @@ REQUIREMENT: The processor shall assist the controller in communicating a person
 SYMBOLIC: &obligatory{assist_controller_communicate_data_breach_data_subject} :- role(processor).
 PREDICATES: assist_controller_communicate_data_breach_data_subject; role(processor)
 CLAUSE: Notify all Customers of any information security breach or incident that may compromise the Personal Data without undue delay after becoming aware of any such incident.
-Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)"""
+Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)
+
+Example 9 (Article 32 Security Measures - Encryption):
+REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing. Article 32 requires implementing appropriate technical and organizational measures to ensure a level of security appropriate to the risk, including: (a) the pseudonymisation and encryption of personal data; (b) the ability to ensure the ongoing confidentiality, integrity, availability and resilience of processing systems and services; (c) the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident; (d) a process for regularly testing, assessing and evaluating the effectiveness of technical and organizational measures for ensuring the security of the processing.
+SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
+PREDICATES: ensure_security_of_processing; role(processor)
+CLAUSE: All personal data is encrypted using AES-256 encryption both at rest and in transit.
+Expected output: ensure_security_of_processing; role(processor)"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
@@ -546,7 +587,7 @@ def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_clie
             if req_id == classified_id:
                 # Step 2: Verification for the classified requirement
                 facts = extract_facts_from_dpa(segment_text, req_text, req_symbolic, req_predicates, 
-                                             llm_client, model)
+                                             llm_client, model, req_id)
                 
                 # Generate LP file content
                 lp_content = generate_lp_file(segment_text, req_text, req_symbolic, facts, req_predicates)
