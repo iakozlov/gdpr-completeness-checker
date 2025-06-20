@@ -159,6 +159,7 @@ This requirement covers technical and organizational security measures, includin
 - Incident response procedures
 - Confidentiality, integrity, availability, and resilience of processing systems
 - Any technical or organizational measure designed to protect personal data security
+If the segment mentions measures from above then classify it as 6.
 
 Return "NONE" for:
 - Administrative headers, titles, appendices, section numbers, table of contents  
@@ -452,19 +453,6 @@ ADDITIONAL VALIDATION RULES:
 10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
 11) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
 
-SPECIAL GUIDANCE FOR REQUIREMENT 6 (Article 32 Security Measures):
-When analyzing segments for requirement 6, look for specific technical and organizational security measures:
-- Encryption implementations (at rest, in transit, pseudonymization)
-- Access control systems (authentication, authorization, multi-factor authentication)
-- Physical security measures (building access, visitor controls, equipment security)
-- System security (firewalls, monitoring, intrusion detection, antivirus)
-- Data protection measures (backup systems, disaster recovery, business continuity)
-- Security testing and assessment (audits, penetration testing, vulnerability assessments)
-- Security training and awareness programs
-- Security incident response procedures
-- Any measure designed to ensure confidentiality, integrity, availability, and resilience
-Extract 'ensure_security_of_processing' if the segment describes any concrete security measure that protects personal data.
-
 Examples:
 Example 1:
 REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
@@ -523,7 +511,7 @@ CLAUSE: Notify all Customers of any information security breach or incident that
 Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)
 
 Example 9 (Article 32 Security Measures - Encryption):
-REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing. Article 32 requires implementing appropriate technical and organizational measures to ensure a level of security appropriate to the risk, including: (a) the pseudonymisation and encryption of personal data; (b) the ability to ensure the ongoing confidentiality, integrity, availability and resilience of processing systems and services; (c) the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident; (d) a process for regularly testing, assessing and evaluating the effectiveness of technical and organizational measures for ensuring the security of the processing.
+REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.
 SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
 PREDICATES: ensure_security_of_processing; role(processor)
 CLAUSE: All personal data is encrypted using AES-256 encryption both at rest and in transit.
