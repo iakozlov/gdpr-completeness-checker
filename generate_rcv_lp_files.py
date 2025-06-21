@@ -146,16 +146,26 @@ CLASSIFICATION RULES:
 - IMPORTANT: Recognize indirect obligations (processor actions that assist controller obligations)
 
 SPECIAL GUIDANCE FOR REQUIREMENT 6 (Article 32 Security Measures):
-This requirement covers ANY technical or organizational security measures, including:
-- Data security (encryption, pseudonymization, secure storage/transmission)
-- Access security (authentication, authorization, access controls)
-- Physical security (facility access, equipment protection)
-- System security (monitoring, firewalls, intrusion detection)
-- Operational security (backups, disaster recovery, business continuity)
-- Security management (audits, testing, assessments, training)
-- Incident security (response procedures, breach handling)
-- Compliance security (standards, certifications, frameworks)
-If the segment describes ANY security measure or security-related obligation, classify as 6.
+This requirement covers CONCRETE technical or organizational security measures that protect personal data processing, including:
+- Data protection: encryption, pseudonymization, secure storage/transmission of personal data
+- Access control: authentication, authorization, access restrictions for personal data systems
+- Physical security: facility access controls, equipment security, visitor management for data processing areas
+- System security: monitoring, firewalls, intrusion detection, security software for data processing systems
+- Operational security: backups, disaster recovery, business continuity for personal data processing
+- Security management: security audits, testing, assessments, security training related to data protection
+- Incident response: breach procedures, security incident handling for personal data
+- Security compliance: security standards, certifications, security frameworks for data protection
+
+Classify as 6 ONLY if the segment describes:
+1. A SPECIFIC security measure or control that directly protects personal data, OR
+2. A CONCRETE security obligation that the processor must implement, OR  
+3. MEASURABLE security requirements (not vague compliance statements)
+
+Do NOT classify as 6:
+- General compliance statements without specific security measures
+- Vague references to "security" without concrete actions
+- Administrative references to security documents/policies without implementation details
+- Security measures that don't relate to personal data protection
 
 Return "NONE" for:
 - Administrative headers, titles, appendices, section numbers, table of contents  
@@ -298,6 +308,9 @@ Input: "The categories and types of Personal Data processed by the processor on 
 Output: NONE
 
 Input: "The processor only performs processing activities that are necessary and relevant to perform the Main Services."
+Output: NONE
+
+Input: "Security measures are described in Appendix B."
 Output: NONE"""
 
     user_prompt = segment_text
@@ -446,17 +459,13 @@ INSTRUCTIONS:
 3) If no predicated are entailed, output exactly NO_FACTS
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
 5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
-
-SPECIAL RULE FOR SECURITY MEASURES (ensure_security_of_processing):
-If the CLAUSE describes ANY concrete security measure, technical safeguard, or organizational protection that secures personal data processing, extract "ensure_security_of_processing".
-
-ADDITIONAL VALIDATION RULES:
-6) Only extract facts if the CLAUSE contains SPECIFIC, ACTIONABLE processor obligations
-7) Return NO_FACTS for: General compliance statements without concrete actions (e.g., "comply with applicable laws")
-8) Return NO_FACTS for: Administrative headers, titles, appendices, definitions without obligations
-9) Return NO_FACTS for: Segments that only mention "processor" without describing specific obligations
-10) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
-11) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
+6)For "ensure_security_of_processing" predicate: Extract it if segment mentions specific security controls, measures, or safeguards (encryption, access controls, audits, monitoring, etc.)
+7) Only extract facts if the CLAUSE contains SPECIFIC, ACTIONABLE processor obligations
+8) Return NO_FACTS for: General compliance statements without concrete actions (e.g., "comply with applicable laws")
+9) Return NO_FACTS for: Administrative headers, titles, appendices, definitions without obligations
+10) Return NO_FACTS for: Segments that only mention "processor" without describing specific obligations
+11) For role(processor): Only extract if the segment explicitly describes processor obligations, not just mentions "processor"
+12) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
 
 Examples:
 Example 1:
@@ -520,14 +529,7 @@ REQUIREMENT: The processor shall take all measures required pursuant to Article 
 SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
 PREDICATES: ensure_security_of_processing; role(processor)
 CLAUSE: All personal data is encrypted using AES-256 encryption both at rest and in transit.
-Expected output: ensure_security_of_processing
-
-Example 10 (Security Compliance):
-REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.
-SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
-PREDICATES: ensure_security_of_processing; role(processor)
-CLAUSE: The security of the channel used must correspond to the privacy risk involved.
-Expected output: ensure_security_of_processing"""
+Expected output: ensure_security_of_processing; role(processor) """
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     

@@ -1,11 +1,10 @@
 {
   "1": {
     "text": "The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.",
-    "symbolic": "&obligatory{-engage_sub_processor} :- not authorization(controller), role(processor).",
+    "symbolic": "&obligatory{-engage_sub_processor} :- role(processor).",
     "atoms": [
       "engage_sub_processor",
-      "role(processor)",
-      "authorization(controller)"
+      "role(processor)"
     ]
   },
   "2": {
