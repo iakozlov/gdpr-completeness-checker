@@ -605,9 +605,9 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5310,29447,72,Online 132,All such requests must be received by the controller and all communication with the Data Subjects must be via the controller.,other,other,other,test,other,19
 5311,29448,73,Online 132,"If any requests are received by the processor, the Data Subject would normally be instructed to contact the controller.",other,other,other,test,other,19
 5312,29449,74,Online 132,Security Measures,other,other,other,test,other,19
-5313,29450,75,Online 132,"Implement appropriate technical and organisational measures to protect the Personal Data, and any other Confidential Information, against unauthorised or unlawful Processing and against accidental loss, destruction, damage, alteration or disclosure.",R7,other,other,test,other,19
+5313,29450,75,Online 132,"Implement appropriate technical and organisational measures to protect the Personal Data, and any other Confidential Information, against unauthorised or unlawful Processing and against accidental loss, destruction, damage, alteration or disclosure.",R7,R16,other,test,other,19
 5314,29451,76,Online 132,"These measures shall be appropriate to the harm which might result from any unauthorised or unlawful Processing, accidental loss, destruction or damage to the Personal Data and/or other Confidential Information.",R7,other,other,test,other,19
-5315,29452,77,Online 132,As a minimum all data shall be encrypted in transit (with HTTPS via TLS 1.2 or higher) and at rest via Transparent Data Encryption (TDE);,R7,other,other,test,other,19
+5315,29452,77,Online 132,As a minimum all data shall be encrypted in transit (with HTTPS via TLS 1.2 or higher) and at rest via Transparent Data Encryption (TDE);,R7,R16,other,test,other,19
 5316,29453,78,Online 132,Compliance,other,other,other,test,other,19
 5317,29454,79,Online 132,"Assist the controller in meeting its GDPR obligations in relation to the security of processing, the notification of personal data breaches, and data protection impact assessments.",R20,R18,R22,test,R20,9
 5318,29455,80,Online 132,Make available to the controller all information necessary to demonstrate,other,R25,other,test,other,19
@@ -674,7 +674,7 @@ Unnamed: 0.1,Unnamed: 0,ID,DPA,Sentence,Requirement-1,Requirement-2,Requirement-
 5379,29516,141,Online 132,SendGrid We use SendGrid for sending emails that don't contain patient identifiable information [EU Compliant] US    ,other,other,other,test,other,19
 5380,29517,142,Online 132,Appendix 1 VIDEO CONSULTATIONS,other,other,other,test,other,19
 5381,29518,143,Online 132,The video consultation service provided through the processor platform is hosted by Whereby who are compliant with GDPR and based in the European Economic Area (EEA).,other,other,other,test,other,19
-5382,29519,144,Online 132,"A unique URL to the video consultation is generated and all participants are visible in the consultation, no third party can 'listen in'.",other,other,other,test,other,19
+5382,29519,144,Online 132,"A unique URL to the video consultation is generated and all participants are visible in the consultation, no third party can 'listen in'.",other,R16,other,test,other,19
 5383,29520,145,Online 132,"The video and audio communication of the video consultation is only visible to participants on the call, and is not recorded or stored on any server (not processor’s, not Whereby’s and not on any third party's servers).",other,other,other,test,other,19
 5384,29521,146,Online 132,All communication between participants’ devices and Whereby’s service is transmitted over an encrypted connection (secure web traffic using HTTPS and TLS or secure websocket traffic or secure WebRTC).,other,other,other,test,other,19
 5385,29522,147,Online 132,The video consultation connection either:,other,other,other,test,other,19

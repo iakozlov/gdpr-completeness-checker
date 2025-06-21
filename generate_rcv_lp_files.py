@@ -146,20 +146,16 @@ CLASSIFICATION RULES:
 - IMPORTANT: Recognize indirect obligations (processor actions that assist controller obligations)
 
 SPECIAL GUIDANCE FOR REQUIREMENT 6 (Article 32 Security Measures):
-This requirement covers technical and organizational security measures, including:
-- Encryption of personal data (at rest, in transit, or in processing)
-- Pseudonymization techniques
-- Access controls, authentication, authorization systems
-- Physical security measures (building access, visitor management)
-- System security measures (firewalls, intrusion detection, monitoring)
-- Data backup and disaster recovery systems
-- Business continuity planning
-- Security testing, auditing, and assessment processes
-- Staff security training and awareness
-- Incident response procedures
-- Confidentiality, integrity, availability, and resilience of processing systems
-- Any technical or organizational measure designed to protect personal data security
-If the segment mentions measures from above then classify it as 6.
+This requirement covers ANY technical or organizational security measures, including:
+- Data security (encryption, pseudonymization, secure storage/transmission)
+- Access security (authentication, authorization, access controls)
+- Physical security (facility access, equipment protection)
+- System security (monitoring, firewalls, intrusion detection)
+- Operational security (backups, disaster recovery, business continuity)
+- Security management (audits, testing, assessments, training)
+- Incident security (response procedures, breach handling)
+- Compliance security (standards, certifications, frameworks)
+If the segment describes ANY security measure or security-related obligation, classify as 6.
 
 Return "NONE" for:
 - Administrative headers, titles, appendices, section numbers, table of contents  
@@ -215,6 +211,12 @@ Input: "All customer data is encrypted both at rest and in transit using industr
 Output: 6
 
 Input: "The processor maintains backup systems to ensure data availability and implements disaster recovery procedures."
+Output: 6
+
+Input: "The security of the channel used must correspond to the privacy risk involved."
+Output: 6
+
+Input: "To maintain up-to-date compliance with the NHS Data Security and Protection Toolkit."
 Output: 6
 
 Input: "In the event any such request is made directly to processor, processor shall notify controller in writing of such request promptly upon receipt thereof."
@@ -445,6 +447,9 @@ INSTRUCTIONS:
 4) If the CLAUSE explicitly violates a predicate, output it prefixed by - (e.g. -encrypt_data)
 5) Output ONLY extracted predicates or NO_FACTS, do not output explanation or something else.
 
+SPECIAL RULE FOR SECURITY MEASURES (ensure_security_of_processing):
+If the CLAUSE describes ANY concrete security measure, technical safeguard, or organizational protection that secures personal data processing, extract "ensure_security_of_processing".
+
 ADDITIONAL VALIDATION RULES:
 6) Only extract facts if the CLAUSE contains SPECIFIC, ACTIONABLE processor obligations
 7) Return NO_FACTS for: General compliance statements without concrete actions (e.g., "comply with applicable laws")
@@ -510,12 +515,19 @@ PREDICATES: assist_controller_communicate_data_breach_data_subject; role(process
 CLAUSE: Notify all Customers of any information security breach or incident that may compromise the Personal Data without undue delay after becoming aware of any such incident.
 Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)
 
-Example 9 (Article 32 Security Measures - Encryption):
+Example 9 (Security Measures):
 REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.
 SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
 PREDICATES: ensure_security_of_processing; role(processor)
 CLAUSE: All personal data is encrypted using AES-256 encryption both at rest and in transit.
-Expected output: ensure_security_of_processing; role(processor)"""
+Expected output: ensure_security_of_processing
+
+Example 10 (Security Compliance):
+REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.
+SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
+PREDICATES: ensure_security_of_processing; role(processor)
+CLAUSE: The security of the channel used must correspond to the privacy risk involved.
+Expected output: ensure_security_of_processing"""
 
     user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
     
