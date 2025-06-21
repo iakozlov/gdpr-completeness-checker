@@ -6,7 +6,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_11/segment_49.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -15,8 +15,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 11, Segment 95...
 deolingo version 1.0.0
@@ -25,7 +25,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_11/segment_95.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.006s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -34,8 +34,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.006s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.006s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 11, Segment 36...
 deolingo version 1.0.0
@@ -196,7 +196,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_11/segment_44.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -205,8 +205,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 11, Segment 11...
 deolingo version 1.0.0
@@ -1124,7 +1124,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_11/segment_82.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -1133,8 +1133,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 11, Segment 54...
 deolingo version 1.0.0
@@ -3648,7 +3648,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_12/segment_110.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -3657,8 +3657,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 12, Segment 13...
 deolingo version 1.0.0
@@ -4674,7 +4674,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_18/segment_111.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -4683,8 +4683,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 18, Segment 30...
 deolingo version 1.0.0
@@ -7052,8 +7052,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 14, Segment 69...
 deolingo version 1.0.0
@@ -7366,7 +7366,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_14/segment_58.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -7375,8 +7375,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 14, Segment 1...
 deolingo version 1.0.0
@@ -12105,7 +12105,7 @@ deolingo version 1.0.0
 Reading from ..._files_Online_124/req_1/segment_108.lp
 Solving...
 Answer: 1 (Time: 0.003s)
-FACTS: 
+FACTS: status(not_mentioned)
 OBLIGATIONS: 
 PROHIBITIONS: 
 
@@ -12693,7 +12693,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_1/segment_97.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -12702,8 +12702,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 1, Segment 107...
 deolingo version 1.0.0
@@ -17424,7 +17424,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_31.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -17433,8 +17433,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 6, Segment 46...
 deolingo version 1.0.0
@@ -17633,7 +17633,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_17.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -17642,8 +17642,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 6, Segment 111...
 deolingo version 1.0.0
@@ -17652,7 +17652,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_111.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -17661,8 +17661,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 6, Segment 30...
 deolingo version 1.0.0
@@ -17728,7 +17728,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_50.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -17737,8 +17737,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 6, Segment 77...
 deolingo version 1.0.0
@@ -18773,25 +18773,6 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_28.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
-FACTS: 
-OBLIGATIONS: 
-PROHIBITIONS: 
-
-SATISFIABLE
-
-Models       : 1+
-Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
---------------------------------------------------
-Processing DPA Online 124, Requirement 6, Segment 110...
-deolingo version 1.0.0
-Reading from ..._files_Online_124/req_6/segment_110.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_110.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
-Solving...
 Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
@@ -18803,6 +18784,25 @@ Models       : 1+
 Calls        : 1
 Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.002s
+--------------------------------------------------
+Processing DPA Online 124, Requirement 6, Segment 110...
+deolingo version 1.0.0
+Reading from ..._files_Online_124/req_6/segment_110.lp
+results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_6/segment_110.lp:10:26-30: info: atom does not occur in any rule head:
+  true
+
+Solving...
+Answer: 1 (Time: 0.004s)
+FACTS: 
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 6, Segment 13...
 deolingo version 1.0.0
@@ -20667,7 +20667,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_7/segment_33.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -20676,8 +20676,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 7, Segment 37...
 deolingo version 1.0.0
@@ -20686,7 +20686,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_7/segment_37.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -20695,8 +20695,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 7, Segment 68...
 deolingo version 1.0.0
@@ -20705,7 +20705,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_7/segment_68.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -20714,8 +20714,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 7, Segment 92...
 deolingo version 1.0.0
@@ -21310,7 +21310,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_7/segment_105.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -21319,8 +21319,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 7, Segment 4...
 deolingo version 1.0.0
@@ -21367,7 +21367,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_7/segment_107.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -21376,8 +21376,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 7, Segment 60...
 deolingo version 1.0.0
@@ -21744,7 +21744,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_15/segment_31.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -21753,8 +21753,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 15, Segment 46...
 deolingo version 1.0.0
@@ -22597,7 +22597,7 @@ deolingo version 1.0.0
 Reading from ..._files_Online_124/req_15/segment_53.lp
 Solving...
 Answer: 1 (Time: 0.003s)
-FACTS: 
+FACTS: status(satisfied)
 OBLIGATIONS: 
 PROHIBITIONS: 
 
@@ -22653,7 +22653,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_15/segment_40.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -22662,8 +22662,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 15, Segment 101...
 deolingo version 1.0.0
@@ -22672,7 +22672,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_15/segment_101.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -22681,8 +22681,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 15, Segment 19...
 deolingo version 1.0.0
@@ -23366,7 +23366,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_15/segment_22.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -23375,8 +23375,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 15, Segment 104...
 deolingo version 1.0.0
@@ -24940,7 +24940,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_4/segment_94.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -24949,8 +24949,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 4, Segment 83...
 deolingo version 1.0.0
@@ -31578,8 +31578,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 2, Segment 86...
 deolingo version 1.0.0
@@ -32303,11 +32303,8 @@ CPU Time     : 0.002s
 Processing DPA Online 124, Requirement 2, Segment 112...
 deolingo version 1.0.0
 Reading from ..._files_Online_124/req_2/segment_112.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_2/segment_112.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -32316,8 +32313,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 2, Segment 67...
 deolingo version 1.0.0
@@ -32741,7 +32738,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_17.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -32750,8 +32747,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 111...
 deolingo version 1.0.0
@@ -33102,7 +33099,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_76.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -33111,8 +33108,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 66...
 deolingo version 1.0.0
@@ -33235,7 +33232,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_12.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -33244,8 +33241,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 8...
 deolingo version 1.0.0
@@ -33349,7 +33346,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_15.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -33358,8 +33355,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 70...
 deolingo version 1.0.0
@@ -33368,7 +33365,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_70.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -33377,8 +33374,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 53...
 deolingo version 1.0.0
@@ -33387,7 +33384,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_53.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -33396,8 +33393,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 89...
 deolingo version 1.0.0
@@ -33406,7 +33403,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_16/segment_89.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -33415,8 +33412,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 16, Segment 20...
 deolingo version 1.0.0
@@ -37437,12 +37434,9 @@ CPU Time     : 0.002s
 Processing DPA Online 124, Requirement 17, Segment 66...
 deolingo version 1.0.0
 Reading from ..._files_Online_124/req_17/segment_66.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_17/segment_66.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
 Solving...
-Answer: 1 (Time: 0.002s)
-FACTS: 
+Answer: 1 (Time: 0.003s)
+FACTS: status(satisfied)
 OBLIGATIONS: 
 PROHIBITIONS: 
 
@@ -37450,8 +37444,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 17, Segment 113...
 deolingo version 1.0.0
@@ -38144,7 +38138,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_17/segment_80.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -38153,8 +38147,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 17, Segment 21...
 deolingo version 1.0.0
@@ -40127,7 +40121,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_3/segment_68.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -40136,8 +40130,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 3, Segment 92...
 deolingo version 1.0.0
@@ -40146,7 +40140,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_124/req_3/segment_92.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -40155,8 +40149,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 124, Requirement 3, Segment 42...
 deolingo version 1.0.0
@@ -42762,7 +42756,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_11/segment_94.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -42771,8 +42765,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 11, Segment 83...
 deolingo version 1.0.0
@@ -44111,7 +44105,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_12/segment_49.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -44120,8 +44114,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 12, Segment 95...
 deolingo version 1.0.0
@@ -44643,7 +44637,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_12/segment_77.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -44652,8 +44646,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 12, Segment 129...
 deolingo version 1.0.0
@@ -44700,7 +44694,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_12/segment_120.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -44709,8 +44703,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 12, Segment 2...
 deolingo version 1.0.0
@@ -47737,7 +47731,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_18/segment_120.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -47746,8 +47740,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 18, Segment 2...
 deolingo version 1.0.0
@@ -48250,7 +48244,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_18/segment_154.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -48259,8 +48253,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 18, Segment 139...
 deolingo version 1.0.0
@@ -54026,7 +54020,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_13/segment_150.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -54035,8 +54029,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 13, Segment 5...
 deolingo version 1.0.0
@@ -54080,7 +54074,7 @@ Processing DPA Online 132, Requirement 13, Segment 116...
 deolingo version 1.0.0
 Reading from ...files_Online_132/req_13/segment_116.lp
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.005s)
 FACTS: status(satisfied)
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -54089,8 +54083,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 13, Segment 145...
 deolingo version 1.0.0
@@ -56395,7 +56389,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_46.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -56404,8 +56398,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 114...
 deolingo version 1.0.0
@@ -57459,7 +57453,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_152.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -57468,8 +57462,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 81...
 deolingo version 1.0.0
@@ -57820,7 +57814,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_52.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -57829,8 +57823,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 39...
 deolingo version 1.0.0
@@ -57839,7 +57833,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_39.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.008s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -57848,8 +57842,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.008s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.008s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 131...
 deolingo version 1.0.0
@@ -58067,7 +58061,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_115.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -58076,8 +58070,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 42...
 deolingo version 1.0.0
@@ -58238,7 +58232,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_118.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -58247,8 +58241,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 78...
 deolingo version 1.0.0
@@ -59017,7 +59011,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_1/segment_56.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -59026,8 +59020,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 1, Segment 96...
 deolingo version 1.0.0
@@ -59888,7 +59882,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_10/segment_120.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.006s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -59897,8 +59891,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.006s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.006s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 10, Segment 2...
 deolingo version 1.0.0
@@ -59907,7 +59901,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_10/segment_2.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -59916,8 +59910,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 10, Segment 148...
 deolingo version 1.0.0
@@ -65670,11 +65664,8 @@ CPU Time     : 0.002s
 Processing DPA Online 132, Requirement 6, Segment 85...
 deolingo version 1.0.0
 Reading from ...p_files_Online_132/req_6/segment_85.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_6/segment_85.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -65683,8 +65674,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 6, Segment 106...
 deolingo version 1.0.0
@@ -66921,11 +66912,8 @@ CPU Time     : 0.002s
 Processing DPA Online 132, Requirement 6, Segment 52...
 deolingo version 1.0.0
 Reading from ...p_files_Online_132/req_6/segment_52.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_6/segment_52.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -66934,8 +66922,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 6, Segment 39...
 deolingo version 1.0.0
@@ -68644,12 +68632,9 @@ CPU Time     : 0.002s
 Processing DPA Online 132, Requirement 7, Segment 73...
 deolingo version 1.0.0
 Reading from ...p_files_Online_132/req_7/segment_73.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_7/segment_73.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
 Solving...
-Answer: 1 (Time: 0.002s)
-FACTS: 
+Answer: 1 (Time: 0.003s)
+FACTS: status(not_mentioned)
 OBLIGATIONS: 
 PROHIBITIONS: 
 
@@ -68657,8 +68642,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 7, Segment 130...
 deolingo version 1.0.0
@@ -71435,7 +71420,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_15/segment_49.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -71444,8 +71429,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 15, Segment 95...
 deolingo version 1.0.0
@@ -71986,7 +71971,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_15/segment_129.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -71995,8 +71980,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 15, Segment 103...
 deolingo version 1.0.0
@@ -72917,7 +72902,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_15/segment_133.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -72926,8 +72911,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 15, Segment 19...
 deolingo version 1.0.0
@@ -72974,7 +72959,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_15/segment_140.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -72983,8 +72968,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 15, Segment 52...
 deolingo version 1.0.0
@@ -74890,7 +74875,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_4/segment_91.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -74899,8 +74884,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 4, Segment 153...
 deolingo version 1.0.0
@@ -74909,7 +74894,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_4/segment_153.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -74918,8 +74903,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 4, Segment 126...
 deolingo version 1.0.0
@@ -74928,7 +74913,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_4/segment_126.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -74937,8 +74922,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 4, Segment 71...
 deolingo version 1.0.0
@@ -74975,8 +74960,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 4, Segment 50...
 deolingo version 1.0.0
@@ -76581,7 +76566,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_4/segment_110.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -76590,8 +76575,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 4, Segment 13...
 deolingo version 1.0.0
@@ -80416,7 +80401,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_5/segment_121.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -80425,8 +80410,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 5, Segment 123...
 deolingo version 1.0.0
@@ -80492,7 +80477,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_5/segment_157.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -80501,8 +80486,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 5, Segment 75...
 deolingo version 1.0.0
@@ -82902,7 +82887,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_19/segment_9.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -82911,8 +82896,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 19, Segment 6...
 deolingo version 1.0.0
@@ -83054,7 +83039,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_19/segment_124.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -83063,8 +83048,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 19, Segment 87...
 deolingo version 1.0.0
@@ -84308,7 +84293,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_2/segment_27.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -84317,8 +84302,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 2, Segment 158...
 deolingo version 1.0.0
@@ -84669,7 +84654,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_2/segment_160.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -84678,8 +84663,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 2, Segment 154...
 deolingo version 1.0.0
@@ -85293,25 +85278,6 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_2/segment_83.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
-FACTS: 
-OBLIGATIONS: 
-PROHIBITIONS: 
-
-SATISFIABLE
-
-Models       : 1+
-Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
---------------------------------------------------
-Processing DPA Online 132, Requirement 2, Segment 33...
-deolingo version 1.0.0
-Reading from ...p_files_Online_132/req_2/segment_33.lp
-results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_2/segment_33.lp:10:26-30: info: atom does not occur in any rule head:
-  true
-
-Solving...
 Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
@@ -85323,6 +85289,25 @@ Models       : 1+
 Calls        : 1
 Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
 CPU Time     : 0.002s
+--------------------------------------------------
+Processing DPA Online 132, Requirement 2, Segment 33...
+deolingo version 1.0.0
+Reading from ...p_files_Online_132/req_2/segment_33.lp
+results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_2/segment_33.lp:10:26-30: info: atom does not occur in any rule head:
+  true
+
+Solving...
+Answer: 1 (Time: 0.004s)
+FACTS: 
+OBLIGATIONS: 
+PROHIBITIONS: 
+
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 2, Segment 37...
 deolingo version 1.0.0
@@ -86506,7 +86491,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_2/segment_123.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -86515,8 +86500,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 2, Segment 90...
 deolingo version 1.0.0
@@ -88061,7 +88046,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_16/segment_40.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -88070,8 +88055,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 16, Segment 101...
 deolingo version 1.0.0
@@ -88156,7 +88141,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_16/segment_140.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -88165,8 +88150,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 16, Segment 52...
 deolingo version 1.0.0
@@ -88213,7 +88198,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_16/segment_131.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -88222,8 +88207,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 16, Segment 151...
 deolingo version 1.0.0
@@ -88232,7 +88217,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_16/segment_151.lp:10:26
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -88241,8 +88226,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 16, Segment 82...
 deolingo version 1.0.0
@@ -89562,7 +89547,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_16/segment_90.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -89571,8 +89556,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 16, Segment 25...
 deolingo version 1.0.0
@@ -90436,7 +90421,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_9/segment_137.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -90445,8 +90430,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 9, Segment 150...
 deolingo version 1.0.0
@@ -91595,7 +91580,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_9/segment_86.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.003s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -91604,8 +91589,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 9, Segment 51...
 deolingo version 1.0.0
@@ -92298,7 +92283,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_9/segment_97.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -92307,8 +92292,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 9, Segment 144...
 deolingo version 1.0.0
@@ -96735,7 +96720,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_132/req_3/segment_45.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.006s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -96744,8 +96729,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.006s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.006s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 132, Requirement 3, Segment 102...
 deolingo version 1.0.0
@@ -103316,7 +103301,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_18/segment_72.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -103325,8 +103310,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 18, Segment 93...
 deolingo version 1.0.0
@@ -110176,8 +110161,8 @@ Processing DPA Online 54, Requirement 1, Segment 42...
 deolingo version 1.0.0
 Reading from ...lp_files_Online_54/req_1/segment_42.lp
 Solving...
-Answer: 1 (Time: 0.004s)
-FACTS: 
+Answer: 1 (Time: 0.003s)
+FACTS: status(satisfied)
 OBLIGATIONS: 
 PROHIBITIONS: 
 
@@ -110185,8 +110170,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 1, Segment 108...
 deolingo version 1.0.0
@@ -110971,8 +110956,8 @@ Processing DPA Online 54, Requirement 1, Segment 90...
 deolingo version 1.0.0
 Reading from ...lp_files_Online_54/req_1/segment_90.lp
 Solving...
-Answer: 1 (Time: 0.004s)
-FACTS: 
+Answer: 1 (Time: 0.003s)
+FACTS: status(satisfied)
 OBLIGATIONS: 
 PROHIBITIONS: 
 
@@ -110980,8 +110965,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 1, Segment 25...
 deolingo version 1.0.0
@@ -112035,7 +112020,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_10/segment_52.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -112044,8 +112029,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 10, Segment 39...
 deolingo version 1.0.0
@@ -112510,7 +112495,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_10/segment_34.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -112519,8 +112504,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 10, Segment 98...
 deolingo version 1.0.0
@@ -114220,7 +114205,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_8/segment_37.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -114229,8 +114214,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 8, Segment 68...
 deolingo version 1.0.0
@@ -114733,7 +114718,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_8/segment_22.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -114742,8 +114727,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 8, Segment 104...
 deolingo version 1.0.0
@@ -117631,7 +117616,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_7/segment_29.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -117640,8 +117625,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 7, Segment 72...
 deolingo version 1.0.0
@@ -120415,7 +120400,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_15/segment_42.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -120424,8 +120409,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 15, Segment 108...
 deolingo version 1.0.0
@@ -120434,7 +120419,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_15/segment_108.lp:10:26-
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -120443,8 +120428,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 15, Segment 62...
 deolingo version 1.0.0
@@ -120453,7 +120438,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_15/segment_62.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.005s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -120462,8 +120447,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.005s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 15, Segment 86...
 deolingo version 1.0.0
@@ -121476,7 +121461,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_4/segment_73.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -121485,8 +121470,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 4, Segment 57...
 deolingo version 1.0.0
@@ -124133,7 +124118,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_5/segment_1.lp:10:26-30:
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -124142,8 +124127,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 5, Segment 23...
 deolingo version 1.0.0
@@ -124171,7 +124156,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_5/segment_15.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -124180,8 +124165,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 5, Segment 70...
 deolingo version 1.0.0
@@ -124228,7 +124213,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_5/segment_89.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.004s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -124237,8 +124222,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.004s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 5, Segment 20...
 deolingo version 1.0.0
@@ -126676,7 +126661,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_19/segment_7.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -126685,8 +126670,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 19, Segment 80...
 deolingo version 1.0.0
@@ -128582,8 +128567,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.003s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 2, Segment 92...
 deolingo version 1.0.0
@@ -130565,7 +130550,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_16/segment_83.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -130574,8 +130559,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 16, Segment 33...
 deolingo version 1.0.0
@@ -135927,7 +135912,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_3/segment_30.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -135936,8 +135921,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 3, Segment 91...
 deolingo version 1.0.0
@@ -135946,7 +135931,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_3/segment_91.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -135955,8 +135940,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 3, Segment 71...
 deolingo version 1.0.0
@@ -135965,7 +135950,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_3/segment_71.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.005s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -135974,8 +135959,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 3, Segment 50...
 deolingo version 1.0.0
@@ -136079,7 +136064,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_3/segment_72.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -136088,8 +136073,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 3, Segment 93...
 deolingo version 1.0.0
@@ -136136,7 +136121,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_3/segment_69.lp:10:26-30
   true
 
 Solving...
-Answer: 1 (Time: 0.002s)
+Answer: 1 (Time: 0.004s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -136145,8 +136130,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.002s
+Time         : 0.004s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 3, Segment 5...
 deolingo version 1.0.0
@@ -136288,7 +136273,7 @@ results/rcv_approach/qwen2.5-72b/lp_files_Online_54/req_3/segment_102.lp:10:26-3
   true
 
 Solving...
-Answer: 1 (Time: 0.003s)
+Answer: 1 (Time: 0.002s)
 FACTS: 
 OBLIGATIONS: 
 PROHIBITIONS: 
@@ -136297,8 +136282,8 @@ SATISFIABLE
 
 Models       : 1+
 Calls        : 1
-Time         : 0.003s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.003s
+Time         : 0.002s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.002s
 --------------------------------------------------
 Processing DPA Online 54, Requirement 3, Segment 84...
 deolingo version 1.0.0
