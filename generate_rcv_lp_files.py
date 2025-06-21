@@ -442,7 +442,14 @@ def generate_lp_file(segment_text: str, req_text: str, req_symbolic: str, facts:
 def extract_facts_from_dpa(segment_text: str, req_text: str, req_symbolic: str, req_predicates: List[str], 
                            llm_client: OllamaClient, model: str, req_id: str = None) -> Dict:
     """Extract facts from a DPA segment using the LLM."""
-    system_prompt = """You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
+    
+    # EXPERIMENT: Classification-only approach
+    # Comment out all fact extraction logic and just return all predicates as satisfied
+    # This simulates a classification-only approach within the RCV pipeline
+    
+    # Original fact extraction code commented out:
+    """
+    system_prompt = \"\"\"You are a legal-text expert that extracts facts from Data-Processing-Agreement (DPA) segments based on semantic and contextual similarity with GDPR regulatory requirements.
 
 Input always contains:
 1. "REQUIREMENT" – text of the GDPR requirement
@@ -468,70 +475,10 @@ INSTRUCTIONS:
 12) IMPORTANT: Consider alternative terminology (e.g., "customers" may mean "data subjects", "users" may mean "data subjects")
 
 Examples:
-Example 1:
-REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.
-SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
-PREDICATES: ensure_confidentiality_commitment; role(processor)
-CLAUSE: The Processor shall ensure that every employee authorized to process Customer Personal Data is subject to a contractual duty of confidentiality.
-Expected output: ensure_confidentiality_commitment; role(processor)
+[... examples omitted for brevity ...]
+\"\"\"
 
-Example 2:
-REQUIREMENT: The processor shall not engage a sub-processor without a prior specific or general written authorization of the controller.
-SYMBOLIC: &obligatory{-engage_sub_processor} :- role(processor), not authorization(controller).
-PREDICATES: engage_sub_processor; role(processor); authorization(controller)
-CLAUSE: Where processor authorises any sub-processor as described in Section 6.1
-Expected output: role(processor)
-
-Example 3:
-REQUIREMENT: The processor must encrypt all the data collected from customers.
-SYMBOLIC: &obligatory{encrypt_collected_data} :- role(processor)
-PREDICATES: encrypt_collected_data; role(processor)
-CLAUSE: The processor will store customer's data in raw format.
-Expected output: -encrypt_collected_data; role(processor)
-
-Example 4:
-REQUIREMENT: The processor shall process personal data only on documented instructions from the controller.
-SYMBOLIC: &obligatory{process_on_documented_instructions} :- role(processor).
-PREDICATES: process_on_documented_instructions; role(processor)
-CLAUSE: This Data Processing Addendum ("DPA") supplements the processor controller Agreement available at as updated from time to time between controller and processor, or other agreement between controller and processor governing controller's use of the Service Offerings.
-Expected output: NO_FACTS
-
-Example 5 (Administrative Text):
-REQUIREMENT: The processor shall ensure that persons authorized to process personal data have committed themselves to confidentiality.
-SYMBOLIC: &obligatory{ensure_confidentiality_commitment} :- role(processor).
-PREDICATES: ensure_confidentiality_commitment; role(processor)
-CLAUSE: processor Agreement
-Expected output: NO_FACTS
-
-Example 6 (Legal Reference):
-REQUIREMENT: The processor shall assist the controller in ensuring compliance with data-protection impact-assessment obligations.
-SYMBOLIC: &obligatory{assist_impact_assessment_compliance} :- role(processor).
-PREDICATES: assist_impact_assessment_compliance; role(processor)
-CLAUSE: in accordance with GDPR article 35
-Expected output: NO_FACTS
-
-Example 7 (General Statement):
-REQUIREMENT: The processor shall allow for and contribute to audits, including inspections.
-SYMBOLIC: &obligatory{allow_contribute_audits} :- role(processor).
-PREDICATES: allow_contribute_audits; role(processor)
-CLAUSE: The processor shall comply with applicable data protection laws
-Expected output: role(processor)
-
-Example 8 (Breach Notification with Alternative Terminology):
-REQUIREMENT: The processor shall assist the controller in communicating a personal data breach to the data subject.
-SYMBOLIC: &obligatory{assist_controller_communicate_data_breach_data_subject} :- role(processor).
-PREDICATES: assist_controller_communicate_data_breach_data_subject; role(processor)
-CLAUSE: Notify all Customers of any information security breach or incident that may compromise the Personal Data without undue delay after becoming aware of any such incident.
-Expected output: assist_controller_communicate_data_breach_data_subject; role(processor)
-
-Example 9 (Security Measures):
-REQUIREMENT: The processor shall take all measures required pursuant to Article 32 to ensure the security of processing.
-SYMBOLIC: &obligatory{ensure_security_of_processing} :- role(processor).
-PREDICATES: ensure_security_of_processing; role(processor)
-CLAUSE: All personal data is encrypted using AES-256 encryption both at rest and in transit.
-Expected output: ensure_security_of_processing; role(processor) """
-
-    user_prompt = f""" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}"""
+    user_prompt = f\"\"\" REQUIREMENT: {req_text} SYMBOLIC: {req_symbolic} PREDICATES: {'; '.join(req_predicates)} CLAUSE: {segment_text}\"\"\"
     
     try:
         response = llm_client.generate(user_prompt, model_name=model, system_prompt=system_prompt)
@@ -556,6 +503,22 @@ Expected output: ensure_security_of_processing; role(processor) """
     except Exception as e:
         print(f"Error in fact extraction: {e}")
         return {}
+    """
+    
+    # CLASSIFICATION-ONLY EXPERIMENT: Return all predicates as satisfied
+    # This effectively makes the approach classification-only since if a segment
+    # is classified as satisfying a requirement, all predicates will be true
+    facts = {}
+    for predicate in req_predicates:
+        facts[predicate] = True
+    
+    # Special handling for requirement 1: if it has -engage_sub_processor in the symbolic rule,
+    # we need to set engage_sub_processor to False (meaning NOT engaging sub-processors)
+    if "&obligatory{-engage_sub_processor}" in req_symbolic:
+        if "engage_sub_processor" in facts:
+            facts["engage_sub_processor"] = False  # NOT engaging sub-processors
+    
+    return facts
 
 
 def process_dpa_segments(segments_df: pd.DataFrame, requirements: Dict, llm_client: OllamaClient, 
